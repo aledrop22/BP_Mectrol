@@ -8,7 +8,7 @@ import pandas as pd
 # Caminho da pasta da Manutenção no servidor da empresa e pasta onde descarrega as fotos do telemóvel
 PASTA_SERVIDOR_MANUTENCAO = r"\\SERVIDOR\Manutencao\Clientes"
 PASTA_FOTOS_AVULSAS = r"C:\Users\alexandre.cardoso\Documents\Fotos_Croqui"
-CSV_BASE = "historico_bps_desenho.csv"
+CSV_BASE = os.path.join("public", "historico_bps_desenho.csv")
 
 
 def nome_pasta_padrao(bp, nf, fuso_str):

@@ -1,10 +1,11 @@
 import email
 import imaplib
+import os
 import re
 
 import pandas as pd
 
-CSV_BASE = "historico_bps_desenho.csv"
+CSV_BASE = os.path.join("public", "historico_bps_desenho.csv")
 
 TERMOS_URGENCIA = ["URGENTE", "PRIORIDADE", "QUANTO ANTES", "HOJE", "CRÍTICO", "APROVAÇÃO"]
 
@@ -61,7 +62,6 @@ def checar_emails_urgencia(servidor_imap, email_user, email_pass, pasta="inbox")
 
 
 if __name__ == "__main__":
-    import os
     checar_emails_urgencia(
         servidor_imap=os.environ.get("IMAP_SERVIDOR", "imap.seudominio.com"),
         email_user=os.environ["IMAP_USUARIO"],
