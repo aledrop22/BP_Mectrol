@@ -1,0 +1,43 @@
+name: Atualizar Base de BPs (a cada 2h)
+
+on:
+  schedule:
+    # A cada 2 horas (UTC). Ajuste o cron conforme o fuso desejado.
+    - cron: '0 */2 * * *'
+  workflow_dispatch: # permite rodar manualmente
+
+permissions:
+  contents: write
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Verificar e-mails de urgência (IMAP)
+        env:
+          IMAP_SERVIDOR: ${{ secrets.IMAP_SERVIDOR }}
+          IMAP_USUARIO: ${{ secrets.IMAP_USUARIO }}
+          IMAP_SENHA: ${{ secrets.IMAP_SENHA }}
+        run: python scripts/monitor_email.py
+
+      # TODO: adicionar aqui o robô que gera/atualiza historico_bps_desenho.csv
+      # (ex.: python scripts/coletar_bps.py) antes de commitar.
+
+      - name: Commitar CSV atualizado
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/historico_bps_desenho.csv
+          git diff --cached --quiet || git commit -m "chore: atualiza historico_bps_desenho.csv [skip ci]"
+          git push
