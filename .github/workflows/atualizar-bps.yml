@@ -24,12 +24,13 @@ jobs:
       - name: Instalar dependências
         run: pip install -r requirements.txt
 
-      - name: Verificar e-mails de urgência (IMAP)
-        env:
-          IMAP_SERVIDOR: ${{ secrets.IMAP_SERVIDOR }}
-          IMAP_USUARIO: ${{ secrets.IMAP_USUARIO }}
-          IMAP_SENHA: ${{ secrets.IMAP_SENHA }}
-        run: python scripts/monitor_email.py
+      # TODO: Reativar depois de configurar corretamente o e-mail
+      # - name: Verificar e-mails de urgência (IMAP)
+      #   env:
+      #     IMAP_SERVIDOR: ${{ secrets.IMAP_SERVIDOR }}
+      #     IMAP_USUARIO: ${{ secrets.IMAP_USUARIO }}
+      #     IMAP_SENHA: ${{ secrets.IMAP_SENHA }}
+      #   run: python scripts/monitor_email.py
 
       # TODO: adicionar aqui o robô que gera/atualiza historico_bps_desenho.csv
       # (ex.: python scripts/coletar_bps.py) antes de commitar.
