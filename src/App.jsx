@@ -1,244 +1,405 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { DADOS_INICIAIS, DIAMETROS, PASSOS } from './data/dados';
+import {
+  DADOS_INICIAIS,
+  FILIAIS_DB_INICIAL,
+} from './data/dados';
+import { PALETAS_TEMAS, obterVariaveisTema } from './data/temas';
 import { carregarDados } from './lib/carregarDados';
+import {
+  ordenarFilaBPs,
+  calcularPosicaoNaFila,
+  solicitarPrioridadeFila,
+  aplicarFuraFilaDiretoria,
+  mesclarVendedorPorFerias,
+  gerarNomePastaPadrao,
+  obterEtapaMacroBP,
+  calcularResumoSeisEtapas,
+  avancarEtapaFluxoBP,
+} from './lib/filaEngine';
+import SidebarCroquis, { MODELOS_DASHBOARD } from './components/SidebarCroquis';
+import PainelDashboardVisual from './components/PainelDashboardVisual';
+import ModalFuraFilaDiretoria from './components/ModalFuraFilaDiretoria';
+import { filtrarBPsPorPeriodoOuCalendario } from './lib/comparativoExportEngine';
 
 export default function DashboardNextBP() {
-  const [bps, setBps] = useState(DADOS_INICIAIS);
-  const [carregado, setCarregado] = useState(false);
-  const [abaStatus, setAbaStatus] = useState("Todos");
-  const [filtroFilial, setFiltroFilial] = useState("Todas");
-  const [busca, setBusca] = useState("");
+  const [bps, setBps] = useState(() => ordenarFilaBPs(DADOS_INICIAIS));
+  const [filiaisDb, setFiliaisDb] = useState(FILIAIS_DB_INICIAL);
+
+  // Sidebar único recolhível (mostra os 6 ícones + nomes quando aberto, ou só os 6 ícones quando recolhido)
+  const [sidebarRecolhido, setSidebarRecolhido] = useState(false);
+
+  // Visão ativa selecionada pelos 6 ícones do Sidebar
+  const [modeloAtivo, setModeloAtivo] = useState('DASH_1');
+
+  // BP selecionado para inspeção rápida no Dashboard
+  const [bpSelecionadoId, setBpSelecionadoId] = useState('53193');
+
+  // Filtros globais (Período 30/60/90 dias, Calendário, Filial, Etapa, Motivo e Busca)
+  const [filtroPeriodo, setFiltroPeriodo] = useState('30'); // '30' | '60' | '90' | 'TODOS' | 'CALENDARIO'
+  const [dataInicio, setDataInicio] = useState('2026-01-01');
+  const [dataFim, setDataFim] = useState('2026-11-18');
+  const [filtroFilial, setFiltroFilial] = useState('Todas');
+  const [filtroEtapa, setFiltroEtapa] = useState('TODAS');
+  const [filtroMotivo, setFiltroMotivo] = useState('Todos');
+  const [busca, setBusca] = useState('');
+
+  // 4 Modelos de Tema (2 Dark: dark-colorido, dark-neutro | 2 White: white-colorido, white-intercalado)
+  const [paletaId, setPaletaId] = useState('dark-colorido');
+  const [modoCor, setModoCor] = useState('dark');
   const [copiadoId, setCopiadoId] = useState(null);
 
+  // Modal Fura-Fila Diretoria e Notificação
+  const [modalFuraFilaItem, setModalFuraFilaItem] = useState(null);
+  const [avisoTempoReal, setAvisoTempoReal] = useState(null);
+
   useEffect(() => {
-    carregarDados().then(dados => {
-      setBps(dados);
-      setCarregado(true);
+    carregarDados().then((dados) => {
+      const ordenados = ordenarFilaBPs(dados);
+      setBps(ordenados);
+      if (ordenados.length > 0) {
+        setBpSelecionadoId(ordenados[0].bp);
+      }
     });
   }, []);
 
-  const atualizarMedida = (bpNum, campo, valor) => {
-    setBps(prev => prev.map(item => item.bp === bpNum ? { ...item, [campo]: valor } : item));
+  const temaAtivo = useMemo(
+    () => obterVariaveisTema(paletaId, modoCor),
+    [paletaId, modoCor]
+  );
+
+  useEffect(() => {
+    const root = document.documentElement;
+    Object.entries(temaAtivo.cssVars).forEach(([prop, val]) => {
+      root.style.setProperty(prop, val);
+    });
+    if (temaAtivo.modoEfetivo === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+  }, [temaAtivo]);
+
+  const selecionarPaleta = (id) => {
+    const p = PALETAS_TEMAS.find((item) => item.id === id);
+    if (!p) return;
+    setPaletaId(p.id);
+    setModoCor(p.modoPadrao);
   };
 
-  const alternarUrgencia = (bpNum) => {
-    setBps(prev => prev.map(item =>
-      item.bp === bpNum ? { ...item, urgencia: item.urgencia === "ALTA" ? "NORMAL" : "ALTA" } : item
-    ));
+  const alternarChavinhaDarkWhite = () => {
+    if (modoCor === 'dark') {
+      setModoCor('light');
+      setPaletaId('white-colorido');
+    } else {
+      setModoCor('dark');
+      setPaletaId('dark-colorido');
+    }
   };
 
-  const gerarNomePasta = (item) => {
-    const fuso = item.diametro && item.passo
-      ? ` - Fuso ${item.diametro}x${item.passo}${item.compTotal ? `x${item.compTotal}` : ''}`
-      : ' - Fuso Pendente';
-    return `BP ${item.bp} - NF ${item.nf}${fuso}`;
+  const dispararNotificacao = (titulo, detalhe) => {
+    setAvisoTempoReal({ titulo, detalhe });
+    setTimeout(() => setAvisoTempoReal(null), 4000);
+  };
+
+  // Ordenação base da fila
+  const bpsOrdenados = useMemo(() => ordenarFilaBPs(bps), [bps]);
+
+  // Filtro pelo período histórico (30d, 60d, 90d, Tudo ou Calendário 2026)
+  const bpsPorPeriodo = useMemo(
+    () =>
+      filtrarBPsPorPeriodoOuCalendario(bpsOrdenados, {
+        filtroPeriodo,
+        dataInicio,
+        dataFim,
+        incluirHistorico2026: true,
+      }),
+    [bpsOrdenados, filtroPeriodo, dataInicio, dataFim]
+  );
+
+  // Resumo das 6 etapas e 10 filiais dentro do período selecionado
+  const resumoFluxo = useMemo(
+    () => calcularResumoSeisEtapas(bpsPorPeriodo, filiaisDb),
+    [bpsPorPeriodo, filiaisDb]
+  );
+
+  // Lista filtrada por Filial, Etapa, Motivo e Busca
+  const bpsFiltrados = useMemo(() => {
+    return bpsPorPeriodo.filter((item) => {
+      const matchFilial =
+        filtroFilial === 'Todas' || item.filial.includes(filtroFilial);
+      const etapaItem = obterEtapaMacroBP(item);
+      const matchEtapa =
+        filtroEtapa === 'TODAS' || etapaItem === filtroEtapa;
+      const matchMotivo =
+        filtroMotivo === 'Todos' || item.motivoRecebimento === filtroMotivo;
+      const termo = busca.trim().toLowerCase();
+      const matchBusca =
+        !termo ||
+        item.bp.toLowerCase().includes(termo) ||
+        item.cliente.toLowerCase().includes(termo) ||
+        item.nf.toLowerCase().includes(termo) ||
+        item.vendedor.toLowerCase().includes(termo);
+      return matchFilial && matchEtapa && matchMotivo && matchBusca;
+    });
+  }, [bpsPorPeriodo, filtroFilial, filtroEtapa, filtroMotivo, busca]);
+
+  const mapaPosicoes = useMemo(() => {
+    const ativos = bpsOrdenados.filter((b) => obterEtapaMacroBP(b) !== 'CONCLUIDO');
+    const contadoresFaixa = { ALTA: 0, MEDIA: 0, BAIXA: 0 };
+    const mapa = {};
+
+    ativos.forEach((item, index) => {
+      const p = item.prioridade || 'MEDIA';
+      const naFrenteFaixa = contadoresFaixa[p] || 0;
+      contadoresFaixa[p] = naFrenteFaixa + 1;
+      mapa[item.bp] = {
+        posicaoGeral: index + 1,
+        posicaoNaFaixa: naFrenteFaixa + 1,
+        pessoasNaFrenteNaFaixa: naFrenteFaixa,
+      };
+    });
+    return mapa;
+  }, [bpsOrdenados]);
+
+  const bpSelecionado = useMemo(
+    () => bpsOrdenados.find((b) => b.bp === bpSelecionadoId) || bpsOrdenados[0] || null,
+    [bpsOrdenados, bpSelecionadoId]
+  );
+
+  const modeloInfoAtivo = useMemo(
+    () => MODELOS_DASHBOARD.find((m) => m.id === modeloAtivo) || MODELOS_DASHBOARD[0],
+    [modeloAtivo]
+  );
+
+  useEffect(() => {
+    const el = document.getElementById('painel-paginas-scroll');
+    if (el) el.scrollTop = 0;
+  }, [modeloAtivo]);
+
+  // Handlers
+  const handleSelecionarBp = (bpNum) => {
+    setBpSelecionadoId(bpNum);
+  };
+
+  const atualizarCampo = (bpNum, campo, valor) => {
+    setBps((prev) =>
+      prev.map((item) => (item.bp === bpNum ? { ...item, [campo]: valor } : item))
+    );
+  };
+
+  const handleMudarEtapaBP = (bpNum, novaEtapaMacro) => {
+    setBps((prev) => ordenarFilaBPs(avancarEtapaFluxoBP(prev, bpNum, novaEtapaMacro)));
+    dispararNotificacao(
+      `BP #${bpNum} atualizado no fluxo`,
+      `Movido para a etapa: ${novaEtapaMacro}`
+    );
+  };
+
+  const handleConfirmarPrioridade = (bpNum, novaPrioridade, solicitante) => {
+    const posPrevia = calcularPosicaoNaFila(bps, bpNum, novaPrioridade);
+    setBps((prev) => solicitarPrioridadeFila(prev, bpNum, novaPrioridade, solicitante));
+    dispararNotificacao(
+      `BP #${bpNum} ordenado em Prioridade ${novaPrioridade}`,
+      `${posPrevia.mensagemPrincipal} (Fila Geral: #${posPrevia.posicaoGeral}º)`
+    );
+  };
+
+  const handleConfirmarFuraFila = (bpNum, payload) => {
+    setBps((prev) => aplicarFuraFilaDiretoria(prev, bpNum, payload));
+    dispararNotificacao(
+      `Emergência Autorizada (Diretoria / Supervisor): BP #${bpNum} subiu para #1 da Fila`,
+      `${payload.motivo}`
+    );
+  };
+
+  const handleMesclarFerias = (filialCod, vendedorOrigem, vendedorDestino) => {
+    setBps((prev) => mesclarVendedorPorFerias(prev, filialCod, vendedorOrigem, vendedorDestino));
+    dispararNotificacao(
+      `Cobertura de Férias Aplicada (${filialCod})`,
+      `Os BPs de ${vendedorOrigem} foram mesclados para ${vendedorDestino}.`
+    );
+  };
+
+  const handleAdicionarVendedorFilial = (filialCod, nome, cargo) => {
+    setFiliaisDb((prev) =>
+      prev.map((f) => {
+        if (f.codigo !== filialCod) return f;
+        if (f.vendedores.some((v) => v.nome.toLowerCase() === nome.toLowerCase())) return f;
+        return {
+          ...f,
+          vendedores: [
+            ...f.vendedores,
+            { id: `v-${Date.now()}`, nome, cargo: cargo || 'Depto. Comercial • Consultor', status: 'Ativo' },
+          ],
+        };
+      })
+    );
+  };
+
+  const handleAtualizarEquipeFilial = (filialCod, campo, valor) => {
+    setFiliaisDb((prev) =>
+      prev.map((f) => (f.codigo === filialCod ? { ...f, [campo]: valor } : f))
+    );
   };
 
   const copiarPasta = (item) => {
-    navigator.clipboard.writeText(gerarNomePasta(item));
+    const texto = gerarNomePastaPadrao(item);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(texto).catch(() => {});
+    }
     setCopiadoId(item.bp);
     setTimeout(() => setCopiadoId(null), 2000);
   };
 
-  const filtrados = useMemo(() => {
-    return bps.filter(item => {
-      const matchStatus = abaStatus === "Todos" || item.status === abaStatus;
-      const matchFilial = filtroFilial === "Todas" || item.filial.includes(filtroFilial);
-      const termo = busca.toLowerCase();
-      const matchBusca = item.bp.includes(termo) || item.cliente.toLowerCase().includes(termo) || item.nf.includes(termo);
-      return matchStatus && matchFilial && matchBusca;
-    });
-  }, [bps, abaStatus, filtroFilial, busca]);
-
-  const contadores = {
-    total: bps.filter(b => b.status !== "Concluído").length,
-    atrasados: bps.filter(b => b.status === "Atrasada").length,
-    andamento: bps.filter(b => b.status === "Em Andamento").length,
-    urgentes: bps.filter(b => b.urgencia === "ALTA" && b.status !== "Concluído").length,
-  };
-
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-6 font-sans">
-      <div className="max-w-7xl mx-auto space-y-6">
-
-        {/* Cabeçalho */}
-        <div className="flex flex-wrap justify-between items-center gap-4 border-b border-slate-800 pb-4">
-          <div>
-            <h1 className="text-2xl font-bold text-white tracking-tight">
-              MECTROL <span className="text-blue-500">NextBP</span> • Gestão de Croquis e Desenhos
-            </h1>
-            <p className="text-sm text-slate-400">
-              Sincronização automática a cada 2h via GitHub Actions • Setor: [G] Desenho
-            </p>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-xs bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-full text-slate-300">
-              Última varredura: {carregado ? 'CSV sincronizado' : 'Carregando...'}
-            </span>
-          </div>
+    <div
+      className="h-screen w-full overflow-hidden flex flex-col transition-colors"
+      style={{
+        backgroundColor: 'var(--bg-canvas)',
+        color: 'var(--text-primary)',
+      }}
+    >
+      {/* Top Bar Fixa no Topo */}
+      <header
+        className="sticky top-0 z-40 shrink-0 flex items-center justify-between gap-4 px-4 sm:px-6 py-2.5 border-b"
+        style={{
+          backgroundColor: 'var(--bg-surface)',
+          borderColor: 'var(--border-subtle)',
+        }}
+      >
+        <div className="flex items-center gap-3">
+          <a
+            href="#top"
+            onClick={(e) => {
+              e.preventDefault();
+              setModeloAtivo('DASH_1');
+            }}
+            className="text-base sm:text-lg font-extrabold tracking-tight whitespace-nowrap shrink-0"
+            style={{ color: 'var(--text-primary)' }}
+          >
+            MECTROL <span style={{ color: 'var(--accent-text)' }}>BP</span>
+          </a>
+          <span
+            aria-hidden="true"
+            className="hidden sm:inline text-sm"
+            style={{ color: 'var(--border-strong)' }}
+          >
+            |
+          </span>
+          <span
+            className="hidden sm:inline text-xs font-bold truncate"
+            style={{ color: 'var(--text-secondary)' }}
+          >
+            {modeloInfoAtivo.curto} — {modeloInfoAtivo.sub}
+          </span>
         </div>
 
-        {/* Cartões de Indicadores */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-slate-900 border border-slate-800 p-4 rounded-xl">
-            <p className="text-xs uppercase text-slate-400 font-semibold">Fila Ativa Total</p>
-            <p className="text-3xl font-bold text-white mt-1">{contadores.total} <span className="text-sm font-normal text-slate-400">croquis</span></p>
-          </div>
-          <div className="bg-red-950/30 border border-red-900/60 p-4 rounded-xl">
-            <p className="text-xs uppercase text-red-400 font-semibold">Em Atraso</p>
-            <p className="text-3xl font-bold text-red-400 mt-1">{contadores.atrasados} <span className="text-sm font-normal text-red-300/70">vencidos</span></p>
-          </div>
-          <div className="bg-blue-950/30 border border-blue-900/60 p-4 rounded-xl">
-            <p className="text-xs uppercase text-blue-400 font-semibold">Em Andamento (No Prazo)</p>
-            <p className="text-3xl font-bold text-blue-400 mt-1">{contadores.andamento} <span className="text-sm font-normal text-blue-300/70">vencem hoje</span></p>
-          </div>
-          <div className="bg-amber-950/30 border border-amber-900/60 p-4 rounded-xl">
-            <p className="text-xs uppercase text-amber-400 font-semibold">Prioridade Comercial / E-mail</p>
-            <p className="text-3xl font-bold text-amber-400 mt-1">{contadores.urgentes} <span className="text-sm font-normal text-amber-300/70">urgentes</span></p>
-          </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={() => setModalFuraFilaItem(bpsOrdenados[0])}
+            className="px-3.5 py-1.5 text-xs font-bold text-white rounded-lg transition whitespace-nowrap shrink-0"
+            style={{ backgroundColor: 'var(--accent-primary)' }}
+          >
+            Fura-Fila Diretoria
+          </button>
         </div>
+      </header>
 
-        {/* Barra de Filtros */}
-        <div className="flex flex-wrap items-center justify-between gap-4 bg-slate-900 p-4 rounded-xl border border-slate-800">
-          <div className="flex gap-2">
-            {["Todos", "Atrasada", "Em Andamento", "Concluído"].map(status => (
-              <button
-                key={status}
-                onClick={() => setAbaStatus(status)}
-                className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition ${
-                  abaStatus === status ? "bg-blue-600 text-white" : "bg-slate-800 text-slate-300 hover:bg-slate-700"
-                }`}
-              >
-                {status}
-              </button>
-            ))}
-          </div>
+      {/* Workspace Tela Cheia: Sidebar Fixo + Área de Páginas com Rolagem Independente */}
+      <div className="flex-1 min-h-0 flex flex-col lg:flex-row w-full overflow-hidden">
+        <SidebarCroquis
+          recolhido={sidebarRecolhido}
+          onAlternarRecolhido={() => setSidebarRecolhido((prev) => !prev)}
+          modeloAtivo={modeloAtivo}
+          onMudarModelo={setModeloAtivo}
+          paletaId={paletaId}
+          modoCor={modoCor}
+          onSelecionarPaleta={selecionarPaleta}
+          onAlternarChavinhaDarkWhite={alternarChavinhaDarkWhite}
+        />
 
-          <div className="flex flex-wrap items-center gap-3">
-            <select
-              value={filtroFilial}
-              onChange={(e) => setFiltroFilial(e.target.value)}
-              className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-sm text-slate-200"
+        <main
+          id="painel-paginas-scroll"
+          className="flex-1 min-w-0 h-full overflow-y-auto px-3 sm:px-6 py-4 space-y-4"
+        >
+          {avisoTempoReal && (
+            <div
+              role="status"
+              className="rounded-xl border px-4 py-2.5 flex items-center justify-between gap-3"
+              style={{
+                backgroundColor: 'var(--bg-elevated)',
+                borderColor: 'var(--accent-primary)',
+              }}
             >
-              <option value="Todas">Todas as Filiais</option>
-              <option value="BAURU">03.01 - Bauru</option>
-              <option value="CAMPINAS">03.04 - Campinas</option>
-              <option value="JOINVILLE">03.06 - Joinville</option>
-            </select>
+              <div className="text-xs">
+                <strong className="font-bold block" style={{ color: 'var(--text-primary)' }}>
+                  {avisoTempoReal.titulo}
+                </strong>
+                <span style={{ color: 'var(--text-secondary)' }}>{avisoTempoReal.detalhe}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setAvisoTempoReal(null)}
+                className="text-xs font-semibold px-2 py-1 rounded"
+                style={{ color: 'var(--text-muted)' }}
+              >
+                Fechar
+              </button>
+            </div>
+          )}
 
-            <input
-              type="text"
-              placeholder="Buscar BP, Cliente ou NF..."
-              value={busca}
-              onChange={(e) => setBusca(e.target.value)}
-              className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-sm text-slate-200 w-64"
-            />
-          </div>
-        </div>
-
-        {/* Tabela Principal */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-x-auto">
-          <table className="w-full text-left border-collapse text-sm">
-            <thead>
-              <tr className="border-b border-slate-800 text-slate-400 text-xs uppercase bg-slate-900/50">
-                <th className="p-3">BP / Prioridade</th>
-                <th className="p-3">Cliente / NF</th>
-                <th className="p-3">Filial / Vendedor</th>
-                <th className="p-3">Prazo / Laudo Manut.</th>
-                <th className="p-3">Medidas do Fuso (Ø x Passo x Comp)</th>
-                <th className="p-3">Padrão Pasta Rede (.ZIP)</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-800">
-              {filtrados.map(item => (
-                <tr key={item.bp} className={`hover:bg-slate-800/40 ${item.urgencia === "ALTA" ? "bg-amber-950/10" : ""}`}>
-                  <td className="p-3 font-medium">
-                    <div className="flex items-center gap-2">
-                      <span className="text-base font-bold text-white">#{item.bp}</span>
-                      <button
-                        onClick={() => alternarUrgencia(item.bp)}
-                        title="Alternar Prioridade Solicitada por E-mail/Vendedor"
-                        className={`px-2 py-0.5 text-xs rounded font-semibold ${
-                          item.urgencia === "ALTA" ? "bg-amber-500 text-slate-950" : "bg-slate-800 text-slate-400"
-                        }`}
-                      >
-                        {item.urgencia === "ALTA" ? "URGENTE" : "Normal"}
-                      </button>
-                    </div>
-                    <span className={`inline-block mt-1 text-xs px-2 py-0.5 rounded ${
-                      item.status === "Atrasada" ? "bg-red-950 text-red-400 border border-red-800" : "bg-blue-950 text-blue-400 border border-blue-800"
-                    }`}>
-                      {item.status}
-                    </span>
-                  </td>
-
-                  <td className="p-3">
-                    <div className="font-semibold text-slate-100">{item.cliente}</div>
-                    <div className="text-xs text-slate-400">NF: {item.nf} • Chegada: {item.chegada}</div>
-                  </td>
-
-                  <td className="p-3">
-                    <div className="text-slate-200">{item.filial}</div>
-                    <div className="text-xs text-slate-400">{item.vendedor}</div>
-                  </td>
-
-                  <td className="p-3">
-                    <div className="text-slate-200">{item.prazo}</div>
-                    <div className="text-xs mt-0.5">
-                      Laudo: <span className={item.laudo === "Concluído" ? "text-emerald-400 font-medium" : "text-amber-400"}>{item.laudo}</span>
-                    </div>
-                  </td>
-
-                  <td className="p-3">
-                    <div className="flex items-center gap-1.5">
-                      <select
-                        value={item.diametro}
-                        onChange={(e) => atualizarMedida(item.bp, "diametro", e.target.value)}
-                        className="bg-slate-800 border border-slate-700 rounded px-1.5 py-1 text-xs text-white"
-                      >
-                        <option value="">Ø</option>
-                        {DIAMETROS.filter(Boolean).map(d => <option key={d} value={d}>Ø{d}</option>)}
-                      </select>
-                      <span className="text-slate-500">x</span>
-                      <select
-                        value={item.passo}
-                        onChange={(e) => atualizarMedida(item.bp, "passo", e.target.value)}
-                        className="bg-slate-800 border border-slate-700 rounded px-1.5 py-1 text-xs text-white"
-                      >
-                        <option value="">Passo</option>
-                        {PASSOS.filter(Boolean).map(p => <option key={p} value={p}>P{p}</option>)}
-                      </select>
-                      <span className="text-slate-500">x</span>
-                      <input
-                        type="text"
-                        placeholder="Comp."
-                        value={item.compTotal}
-                        onChange={(e) => atualizarMedida(item.bp, "compTotal", e.target.value)}
-                        className="bg-slate-800 border border-slate-700 rounded px-2 py-1 text-xs text-white w-16"
-                      />
-                    </div>
-                  </td>
-
-                  <td className="p-3">
-                    <div className="flex items-center justify-between gap-2 bg-slate-950 border border-slate-800 px-2.5 py-1.5 rounded-lg">
-                      <span className="text-xs font-mono text-slate-300 truncate max-w-[230px]">
-                        {gerarNomePasta(item)}
-                      </span>
-                      <button
-                        onClick={() => copiarPasta(item)}
-                        className="text-xs bg-blue-600 hover:bg-blue-500 text-white px-2 py-1 rounded font-medium shrink-0"
-                      >
-                        {copiadoId === item.bp ? "Copiado!" : "Copiar"}
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
+          <PainelDashboardVisual
+            modeloAtivo={modeloAtivo}
+            onMudarModelo={setModeloAtivo}
+            paletaId={paletaId}
+            modoCor={modoCor}
+            bpsFiltrados={bpsFiltrados}
+            todosBps={bpsOrdenados}
+            resumoFluxo={resumoFluxo}
+            filiaisDb={filiaisDb}
+            mapaPosicoes={mapaPosicoes}
+            bpSelecionado={bpSelecionado}
+            bpSelecionadoId={bpSelecionadoId}
+            onSelecionarBp={handleSelecionarBp}
+            filtroPeriodo={filtroPeriodo}
+            onMudarPeriodo={setFiltroPeriodo}
+            dataInicio={dataInicio}
+            dataFim={dataFim}
+            onMudarDataInicio={setDataInicio}
+            onMudarDataFim={setDataFim}
+            filtroFilial={filtroFilial}
+            onMudarFilial={setFiltroFilial}
+            filtroEtapa={filtroEtapa}
+            onMudarEtapa={setFiltroEtapa}
+            filtroMotivo={filtroMotivo}
+            onMudarMotivo={setFiltroMotivo}
+            busca={busca}
+            onMudarBusca={setBusca}
+            copiadoId={copiadoId}
+            onCopiarPasta={copiarPasta}
+            onAtualizarCampo={atualizarCampo}
+            onMudarEtapaBP={handleMudarEtapaBP}
+            onConfirmarPrioridade={handleConfirmarPrioridade}
+            onAbrirModalFuraFila={(item) => setModalFuraFilaItem(item)}
+            onConfirmarFuraFila={handleConfirmarFuraFila}
+            onMesclarFerias={handleMesclarFerias}
+            onAdicionarVendedorFilial={handleAdicionarVendedorFilial}
+            onAtualizarEquipeFilial={handleAtualizarEquipeFilial}
+            onNotificar={dispararNotificacao}
+          />
+        </main>
       </div>
+
+      {modalFuraFilaItem && (
+        <ModalFuraFilaDiretoria
+          item={modalFuraFilaItem}
+          bpsAtivos={bpsOrdenados.filter((b) => obterEtapaMacroBP(b) !== 'CONCLUIDO')}
+          perfilAtivo="DIRETORIA"
+          onFechar={() => setModalFuraFilaItem(null)}
+          onConfirmarFuraFila={handleConfirmarFuraFila}
+        />
+      )}
     </div>
   );
 }

@@ -3,3 +3,7 @@ dist/
 __pycache__/
 *.pyc
 .env
+bp_mectrol.zip
+bp_mectrol_novo/
+scrapy_bp_mectrol/__pycache__/
+scrapy_bp_mectrol/.scrapy/

@@ -32,8 +32,12 @@ jobs:
       #     IMAP_SENHA: ${{ secrets.IMAP_SENHA }}
       #   run: python scripts/monitor_email.py
 
-      # TODO: adicionar aqui o robô que gera/atualiza historico_bps_desenho.csv
-      # (ex.: python scripts/coletar_bps.py) antes de commitar.
+      - name: Executar Scrapy para extrair dados do sistema interno
+        env:
+          SISTEMA_URL: ${{ secrets.SISTEMA_URL }}
+          SISTEMA_USUARIO: ${{ secrets.SISTEMA_USUARIO }}
+          SISTEMA_SENHA: ${{ secrets.SISTEMA_SENHA }}
+        run: python scripts/run_scrapy.py
 
       - name: Commitar CSV atualizado
         run: |
