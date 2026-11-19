@@ -101,11 +101,18 @@ python scripts/run_scrapy.py
 - `IMAP_SERVIDOR`, `IMAP_USUARIO`, `IMAP_SENHA`: para o monitor de e-mail (opcional)
 
 ### Configuração do Scrapy
-Edite `scrapy_bp_mectrol/spiders/bp_spider.py`:
-1. Substitua `allowed_domains` pelo domínio real do sistema
-2. Substitua `start_urls` pela URL real
-3. Adapte os seletores CSS/XPath conforme a estrutura HTML do sistema
-4. Se o sistema tiver API REST, use o método `parse_api()` em vez de `parse()`
+
+O site https://bp.mectrol.com.br/ é uma SPA (Single Page Application) que carrega dados via JavaScript.
+
+**IMPORTANTE**: Você precisa encontrar a API interna do sistema ou usar Selenium. Veja instruções detalhadas em `INSTRUCAO_SCRAPY.md`.
+
+**Resumo rápido:**
+1. Abra https://bp.mectrol.com.br/ no navegador
+2. Pressione F12 → aba Network
+3. Filtre por XHR/Fetch e encontre a API que retorna os dados
+4. Configure a URL no spider `scrapy_bp_mectrol/spiders/bp_spider.py`
+
+**Alternativa mais rápida:** Exporte os dados manualmente do sistema para CSV e salve em `public/historico_bps_desenho.csv`.
 
 ### Configuração local
 - **`scripts/organizar_pastas.py`**: ajuste `PASTA_SERVIDOR_MANUTENCAO` e
