@@ -158,6 +158,24 @@ def extract_detalhes_pagina(driver, bp_numero, cliente):
         # Esperar página carregar
         time.sleep(3)
 
+        # Clicar no ícone "Histórico" para expandir seção
+        try:
+            print("  Clicando em Histórico...")
+            btn_historico = driver.find_element(By.CSS_SELECTOR, 'button[title="Histórico"]')
+            btn_historico.click()
+            time.sleep(2)
+        except:
+            print("  [INFO] Botão Histórico não encontrado")
+
+        # Clicar no ícone "Fluxo" para expandir seção
+        try:
+            print("  Clicando em Fluxo...")
+            btn_fluxo = driver.find_element(By.CSS_SELECTOR, 'button[title="Fluxo"]')
+            btn_fluxo.click()
+            time.sleep(2)
+        except:
+            print("  [INFO] Botão Fluxo não encontrado")
+
         # Tenta encontrar dados em diferentes locais (adaptar conforme HTML real)
         # Data de Abertura
         try:
