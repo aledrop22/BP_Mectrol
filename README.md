@@ -80,13 +80,15 @@ pelo Scrapy + GitHub Actions a cada 2 horas.
 ```bash
 # Frontend
 npm install
-npm run dev        # painel em http://localhost:5173
+npm run dev        # painel em http://localhost:3000
 
 # Scrapy (extração de dados)
 pip install -r requirements.txt
-cd scrapy_bp_mectrol
-scrapy crawl bp_mectrol
-# ou usar o script wrapper:
+
+# TESTE: Gerar CSV de exemplo (sem acessar sistema real)
+python scripts/test_scrapy_csv.py
+
+# PRODUÇÃO: Executar Scrapy com URL real configurada
 python scripts/run_scrapy.py
 ```
 
