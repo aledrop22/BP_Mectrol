@@ -205,10 +205,10 @@ export default function PainelDashboardVisual({
     (b) => b.diretoriaOverride && obterEtapaMacroBP(b) !== 'CONCLUIDO'
   );
 
-  // Renderizador da Faixa Superior de 6 Cards (Adaptado aos 3 Modelos de Tema: Dark 1, Dark 2 e White 1)
+  // Renderizador da Faixa Superior de Cards (Removido EM_MANUTENCAO - mantendo AGUARDANDO_LAUDO)
   const renderTopoSeisCards = () => (
-    <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3">
-      {ETAPAS_FLUXO_CONFIG.map((et) => {
+    <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3">
+      {ETAPAS_FLUXO_CONFIG.filter((et) => et.id !== 'EM_MANUTENCAO').map((et) => {
         const dadosEtapa = resumoFluxo.etapas[et.id] || { bps: 0, fusos: 0 };
         const bpsCount = Math.round(dadosEtapa.bps * fatorEscala);
         const fusosCount = Math.round(dadosEtapa.fusos * fatorEscala);
@@ -611,9 +611,30 @@ export default function PainelDashboardVisual({
               <ArrowLeftRight className="w-3.5 h-3.5 shrink-0" />
               <span>Comparativo (Mês / Semana)</span>
             </button>
+
+            {/* Botões de Exportação Formatada: Excel (.XLS) e Dashboard PDF (.PDF) */}
+            <button
+              type="button"
+              onClick={handleExportarExcel}
+              className="px-2.5 py-1 rounded-md text-[11px] font-sans font-extrabold text-white bg-emerald-600 hover:bg-emerald-500 transition inline-flex items-center gap-1 whitespace-nowrap"
+              title="Baixar planilha formatada para leitura em Excel (.xls)"
+            >
+              <FileSpreadsheet className="w-3.5 h-3.5 shrink-0" />
+              <span>Exportar Excel</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setModalRelatorioAberto(true)}
+              className="px-2.5 py-1 rounded-md text-[11px] font-sans font-extrabold text-white bg-sky-600 hover:bg-sky-500 transition inline-flex items-center gap-1 whitespace-nowrap"
+              title="Abrir Dashboard em PDF para adicionar observações e baixar em PDF ou Excel"
+            >
+              <FileText className="w-3.5 h-3.5 shrink-0" />
+              <span>Dashboard PDF</span>
+            </button>
           </div>
 
-          {/* Resumo Global Soma de BPs (Total vs Realizados vs Para Fazer) + Exportação Excel & PDF */}
+          {/* Resumo Global Soma de BPs (Total vs Realizados vs Para Fazer) */}
           <div className="flex flex-wrap items-center gap-2.5 text-xs font-mono tabular-nums">
             <span>
               Total ({filtroPeriodo === 'CALENDARIO' ? `${formatarDataBR(dataInicio)}–${formatarDataBR(dataFim)}` : filtroPeriodo === 'TODOS' ? 'Histórico' : `${filtroPeriodo}d`}):{' '}
@@ -653,112 +674,6 @@ export default function PainelDashboardVisual({
                 ? 'Simulando Lote 189 BPs (50 OK)'
                 : 'Simular Lote 189 BPs (50 OK)'}
             </button>
-
-            {/* Botões de Exportação Formatada: Excel (.XLS) e Dashboard PDF (.PDF) */}
-            <button
-              type="button"
-              onClick={handleExportarExcel}
-              className="px-2.5 py-1 rounded-md text-[11px] font-sans font-extrabold text-white bg-emerald-600 hover:bg-emerald-500 transition inline-flex items-center gap-1 whitespace-nowrap"
-              title="Baixar planilha formatada para leitura em Excel (.xls)"
-            >
-              <FileSpreadsheet className="w-3.5 h-3.5 shrink-0" />
-              <span>Exportar Excel</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setModalRelatorioAberto(true)}
-              className="px-2.5 py-1 rounded-md text-[11px] font-sans font-extrabold text-white bg-sky-600 hover:bg-sky-500 transition inline-flex items-center gap-1 whitespace-nowrap"
-              title="Abrir Dashboard em PDF para adicionar observações e baixar em PDF ou Excel"
-            >
-              <FileText className="w-3.5 h-3.5 shrink-0" />
-              <span>Dashboard PDF</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Filtros de Filial (10 Filiais), Etapa, Tipo de Recebimento e Busca */}
-        <div
-          className="pt-2 border-t flex flex-wrap items-center justify-between gap-2"
-          style={{ borderColor: 'var(--border-subtle)' }}
-        >
-          <div className="flex flex-wrap items-center gap-2">
-            <select
-              aria-label="Filtrar por Filial"
-              value={filtroFilial}
-              onChange={(e) => onMudarFilial(e.target.value)}
-              className="rounded-lg px-2.5 py-1 text-xs font-semibold border"
-              style={{
-                backgroundColor: 'var(--bg-elevated)',
-                borderColor: 'var(--border-strong)',
-                color: 'var(--text-primary)',
-              }}
-            >
-              <option value="Todas">Filial: Todas as 10 Filiais</option>
-              {filiaisDb.map((f) => (
-                <option key={f.codigo} value={f.codigo}>
-                  {f.nome} (Sup: {f.coordenador})
-                </option>
-              ))}
-            </select>
-
-            <select
-              aria-label="Filtrar por Etapa do Fluxo"
-              value={filtroEtapa}
-              onChange={(e) => onMudarEtapa(e.target.value)}
-              className="rounded-lg px-2.5 py-1 text-xs font-semibold border"
-              style={{
-                backgroundColor: 'var(--bg-elevated)',
-                borderColor: 'var(--border-strong)',
-                color: 'var(--text-primary)',
-              }}
-            >
-              <option value="TODAS">Etapa: Todas ({resumoFluxo.totalBps} BPs)</option>
-              {ETAPAS_FLUXO_CONFIG.map((et) => (
-                <option key={et.id} value={et.id}>
-                  {et.titulo} ({resumoFluxo.etapas[et.id]?.bps || 0} BPs)
-                </option>
-              ))}
-            </select>
-
-            <select
-              aria-label="Filtrar por Tipo de Recebimento (Depto. Manutenção vs Depto. Projeto)"
-              value={filtroMotivo}
-              onChange={(e) => onMudarMotivo(e.target.value)}
-              className="rounded-lg px-2.5 py-1 text-xs font-semibold border"
-              style={{
-                backgroundColor: 'var(--bg-elevated)',
-                borderColor: 'var(--border-strong)',
-                color: 'var(--text-primary)',
-              }}
-            >
-              <option value="Todos">Tipo: Todos (Depto. Manutenção + Depto. Projeto)</option>
-              {MOTIVOS_RECEBIMENTO.map((m) => (
-                <option key={m} value={m}>
-                  {m}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="relative">
-            <Search
-              className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2"
-              style={{ color: 'var(--text-muted)' }}
-            />
-            <input
-              type="text"
-              aria-label="Buscar BP, Cliente, NF ou Vendedor"
-              placeholder="Buscar BP, Cliente, NF..."
-              value={busca}
-              onChange={(e) => onMudarBusca(e.target.value)}
-              className="rounded-lg pl-8 pr-2.5 py-1 text-xs border w-48 sm:w-60"
-              style={{
-                backgroundColor: 'var(--bg-elevated)',
-                borderColor: 'var(--border-strong)',
-                color: 'var(--text-primary)',
-              }}
-            />
           </div>
         </div>
       </section>
@@ -808,8 +723,98 @@ export default function PainelDashboardVisual({
          ===================================================================== */}
       {modeloAtivo === 'DASH_1' && (
         <div className="space-y-4" aria-label="Modelo 1: Gestão à Vista baseado no BP Dash 1">
-          {/* Parte Superior: 6 Cards de Etapa com Sparklines */}
+          {/* Parte Superior: 5 Cards de Etapa com Sparklines (EM_MANUTENCAO removido) */}
           {renderTopoSeisCards()}
+
+          {/* Filtros de Filial (10 Filiais), Etapa, Tipo de Recebimento e Busca - MOVIDO PARA ABAIXO DOS CARDS */}
+          <section
+            className="rounded-xl border p-3"
+            style={{
+              backgroundColor: 'var(--bg-surface)',
+              borderColor: 'var(--border-subtle)',
+            }}
+          >
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <select
+                  aria-label="Filtrar por Filial"
+                  value={filtroFilial}
+                  onChange={(e) => onMudarFilial(e.target.value)}
+                  className="rounded-lg px-2.5 py-1 text-xs font-semibold border"
+                  style={{
+                    backgroundColor: 'var(--bg-elevated)',
+                    borderColor: 'var(--border-strong)',
+                    color: 'var(--text-primary)',
+                  }}
+                >
+                  <option value="Todas">Filial: Todas as 10 Filiais</option>
+                  {filiaisDb.map((f) => (
+                    <option key={f.codigo} value={f.codigo}>
+                      {f.nome} (Sup: {f.coordenador})
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  aria-label="Filtrar por Etapa do Fluxo"
+                  value={filtroEtapa}
+                  onChange={(e) => onMudarEtapa(e.target.value)}
+                  className="rounded-lg px-2.5 py-1 text-xs font-semibold border"
+                  style={{
+                    backgroundColor: 'var(--bg-elevated)',
+                    borderColor: 'var(--border-strong)',
+                    color: 'var(--text-primary)',
+                  }}
+                >
+                  <option value="TODAS">Etapa: Todas ({resumoFluxo.totalBps} BPs)</option>
+                  {ETAPAS_FLUXO_CONFIG.filter((et) => et.id !== 'EM_MANUTENCAO').map((et) => (
+                    <option key={et.id} value={et.id}>
+                      {et.titulo} ({resumoFluxo.etapas[et.id]?.bps || 0} BPs)
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  aria-label="Filtrar por Tipo de Recebimento (Depto. Manutenção vs Depto. Projeto)"
+                  value={filtroMotivo}
+                  onChange={(e) => onMudarMotivo(e.target.value)}
+                  className="rounded-lg px-2.5 py-1 text-xs font-semibold border"
+                  style={{
+                    backgroundColor: 'var(--bg-elevated)',
+                    borderColor: 'var(--border-strong)',
+                    color: 'var(--text-primary)',
+                  }}
+                >
+                  <option value="Todos">Tipo: Todos (Depto. Manutenção + Depto. Projeto)</option>
+                  {MOTIVOS_RECEBIMENTO.map((m) => (
+                    <option key={m} value={m}>
+                      {m}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="relative">
+                <Search
+                  className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2"
+                  style={{ color: 'var(--text-muted)' }}
+                />
+                <input
+                  type="text"
+                  aria-label="Buscar BP, Cliente, NF ou Vendedor"
+                  placeholder="Buscar BP, Cliente, NF..."
+                  value={busca}
+                  onChange={(e) => onMudarBusca(e.target.value)}
+                  className="rounded-lg pl-8 pr-2.5 py-1 text-xs border w-48 sm:w-60"
+                  style={{
+                    backgroundColor: 'var(--bg-elevated)',
+                    borderColor: 'var(--border-strong)',
+                    color: 'var(--text-primary)',
+                  }}
+                />
+              </div>
+            </div>
+          </section>
 
           {/* Acompanhamento das 10 Filiais + Inspetor Dimensional Rápido */}
           {renderFiliaisEInspetorNoDash()}
@@ -927,7 +932,6 @@ export default function PainelDashboardVisual({
                   <th className="py-2 px-2 whitespace-nowrap">Dimensional / Laudo</th>
                   <th className="py-2 px-2 whitespace-nowrap">Tempo</th>
                   <th className="py-2 px-2 whitespace-nowrap">Status Atual</th>
-                  <th className="py-2 px-2.5 whitespace-nowrap">Prazo & Ação</th>
                 </tr>
               </thead>
               <tbody className="divide-y" style={{ borderColor: 'var(--border-subtle)' }}>
@@ -1002,33 +1006,6 @@ export default function PainelDashboardVisual({
                       </td>
                       <td className="py-2 px-2 whitespace-nowrap">
                         {renderStatusHighlight(etapaId)}
-                      </td>
-                      <td
-                        className="py-2 px-2.5 whitespace-nowrap"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <div className="flex items-center gap-1.5">
-                          <span className="font-mono font-bold tabular-nums text-[11px]" style={{ color: 'var(--text-primary)' }}>
-                            {item.prazoEnvio}
-                          </span>
-                          <select
-                            aria-label={`Mudar etapa do BP ${item.bp}`}
-                            value={etapaId}
-                            onChange={(e) => onMudarEtapaBP(item.bp, e.target.value)}
-                            className="rounded px-1.5 py-0.5 text-[11px] font-bold border"
-                            style={{
-                              backgroundColor: 'var(--bg-elevated)',
-                              borderColor: 'var(--border-strong)',
-                              color: 'var(--text-primary)',
-                            }}
-                          >
-                            {ETAPAS_FLUXO_CONFIG.map((et) => (
-                              <option key={et.id} value={et.id}>
-                                {et.titulo}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
                       </td>
                     </tr>
                   );
