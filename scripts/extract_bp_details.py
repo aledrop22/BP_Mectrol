@@ -93,6 +93,35 @@ def extract_bp_details():
                 # Esperar página de detalhes carregar
                 time.sleep(5)
 
+                # Clicar na aba "Processos" (se estiver em outra aba)
+                try:
+                    print("  Verificando aba Processos...")
+                    # Procura aba "Processos" ou "Minhas Atividades"
+                    # Tenta encontrar e clicar na aba correta
+                    processos_tab = driver.find_element(By.XPATH, "//*[contains(text(), 'Processos')]")
+                    processos_tab.click()
+                    time.sleep(2)
+                except:
+                    print("  [INFO] Já na aba correta ou não encontrada")
+
+                # Clicar no ícone "Histórico" para expandir seção
+                try:
+                    print("  Clicando em Histórico...")
+                    btn_historico = driver.find_element(By.CSS_SELECTOR, 'button[title="Histórico"]')
+                    btn_historico.click()
+                    time.sleep(2)
+                except:
+                    print("  [INFO] Botão Histórico não encontrado")
+
+                # Clicar no ícone "Fluxo" para expandir seção
+                try:
+                    print("  Clicando em Fluxo...")
+                    btn_fluxo = driver.find_element(By.CSS_SELECTOR, 'button[title="Fluxo"]')
+                    btn_fluxo.click()
+                    time.sleep(2)
+                except:
+                    print("  [INFO] Botão Fluxo não encontrado")
+
                 # Extrair dados da página de detalhes
                 detalhes = extract_detalhes_pagina(driver, bp_numero, cliente)
                 dados_extraidos.append(detalhes)
@@ -158,6 +187,31 @@ def extract_detalhes_pagina(driver, bp_numero, cliente):
         # Esperar página carregar
         time.sleep(3)
 
+        # Clicar na aba "Processos" (se estiver em outra aba)
+        try:
+            print("  Clicando na aba Processos...")
+            processos_tab = driver.find_element(By.XPATH, "//*[contains(text(), 'Processos')]")
+            processos_tab.click()
+            time.sleep(2)
+        except:
+            print("  [INFO] Já na aba Processos")
+
+        # Abrir dropdown de filtros e selecionar "Minhas Pendências"
+        try:
+            print("  Abrindo filtros - Minhas Pendências...")
+            # Procura dropdown com texto "Minhas Pendências"
+            dropdown = driver.find_element(By.XPATH, "//*[contains(text(), 'Minhas Pendências')]")
+            dropdown.click()
+            time.sleep(1)
+        except:
+            print("  [INFO] Dropdown de filtros não encontrado")
+
+        # Opções do filtro (se precisar mudar):
+        # 1. Minhas Pendências (padrão)
+        # 2. Minhas Solicitações Concluídas
+        # 3. Minhas Solicitações em Andamento
+        # 4. Minhas Atividades Executadas
+
         # Clicar no ícone "Histórico" para expandir seção
         try:
             print("  Clicando em Histórico...")
@@ -175,6 +229,23 @@ def extract_detalhes_pagina(driver, bp_numero, cliente):
             time.sleep(2)
         except:
             print("  [INFO] Botão Fluxo não encontrado")
+
+        # Procurar atividades atrasadas na tabela
+        try:
+            print("  Procurando atividades atrasadas...")
+            rows_atrasadas = driver.find_elements(By.XPATH, "//*[contains(text(), 'Atrasada')]")
+            print(f"  Encontradas {len(rows_atrasadas)} atividades atrasadas")
+        except:
+            print("  [INFO] Não encontrou atividades atrasadas")
+
+        # Interagir com último ícone de cada linha (atividade)
+        try:
+            print("  Interagindo com ícones de atividade...")
+            # Último ícone na coluna "Atividade"
+            icones_atividade = driver.find_elements(By.CSS_SELECTOR, 'td:last-child button, td:last-child svg')
+            print(f"  Encontrados {len(icones_atividade)} ícones de atividade")
+        except:
+            print("  [INFO] Ícones de atividade não encontrados")
 
         # Tenta encontrar dados em diferentes locais (adaptar conforme HTML real)
         # Data de Abertura
