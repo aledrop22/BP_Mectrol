@@ -127,7 +127,7 @@ export default function CardBPEvoluido({
             </select>
           </div>
 
-          {/* 2. Dados essenciais: NF · Quantidade · Motivo do Recebimento */}
+          {/* 2. Dados essenciais: NF · Quantidade · Motivo do Recebimento · Defeito (quando houver) */}
           <div
             className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs font-mono tabular-nums pt-0.5"
             style={{ color: 'var(--text-secondary)' }}
@@ -141,6 +141,14 @@ export default function CardBPEvoluido({
             <span className="font-sans font-semibold" style={{ color: 'var(--text-primary)' }}>
               {item.motivoRecebimento || 'Manutenção'}
             </span>
+            {item.defeito && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span className="font-sans text-[10px] truncate max-w-[180px]" style={{ color: 'var(--text-muted)' }} title={item.defeito}>
+                  Defeito: <strong style={{ color: 'var(--text-secondary)' }}>{item.defeito}</strong>
+                </span>
+              </>
+            )}
           </div>
 
           {/* 3. Filial Responsável + Vendedor (vinculado à filial) */}

@@ -918,7 +918,7 @@ export function gerarPlanilhaExcelXLS({
   </table>
 
   <table>
-    <tr><td colspan="11" class="sec-header">5. LISTAGEM DETALHADA DE BPs (${bps.length} REGISTROS)</td></tr>
+    <tr><td colspan="12" class="sec-header">5. LISTAGEM DETALHADA DE BPs (${bps.length} REGISTROS)</td></tr>
     <tr class="th-col">
       <th>BP</th>
       <th>Cliente</th>
@@ -929,6 +929,7 @@ export function gerarPlanilhaExcelXLS({
       <th>Supervisor</th>
       <th>Qtd. Fusos</th>
       <th>Modalidade</th>
+      <th>Defeito (quando houver)</th>
       <th>Dimensional (Ø×P×Comp)</th>
       <th>Nomenclatura Padrão (.ZIP)</th>
     </tr>
@@ -949,6 +950,7 @@ export function gerarPlanilhaExcelXLS({
       <td>${escaparHtml(eq.coordenador)}</td>
       <td class="num">${item.quantidade}</td>
       <td>${escaparHtml(item.motivoRecebimento)}</td>
+      <td>${escaparHtml(item.defeito || '')}</td>
       <td>${escaparHtml(dim)}</td>
       <td>${escaparHtml(gerarNomePastaPadrao(item))}</td>
     </tr>`;
@@ -1152,7 +1154,7 @@ export function gerarRelatorioPDFBinario({
   addText(38, curY - 11, 9, 'F2', 1, 1, 1, `4. RELAÇÃO DE BPs ANALISADOS (${bps.length} REGISTROS)`);
   curY -= 28;
 
-  addText(36, curY, 7.8, 'F2', 0.2, 0.25, 0.35, 'BP #       CLIENTE                 DATA         FILIAL           FUSOS   DIMENSIONAL / ETAPA ATUAL');
+  addText(36, curY, 7.8, 'F2', 0.2, 0.25, 0.35, 'BP #     CLIENTE               DATA       FILIAL     FUSOS  DEFEITO            DIMENSIONAL / ETAPA');
   curY -= 11;
 
   const maxLinhas = Math.min(bps.length, Math.max(5, Math.floor((curY - 38) / 11)));
@@ -1162,7 +1164,8 @@ export function gerarRelatorioPDFBinario({
     const dataBR = formatarDataBR(obterDataISOBP(b));
     const dim = b.diametro && b.passo && b.compTotal ? `D${b.diametro}xP${b.passo}x${b.compTotal}` : 'Aguard. Laudo';
     const etapaMacro = obterEtapaMacroBP(b);
-    const linhaTxt = `#${String(b.bp).padEnd(8, ' ')} ${String(b.cliente).slice(0, 20).padEnd(22, ' ')} ${dataBR.padEnd(11, ' ')} ${String(eq.curto).slice(0, 14).padEnd(15, ' ')} ${String(b.quantidade + 'f').padEnd(6, ' ')} ${dim} (${etapaMacro})`;
+    const defeitoTxt = b.defeito ? String(b.defeito).slice(0, 18) : '-';
+    const linhaTxt = `#${String(b.bp).padEnd(8, ' ')} ${String(b.cliente).slice(0, 20).padEnd(22, ' ')} ${dataBR.padEnd(11, ' ')} ${String(eq.curto).slice(0, 12).padEnd(13, ' ')} ${String(b.quantidade + 'f').padEnd(5, ' ')} ${defeitoTxt.padEnd(20, ' ')} ${dim} (${etapaMacro})`;
     addText(36, curY, 7.4, 'F1', 0.15, 0.2, 0.28, linhaTxt);
     curY -= 10.5;
   }

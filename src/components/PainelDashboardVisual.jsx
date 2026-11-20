@@ -629,6 +629,14 @@ export default function PainelDashboardVisual({
             <span className="text-amber-500 font-bold">
               Para Fazer: {paraFazerBpsExibido} BPs
             </span>
+            <span aria-hidden="true">·</span>
+            <span className="text-rose-500 font-bold">
+              Aguardando NF-e: {Math.round(resumoFluxo.etapas.PRE_BP.bps * fatorEscala)} BPs
+            </span>
+            <span aria-hidden="true">·</span>
+            <span className="text-orange-500 font-bold">
+              Prontos Croqui: {Math.round(resumoFluxo.etapas.FILA_CROQUI.bps * fatorEscala)} BPs
+            </span>
             <button
               type="button"
               onClick={() => setEscalaHistorica189((prev) => !prev)}

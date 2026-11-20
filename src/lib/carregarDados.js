@@ -41,6 +41,7 @@ function mapearLinhaComEnriquecimento(cabecalho, valores, idx) {
     nf: reg.Nota_Fiscal || baseEnriquecida.nf || '',
     quantidade: Number(baseEnriquecida.quantidade || reg.Quantidade || 1),
     motivoRecebimento: baseEnriquecida.motivoRecebimento || reg.Motivo_Recebimento || 'Manutenção',
+    defeito: baseEnriquecida.defeito || reg.Defeito || '',
     tipoServico: baseEnriquecida.tipoServico || 'Depto. Manutenção + Depto. Projeto',
     filial: baseEnriquecida.filial || reg.Filial || '',
     vendedor: baseEnriquecida.vendedor || reg.Vendedor || '',
