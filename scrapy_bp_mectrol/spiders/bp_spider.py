@@ -11,18 +11,6 @@ class BPMectrolSpider(scrapy.Spider):
     start_urls = ['https://bp.mectrol.com.br/']
 
     custom_settings = {
-        'FEEDS': {
-            '../public/historico_bps_desenho.csv': {
-                'format': 'csv',
-                'overwrite': True,
-                'fields': [
-                    'bp', 'cliente', 'razao_social', 'nota_fiscal', 'filial',
-                    'vendedor', 'chegada', 'prazo', 'atraso', 'status',
-                    'laudo', 'urgencia', 'alerta_email', 'diametro_primitivo',
-                    'passo', 'comp_total', 'precisao', 'defeito'
-                ]
-            }
-        },
         'DOWNLOAD_DELAY': 2,
         'CONCURRENT_REQUESTS': 1,
     }

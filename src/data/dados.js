@@ -138,14 +138,6 @@ export const FILIAIS_DB_INICIAL = [
   },
 ];
 
-export const MOTIVOS_RECEBIMENTO = [
-  "Manutenção",
-  "Somente Desenho / Croqui",
-  "Reparo",
-  "Troca em Garantia",
-  "Peritagem / Reforma",
-];
-
 // As 6 macro-etapas do fluxo industrial (BP Dash 1, 2 e 3):
 // 1. PRE_BP: Pré-BP / Chegando (Depto. Fiscal -> Depto. Manutenção)
 // 2. AGUARDANDO_LAUDO: Aguardando Laudo (Depto. Manutenção — desmontagem e dimensional)

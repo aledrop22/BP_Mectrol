@@ -15,7 +15,6 @@ import {
 } from 'lucide-react';
 import {
   ETAPAS_FLUXO_CONFIG,
-  MOTIVOS_RECEBIMENTO,
   DIAMETROS,
   PASSOS,
 } from '../data/dados';
@@ -86,8 +85,8 @@ export default function PainelDashboardVisual({
   onMudarFilial,
   filtroEtapa,
   onMudarEtapa,
-  filtroMotivo,
-  onMudarMotivo,
+  filtroSolicitacao,
+  onMudarFiltroSolicitacao,
   busca,
   onMudarBusca,
   copiadoId,
@@ -700,7 +699,7 @@ export default function PainelDashboardVisual({
           {/* Parte Superior: 5 Cards de Etapa com Sparklines (EM_MANUTENCAO removido) */}
           {renderTopoSeisCards()}
 
-          {/* Filtros de Filial (10 Filiais), Etapa, Tipo de Recebimento e Busca - MOVIDO PARA ABAIXO DOS CARDS */}
+          {/* Filtros de Filial, Etapa, Solicitação e Busca */}
           <section
             className="rounded-xl border p-3"
             style={{
@@ -749,9 +748,9 @@ export default function PainelDashboardVisual({
                 </select>
 
                 <select
-                  aria-label="Filtrar por Tipo de Recebimento (Depto. Manutenção vs Depto. Projeto)"
-                  value={filtroMotivo}
-                  onChange={(e) => onMudarMotivo(e.target.value)}
+                  aria-label="Filtrar por Solicitação"
+                  value={filtroSolicitacao}
+                  onChange={(e) => onMudarFiltroSolicitacao(e.target.value)}
                   className="rounded-lg px-2.5 py-1 text-xs font-semibold border"
                   style={{
                     backgroundColor: 'var(--bg-elevated)',
@@ -759,12 +758,11 @@ export default function PainelDashboardVisual({
                     color: 'var(--text-primary)',
                   }}
                 >
-                  <option value="Todos">Tipo: Todos (Depto. Manutenção + Depto. Projeto)</option>
-                  {MOTIVOS_RECEBIMENTO.map((m) => (
-                    <option key={m} value={m}>
-                      {m}
-                    </option>
-                  ))}
+                  <option value="TODOS">Solicitações: Todos</option>
+                  <option value="PENDENCIAS">Minhas Pendências</option>
+                  <option value="CONCLUIDAS">Minhas Solicitações Concluídas</option>
+                  <option value="EM_ANDAMENTO">Minhas Solicitações em Andamento</option>
+                  <option value="ATIVIDADES_EXECUTADAS">Minhas Atividades Executadas</option>
                 </select>
               </div>
 
@@ -932,7 +930,7 @@ export default function PainelDashboardVisual({
                           )}
                         </div>
                         <div className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
-                          NF {item.nf} · {item.motivoRecebimento}
+                          NF {item.nf}
                         </div>
                       </td>
                       <td className="py-2 px-2 whitespace-nowrap">
@@ -1589,7 +1587,7 @@ export default function PainelDashboardVisual({
                         </span>
                       </div>
                       <div className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>
-                        NF {item.nf} · {eq.curto} ({item.vendedor}) · {item.motivoRecebimento}
+                        NF {item.nf} · {eq.curto} ({item.vendedor})
                       </div>
                       <div className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
                         Sup: {eq.coordenador} · Assist: {eq.assistente}
@@ -1855,7 +1853,7 @@ export default function PainelDashboardVisual({
                         onClick={(e) => e.stopPropagation()}
                       >
                         <span className="text-[11px] truncate" style={{ color: 'var(--text-muted)' }}>
-                          {item.motivoRecebimento} · Prazo: {item.prazoEnvio}
+                          Prazo: {item.prazoEnvio}
                         </span>
                         <button
                           type="button"

@@ -16,6 +16,31 @@ export const ROTULO_PRIORIDADE = {
   BAIXA: 'Baixa (Normal)',
 };
 
+export function correspondeFiltroSolicitacao(item, filtro) {
+  switch (filtro) {
+    case 'PENDENCIAS':
+      return item.categoriaSolicitacao
+        ? item.categoriaSolicitacao === 'PENDENCIAS'
+        : item.status === 'Atrasada';
+    case 'CONCLUIDAS':
+      return item.categoriaSolicitacao
+        ? item.categoriaSolicitacao === 'CONCLUIDAS'
+        : item.status === 'Concluído';
+    case 'EM_ANDAMENTO':
+      return item.categoriaSolicitacao
+        ? item.categoriaSolicitacao === 'EM_ANDAMENTO'
+        : item.status === 'Em Andamento';
+    case 'ATIVIDADES_EXECUTADAS':
+      return item.categoriaSolicitacao
+        ? item.categoriaSolicitacao === 'ATIVIDADES_EXECUTADAS'
+        : Boolean(String(item.laudoFinalConclusao || '').trim());
+    case 'TODOS':
+      return true;
+    default:
+      return false;
+  }
+}
+
 /**
  * Ordena a lista de BPs seguindo a regra de negócio da MECTROL:
  * 1. BPs ativos vêm antes de BPs "Concluído".
@@ -328,9 +353,32 @@ export function obterEtapaMacroBP(item) {
  */
 export function obterEquipeFilial(filialStr, filiaisDb = FILIAIS_DB_INICIAL) {
   const texto = String(filialStr || '');
-  const encontrada =
-    filiaisDb.find((f) => texto.includes(f.codigo) || texto.toLowerCase().includes(f.curto.toLowerCase())) ||
-    filiaisDb[0];
+  const normalizar = (valor) =>
+    String(valor || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
+  const textoNormalizado = normalizar(texto);
+  const encontradaPorNome = filiaisDb.find((filial) => {
+    const nome = normalizar(
+      filial.nome.replace(/^\d{2}\.\d{2}\s*[-–]\s*/, '').replace(/\s*\([^)]*\)/g, '')
+    );
+    const cidade = normalizar(filial.cidade).split(/[\/,]/)[0].trim();
+    return [nome, cidade, normalizar(filial.curto)]
+      .filter((termo) => termo.length >= 4)
+      .some((termo) => textoNormalizado.includes(termo));
+  });
+  const encontradaPorCodigo =
+    !textoNormalizado.includes('comercial') &&
+    filiaisDb.find((filial) => texto.includes(filial.codigo));
+  const encontrada = encontradaPorNome || encontradaPorCodigo || {
+    codigo: texto.match(/\b\d{2}\.\d{2}\b/)?.[0] || '',
+    nome: texto || 'Filial não identificada',
+    curto: 'Não identificada',
+    coordenador: 'Não informado',
+    assistente: 'Não informado',
+    vendedores: [],
+  };
   return {
     codigo: encontrada.codigo,
     nome: encontrada.nome,

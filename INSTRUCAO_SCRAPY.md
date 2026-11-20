@@ -1,129 +1,23 @@
-# Instruções para Configurar Scrapy para bp.mectrol.com.br
+# Coleta local de BPs
 
-## Situação Atual
+## Situação atual
 
-O site https://bp.mectrol.com.br/ é uma **SPA (Single Page Application)** que:
-- Usa JavaScript para carregar dados dinamicamente
-- Não tem tabelas HTML visíveis no código fonte inicial
-- Dados são carregados via API ou JavaScript após o carregamento
+O portal Beta é uma aplicação autenticada e renderizada em JavaScript. O spider Scrapy existente não faz login nem carrega as atividades reais, por isso não deve ser usado para atualizar os dados.
 
-## Opções para Extração de Dados
+Os registros obtidos do portal ficam em `local_data/historico_bps_desenho.json`. Esse arquivo e o log local são ignorados pelo Git e não devem ser movidos para `public/`, enviados ao Supabase ou commitados. O workflow público que fazia commit do CSV foi removido para evitar exposição de dados de clientes.
 
-### Opção 1: Encontrar a API Interna (RECOMENDADO)
+## Dashboard local
 
-1. Abra https://bp.mectrol.com.br/ no navegador
-2. Pressione F12 para abrir as Ferramentas de Desenvolvedor
-3. Vá na aba **Network** (Rede)
-4. Recarregue a página (F5)
-5. Filtre por "XHR" ou "Fetch"
-6. Procure requisições que retornam JSON com dados dos BPs
-7. Clique na requisição e copie a URL
+Execute `npm run dev` e abra `http://127.0.0.1:3000`. O servidor local fornece o JSON privado ao dashboard, que relê o arquivo a cada cinco minutos. O servidor está limitado ao computador local.
 
-Exemplo de URL que pode aparecer:
-- `https://bp.mectrol.com.br/api/bps`
-- `https://bp.mectrol.com.br/api/v1/business-process`
-- `https://bp.mectrol.com.br/service/list`
+O arquivo contém os campos `BP`, `Cliente`, `Nota_Fiscal`, `Quantidade`, `Filial`, `Vendedor`, `Defeito`, `Status` e `Categoria_Solicitacao`. O carregador não adiciona mais registros de demonstração.
 
-Depois de encontrar a URL:
-1. Edite `scrapy_bp_mectrol/spiders/bp_spider.py`
-2. Substitua `start_urls` pela URL da API que você encontrou
-3. Adapte o método `parse_api()` para extrair os campos corretos
+## Scrapy
 
-### Opção 2: Usar Selenium (Requer ChromeDriver)
+`python scripts/run_scrapy.py` interrompe a execução intencionalmente: o spider ainda não suporta a autenticação e o fluxo da aplicação Beta. A coleta autenticada usa a API do portal em `scripts/sync_portal_api.js`.
 
-```bash
-# Instalar ChromeDriver
-# Baixe de: https://chromedriver.chromium.org/downloads
-# Coloque no PATH ou na pasta do projeto
+## Atualização automática
 
-# Instalar dependências
-pip install selenium
+O token da sessão fica no Windows Credential Manager, separado do código e do JSON. A tarefa `Mectrol BP dashboard sync` executa a coleta a cada cinco minutos enquanto a conta do Windows estiver conectada. Para recriar ou verificar a tarefa, execute `scripts/install_portal_sync_task.ps1`.
 
-# Executar
-python scripts/extract_with_selenium.py
-```
-
-### Opção 3: Exportação Manual (Mais Rápido para Começar)
-
-Se o sistema tiver um botão de exportar para Excel/CSV:
-
-1. Acesse https://bp.mectrol.com.br/
-2. Faça login se necessário
-3. Exporte os dados para Excel/CSV
-4. Salve como `public/historico_bps_desenho.csv`
-5. O dashboard lerá esse arquivo automaticamente
-
-### Opção 4: Integração Direta com Backend
-
-Se você tiver acesso ao backend/servidor do sistema:
-
-1. Crie um endpoint API interno que retorne os dados em JSON
-2. Configure o Scrapy para acessar esse endpoint
-3. O workflow GitHub Actions pode chamar esse endpoint
-
-## Passo a Passo Recomendado
-
-1. **Teste Opção 1 primeiro** (encontrar API no Network)
-   - Mais limpo e rápido
-   - Não requer dependências extras
-
-2. **Se não funcionar, tente Opção 3** (exportação manual)
-   - Garante que funciona
-   - Pode automatizar depois
-
-3. **Se precisar automação total, use Opção 2 ou 4**
-   - Selenium se o site não tiver API
-   - Backend integration se você tem acesso ao servidor
-
-## Exemplo de Configuração após Encontrar API
-
-Suponha que você encontrou a API: `https://bp.mectrol.com.br/api/bps`
-
-Edite `scrapy_bp_mectrol/spiders/bp_spider.py`:
-
-```python
-class BPMectrolSpider(scrapy.Spider):
-    name = 'bp_mectrol'
-    allowed_domains = ['bp.mectrol.com.br']
-    start_urls = ['https://bp.mectrol.com.br/api/bps']  # URL da API
-
-    def parse(self, response):
-        """Parser para resposta JSON da API"""
-        import json
-        data = json.loads(response.text)
-
-        # A estrutura pode ser: {"data": [...]} ou [...]
-        if isinstance(data, dict) and 'data' in data:
-            data = data['data']
-
-        for bp_data in data:
-            item = BPMectrolItem()
-            item['bp'] = str(bp_data.get('bp') or bp_data.get('id'))
-            item['cliente'] = bp_data.get('cliente') or ''
-            item['razao_social'] = bp_data.get('razao_social') or ''
-            item['nota_fiscal'] = str(bp_data.get('nota_fiscal') or bp_data.get('nf'))
-            item['filial'] = bp_data.get('filial') or ''
-            item['vendedor'] = bp_data.get('vendedor') or ''
-            item['chegada'] = bp_data.get('chegada') or ''
-            item['prazo'] = bp_data.get('prazo') or ''
-            item['atraso'] = bp_data.get('atraso') or ''
-            item['status'] = bp_data.get('status') or 'Em Andamento'
-            item['laudo'] = bp_data.get('laudo') or 'Pendente'
-            item['urgencia'] = bp_data.get('urgencia') or 'NORMAL'
-            item['alerta_email'] = bp_data.get('alerta_email') or ''
-            item['diametro_primitivo'] = str(bp_data.get('diametro_primitivo') or '')
-            item['passo'] = str(bp_data.get('passo') or '')
-            item['comp_total'] = str(bp_data.get('comp_total') or '')
-            item['precisao'] = bp_data.get('precisao') or ''
-
-            if item['bp']:
-                yield item
-```
-
-## Suporte
-
-Se precisar de ajuda para configurar:
-1. Abra o navegador em https://bp.mectrol.com.br/
-2. Pressione F12 → Network
-3. Tire printscreen das requisições XHR/Fetch
-4. Compartilhe para que eu possa ajudar a configurar o spider
+Cada sincronização consulta as quatro listas do portal, mantém apenas o processo de recebimento de material, busca os detalhes dos BPs e substitui o JSON atomicamente. Uma falha encerra a execução sem sobrescrever o último arquivo válido. O log local fica em `local_data/portal-sync.log`.

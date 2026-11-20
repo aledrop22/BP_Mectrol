@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import {
-  DADOS_INICIAIS,
   FILIAIS_DB_INICIAL,
 } from './data/dados';
 import { PALETAS_TEMAS, obterVariaveisTema } from './data/temas';
@@ -15,6 +14,7 @@ import {
   obterEtapaMacroBP,
   calcularResumoSeisEtapas,
   avancarEtapaFluxoBP,
+  correspondeFiltroSolicitacao,
 } from './lib/filaEngine';
 import SidebarCroquis, { MODELOS_DASHBOARD } from './components/SidebarCroquis';
 import PainelDashboardVisual from './components/PainelDashboardVisual';
@@ -22,7 +22,7 @@ import ModalFuraFilaDiretoria from './components/ModalFuraFilaDiretoria';
 import { filtrarBPsPorPeriodoOuCalendario } from './lib/comparativoExportEngine';
 
 export default function DashboardNextBP() {
-  const [bps, setBps] = useState(() => ordenarFilaBPs(DADOS_INICIAIS));
+  const [bps, setBps] = useState([]);
   const [filiaisDb, setFiliaisDb] = useState(FILIAIS_DB_INICIAL);
 
   // Sidebar único recolhível (mostra os 6 ícones + nomes quando aberto, ou só os 6 ícones quando recolhido)
@@ -32,15 +32,15 @@ export default function DashboardNextBP() {
   const [modeloAtivo, setModeloAtivo] = useState('DASH_1');
 
   // BP selecionado para inspeção rápida no Dashboard
-  const [bpSelecionadoId, setBpSelecionadoId] = useState('53193');
+  const [bpSelecionadoId, setBpSelecionadoId] = useState('');
 
-  // Filtros globais (Período 30/60/90 dias, Calendário, Filial, Etapa, Motivo e Busca)
+  // Filtros globais (Período, Filial, Etapa, Solicitação e Busca)
   const [filtroPeriodo, setFiltroPeriodo] = useState('30'); // '30' | '60' | '90' | 'TODOS' | 'CALENDARIO'
   const [dataInicio, setDataInicio] = useState('2026-01-01');
   const [dataFim, setDataFim] = useState('2026-11-18');
   const [filtroFilial, setFiltroFilial] = useState('Todas');
   const [filtroEtapa, setFiltroEtapa] = useState('TODAS');
-  const [filtroMotivo, setFiltroMotivo] = useState('Todos');
+  const [filtroSolicitacao, setFiltroSolicitacao] = useState('TODOS');
   const [busca, setBusca] = useState('');
 
   // 4 Modelos de Tema (2 Dark: dark-colorido, dark-neutro | 2 White: white-colorido, white-intercalado)
@@ -53,13 +53,34 @@ export default function DashboardNextBP() {
   const [avisoTempoReal, setAvisoTempoReal] = useState(null);
 
   useEffect(() => {
-    carregarDados().then((dados) => {
-      const ordenados = ordenarFilaBPs(dados);
-      setBps(ordenados);
-      if (ordenados.length > 0) {
-        setBpSelecionadoId(ordenados[0].bp);
+    let ativo = true;
+    const atualizarDados = async () => {
+      try {
+        const ordenados = ordenarFilaBPs(await carregarDados());
+        if (!ativo) return;
+        setBps(ordenados);
+        setBpSelecionadoId((selecionado) =>
+          ordenados.some((item) => String(item.bp) === String(selecionado))
+            ? selecionado
+            : ordenados[0]?.bp || ''
+        );
+      } catch (error) {
+        console.error('Não foi possível carregar os dados reais do CSV local.', error);
+        if (ativo) {
+          setAvisoTempoReal({
+            titulo: 'Dados reais indisponíveis',
+            detalhe: 'Sincronize o CSV local do portal para carregar os BPs.',
+          });
+        }
       }
-    });
+    };
+
+    void atualizarDados();
+    const intervalo = setInterval(() => void atualizarDados(), 5 * 60 * 1000);
+    return () => {
+      ativo = false;
+      clearInterval(intervalo);
+    };
   }, []);
 
   const temaAtivo = useMemo(
@@ -122,7 +143,7 @@ export default function DashboardNextBP() {
     [bpsPorPeriodo, filiaisDb]
   );
 
-  // Lista filtrada por Filial, Etapa, Motivo e Busca
+  // Lista filtrada por Filial, Etapa, Solicitação e Busca
   const bpsFiltrados = useMemo(() => {
     return bpsPorPeriodo.filter((item) => {
       const matchFilial =
@@ -130,8 +151,7 @@ export default function DashboardNextBP() {
       const etapaItem = obterEtapaMacroBP(item);
       const matchEtapa =
         filtroEtapa === 'TODAS' || etapaItem === filtroEtapa;
-      const matchMotivo =
-        filtroMotivo === 'Todos' || item.motivoRecebimento === filtroMotivo;
+      const matchSolicitacao = correspondeFiltroSolicitacao(item, filtroSolicitacao);
       const termo = busca.trim().toLowerCase();
       const matchBusca =
         !termo ||
@@ -139,9 +159,9 @@ export default function DashboardNextBP() {
         item.cliente.toLowerCase().includes(termo) ||
         item.nf.toLowerCase().includes(termo) ||
         item.vendedor.toLowerCase().includes(termo);
-      return matchFilial && matchEtapa && matchMotivo && matchBusca;
+      return matchFilial && matchEtapa && matchSolicitacao && matchBusca;
     });
-  }, [bpsPorPeriodo, filtroFilial, filtroEtapa, filtroMotivo, busca]);
+  }, [bpsPorPeriodo, filtroFilial, filtroEtapa, filtroSolicitacao, busca]);
 
   const mapaPosicoes = useMemo(() => {
     const ativos = bpsOrdenados.filter((b) => obterEtapaMacroBP(b) !== 'CONCLUIDO');
@@ -372,8 +392,8 @@ export default function DashboardNextBP() {
             onMudarFilial={setFiltroFilial}
             filtroEtapa={filtroEtapa}
             onMudarEtapa={setFiltroEtapa}
-            filtroMotivo={filtroMotivo}
-            onMudarMotivo={setFiltroMotivo}
+            filtroSolicitacao={filtroSolicitacao}
+            onMudarFiltroSolicitacao={setFiltroSolicitacao}
             busca={busca}
             onMudarBusca={setBusca}
             copiadoId={copiadoId}
