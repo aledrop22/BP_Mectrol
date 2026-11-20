@@ -19,3 +19,4 @@ class BPMectrolItem(scrapy.Item):
     passo = scrapy.Field()
     comp_total = scrapy.Field()
     precisao = scrapy.Field()
+    defeito = scrapy.Field()

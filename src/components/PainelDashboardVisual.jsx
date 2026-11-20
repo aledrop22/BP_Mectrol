@@ -104,8 +104,6 @@ export default function PainelDashboardVisual({
 }) {
   // Opção no Modelo 3 (BP Dash 3) para alternar entre Colunas Verticais e Barras Horizontais
   const [orientacaoGraficoFilial, setOrientacaoGraficoFilial] = useState('COLUNAS'); // 'COLUNAS' | 'BARRAS'
-  // Opção para simular o volume de 189 BPs / 50 realizados mencionado pelo usuário ou usar a base atual
-  const [escalaHistorica189, setEscalaHistorica189] = useState(false);
 
   // Estados do Comparativo de Datas (Mês a Mês, Semana a Semana ou 2 Pontos no Calendário) e Exportação PDF/Excel
   const [mostrarComparativo, setMostrarComparativo] = useState(false);
@@ -185,18 +183,10 @@ export default function PainelDashboardVisual({
     );
   };
 
-  const fatorEscala = escalaHistorica189
-    ? Math.max(1, Number((189 / Math.max(1, resumoFluxo.totalBps)).toFixed(1)))
-    : 1;
-
-  const totalBpsExibido = escalaHistorica189
-    ? 189
-    : resumoFluxo.totalBps;
-  const concluidosBpsExibido = escalaHistorica189
-    ? 50
-    : resumoFluxo.concluidosBps;
+  const totalBpsExibido = resumoFluxo.totalBps;
+  const concluidosBpsExibido = resumoFluxo.concluidosBps;
   const paraFazerBpsExibido = Math.max(0, totalBpsExibido - concluidosBpsExibido);
-  const totalFusosExibido = Math.round(resumoFluxo.totalFusos * fatorEscala);
+  const totalFusosExibido = resumoFluxo.totalFusos;
 
   const isNeutroDark = paletaId === 'dark-neutro' && modoCor === 'dark';
 
@@ -210,8 +200,8 @@ export default function PainelDashboardVisual({
     <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3">
       {ETAPAS_FLUXO_CONFIG.filter((et) => et.id !== 'EM_MANUTENCAO').map((et) => {
         const dadosEtapa = resumoFluxo.etapas[et.id] || { bps: 0, fusos: 0 };
-        const bpsCount = Math.round(dadosEtapa.bps * fatorEscala);
-        const fusosCount = Math.round(dadosEtapa.fusos * fatorEscala);
+        const bpsCount = dadosEtapa.bps;
+        const fusosCount = dadosEtapa.fusos;
         const ativo = filtroEtapa === et.id;
 
         const headerBg = isNeutroDark
@@ -652,28 +642,12 @@ export default function PainelDashboardVisual({
             </span>
             <span aria-hidden="true">·</span>
             <span className="text-rose-500 font-bold">
-              Aguardando NF-e: {Math.round(resumoFluxo.etapas.PRE_BP.bps * fatorEscala)} BPs
+              Aguardando NF-e: {resumoFluxo.etapas.PRE_BP.bps} BPs
             </span>
             <span aria-hidden="true">·</span>
             <span className="text-orange-500 font-bold">
-              Prontos Croqui: {Math.round(resumoFluxo.etapas.FILA_CROQUI.bps * fatorEscala)} BPs
+              Prontos Croqui: {resumoFluxo.etapas.FILA_CROQUI.bps} BPs
             </span>
-            <button
-              type="button"
-              onClick={() => setEscalaHistorica189((prev) => !prev)}
-              className="px-2 py-0.5 rounded border text-[11px] font-sans font-semibold transition"
-              style={{
-                backgroundColor: escalaHistorica189
-                  ? 'var(--accent-primary)'
-                  : 'var(--bg-subtle)',
-                borderColor: 'var(--border-strong)',
-                color: escalaHistorica189 ? '#FFFFFF' : 'var(--text-secondary)',
-              }}
-            >
-              {escalaHistorica189
-                ? 'Simulando Lote 189 BPs (50 OK)'
-                : 'Simular Lote 189 BPs (50 OK)'}
-            </button>
           </div>
         </div>
       </section>

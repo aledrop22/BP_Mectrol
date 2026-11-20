@@ -43,7 +43,7 @@ def run_scrapy_spider():
                     'bp', 'cliente', 'razao_social', 'nota_fiscal', 'filial',
                     'vendedor', 'chegada', 'prazo', 'atraso', 'status',
                     'laudo', 'urgencia', 'alerta_email', 'diametro_primitivo',
-                    'passo', 'comp_total', 'precisao'
+                    'passo', 'comp_total', 'precisao', 'defeito'
                 ]
             }
         })

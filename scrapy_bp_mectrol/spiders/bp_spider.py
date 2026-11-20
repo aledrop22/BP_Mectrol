@@ -19,7 +19,7 @@ class BPMectrolSpider(scrapy.Spider):
                     'bp', 'cliente', 'razao_social', 'nota_fiscal', 'filial',
                     'vendedor', 'chegada', 'prazo', 'atraso', 'status',
                     'laudo', 'urgencia', 'alerta_email', 'diametro_primitivo',
-                    'passo', 'comp_total', 'precisao'
+                    'passo', 'comp_total', 'precisao', 'defeito'
                 ]
             }
         },
@@ -129,6 +129,7 @@ class BPMectrolSpider(scrapy.Spider):
                 item['passo'] = str(bp_data.get('passo') or bp_data.get('pitch') or '')
                 item['comp_total'] = str(bp_data.get('comp_total') or bp_data.get('length') or '')
                 item['precisao'] = bp_data.get('precisao') or bp_data.get('precision') or ''
+                item['defeito'] = bp_data.get('defeito') or bp_data.get('defect') or ''
 
                 if item['bp']:
                     items.append(item)
@@ -165,6 +166,7 @@ class BPMectrolSpider(scrapy.Spider):
                 item['passo'] = self.extract_text(cells, 14) if len(cells) > 14 else ''
                 item['comp_total'] = self.extract_text(cells, 15) if len(cells) > 15 else ''
                 item['precisao'] = self.extract_text(cells, 16) if len(cells) > 16 else ''
+                item['defeito'] = self.extract_text(cells, 17) if len(cells) > 17 else ''
 
                 if item['bp']:
                     yield item
