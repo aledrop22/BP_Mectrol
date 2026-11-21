@@ -2,10 +2,12 @@ import { spawnSync } from 'node:child_process'
 import { mkdir, open, readFile, rename, rm, stat, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { needsDetailRefresh, sourceFingerprint } from './portal_sync_cache.js'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const localDir = path.join(root, 'local_data')
 const outputPath = path.join(localDir, 'historico_bps_desenho.json')
+const cachePath = path.join(localDir, 'portal-sync-cache.json')
 const lockPath = path.join(localDir, 'portal-sync.lock')
 const credentialScript = path.join(root, 'scripts', 'credential_manager.ps1')
 const apiBase = 'https://bp.mectrol.com.br/webservice/index.php/'
@@ -85,6 +87,43 @@ function numeroBP(row) {
   const numero = getText(row.numero).replace(/\D/g, '')
   if (!numero) throw new Error('A API retornou um processo de BP sem número válido.')
   return numero
+}
+
+async function lerCache() {
+  let fingerprints = {}
+  try {
+    const state = JSON.parse(await readFile(cachePath, 'utf8'))
+    const validSignatures = state.assinaturas &&
+      typeof state.assinaturas === 'object' &&
+      !Array.isArray(state.assinaturas) &&
+      Object.values(state.assinaturas).every((value) => /^[a-f0-9]{64}$/.test(value))
+    if (state.schemaVersion !== 1 || !validSignatures) {
+      throw new Error('O cache local de sincronização possui um formato inválido.')
+    }
+    fingerprints = state.assinaturas
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error
+  }
+
+  try {
+    const previousPayload = JSON.parse(await readFile(outputPath, 'utf8'))
+    if (!Array.isArray(previousPayload.registros)) {
+      throw new Error('O histórico local de BPs possui um formato inválido.')
+    }
+    return Object.fromEntries(previousPayload.registros.map((record) => [
+      record.BP,
+      { record, sourceFingerprint: fingerprints[record.BP] ?? null },
+    ]))
+  } catch (error) {
+    if (error.code === 'ENOENT') return {}
+    throw error
+  }
+}
+
+async function salvarJsonAtomico(filePath, value) {
+  const temporaryPath = `${filePath}.${process.pid}.tmp`
+  await writeFile(temporaryPath, `${JSON.stringify(value, null, 2)}\n`, 'utf8')
+  await rename(temporaryPath, filePath)
 }
 
 async function requestJson(url, token) {
@@ -278,6 +317,7 @@ async function main() {
   let token
   try {
     token = readPortalToken()
+    const cachedByBp = await lerCache()
     const latestByBp = new Map()
     for (const listType of listTypes) {
       const processes = await listarProcessos(token, listType)
@@ -296,8 +336,22 @@ async function main() {
     if (!latestByBp.size) throw new Error('O portal não retornou processos do tipo BP esperado.')
 
     const records = []
-    for (const { row, listType } of latestByBp.values()) {
-      records.push(await detalharProcesso(row, token, listType.category))
+    const nextFingerprints = {}
+    let detailedCount = 0
+    let reusedCount = 0
+    for (const [bp, { row, listType }] of latestByBp) {
+      const fingerprint = sourceFingerprint(row, listType.category)
+      const previous = cachedByBp[bp]
+      let record
+      if (needsDetailRefresh(previous, listType.category, fingerprint)) {
+        record = await detalharProcesso(row, token, listType.category)
+        detailedCount += 1
+      } else {
+        record = previous.record
+        reusedCount += 1
+      }
+      records.push(record)
+      nextFingerprints[bp] = fingerprint
     }
     records.sort((a, b) => Number(a.BP) - Number(b.BP))
 
@@ -307,9 +361,8 @@ async function main() {
       total: records.length,
       registros: records,
     }
-    const temporaryPath = `${outputPath}.${process.pid}.tmp`
-    await writeFile(temporaryPath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8')
-    await rename(temporaryPath, outputPath)
+    await salvarJsonAtomico(outputPath, payload)
+    await salvarJsonAtomico(cachePath, { schemaVersion: 1, assinaturas: nextFingerprints })
     const publicacaoVercel = await publicarNoVercel(payload)
 
     const coverage = Object.fromEntries(
@@ -321,6 +374,8 @@ async function main() {
     console.log(JSON.stringify({
       atualizadoEm: payload.atualizadoEm,
       total: records.length,
+      detalhados: detailedCount,
+      reutilizados: reusedCount,
       publicacaoVercel,
       categorias: Object.fromEntries(
         [...latestByBp.values()].reduce((counts, item) => {

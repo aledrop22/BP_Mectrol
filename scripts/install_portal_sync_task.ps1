@@ -2,7 +2,7 @@ $ErrorActionPreference = 'Stop'
 
 $taskName = 'Mectrol BP dashboard sync'
 $runner = Join-Path $PSScriptRoot 'run_portal_sync.ps1'
-$taskAction = "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$runner`""
+$taskAction = "powershell.exe -WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -File `"$runner`""
 
 & schtasks.exe /Create /TN $taskName /SC MINUTE /MO 5 /TR $taskAction /F /IT | Out-Null
 if ($LASTEXITCODE -ne 0) {

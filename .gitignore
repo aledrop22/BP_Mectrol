@@ -13,3 +13,4 @@ local_data/historico_bps_desenho.csv
 local_data/historico_bps_desenho.json
 local_data/portal-sync.log
 local_data/portal-sync.lock
+local_data/portal-sync-cache.json

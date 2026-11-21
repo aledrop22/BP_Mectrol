@@ -92,6 +92,13 @@ python scripts/test_scrapy_csv.py
 python scripts/run_scrapy.py
 ```
 
+### Sincronização incremental do portal (Windows)
+
+A tarefa instalada por `scripts/install_portal_sync_task.ps1` consulta as quatro
+listas a cada cinco minutos para detectar BPs novos e mudanças de etapa/atividade.
+Os detalhes de BPs sem mudanças são reutilizados do cache local
+`local_data/portal-sync-cache.json`, evitando consultar novamente cada BP a cada ciclo.
+
 ## Configuração necessária
 
 ### Secrets do GitHub (Settings → Secrets → Actions)
