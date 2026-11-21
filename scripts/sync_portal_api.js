@@ -7,6 +7,8 @@ import { needsDetailRefresh, recordsChanged, sourceFingerprint } from './portal_
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const localDir = path.join(root, 'local_data')
 const outputPath = path.join(localDir, 'historico_bps_desenho.json')
+const publicDir = path.join(root, 'public')
+const publicOutputPath = path.join(publicDir, 'historico_bps_desenho.json')
 const cachePath = path.join(localDir, 'portal-sync-cache.json')
 const lockPath = path.join(localDir, 'portal-sync.lock')
 const credentialScript = path.join(root, 'scripts', 'credential_manager.ps1')
@@ -277,6 +279,7 @@ async function acquireLock() {
 
 async function main() {
   await mkdir(localDir, { recursive: true })
+  await mkdir(publicDir, { recursive: true })
   const lock = await acquireLock()
   let token
   try {
@@ -329,6 +332,7 @@ async function main() {
       registros: records,
     }
     if (dadosAlterados) await salvarJsonAtomico(outputPath, payload)
+    await salvarJsonAtomico(publicOutputPath, payload)
     await salvarJsonAtomico(cachePath, { schemaVersion: 1, assinaturas: nextFingerprints })
 
     const coverage = Object.fromEntries(

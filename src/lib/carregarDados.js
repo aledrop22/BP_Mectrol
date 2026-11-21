@@ -60,14 +60,26 @@ function mapearRegistro(reg, idx) {
 }
 
 export async function carregarDados() {
-  const resp = await fetch('/api/bps', { cache: 'no-store' });
-  if (!resp.ok) {
-    const error = new Error(`Não foi possível carregar os dados de BPs (HTTP ${resp.status}).`);
-    error.status = resp.status;
-    throw error;
+  let arquivo;
+  let ultimoErro;
+
+  for (const origem of ['/api/bps', '/historico_bps_desenho.json']) {
+    try {
+      const resp = await fetch(origem, { cache: 'no-store' });
+      if (resp.ok) {
+        arquivo = await resp.json();
+        break;
+      }
+      ultimoErro = new Error(`Não foi possível carregar os dados de BPs (HTTP ${resp.status}).`);
+      ultimoErro.status = resp.status;
+    } catch (error) {
+      ultimoErro = error;
+    }
   }
 
-  const arquivo = await resp.json();
+  if (!arquivo) {
+    throw ultimoErro || new Error('Não foi possível carregar os dados de BPs.');
+  }
   if (!arquivo || !Array.isArray(arquivo.registros) || !arquivo.registros.length) {
     throw new Error('O armazenamento não retornou registros de BP válidos.');
   }

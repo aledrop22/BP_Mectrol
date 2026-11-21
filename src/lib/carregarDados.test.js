@@ -50,3 +50,26 @@ test('rejeita JSON sem registros válidos', async () => {
     globalThis.fetch = fetchOriginal;
   }
 });
+
+test('usa o JSON estático quando a API local não existe', async () => {
+  const fetchOriginal = globalThis.fetch;
+  const urls = [];
+  globalThis.fetch = async (url) => {
+    urls.push(url);
+    if (url === '/api/bps') return { ok: false, status: 404 };
+    return {
+      ok: true,
+      json: async () => ({
+        registros: [{ BP: '777', Cliente: 'Cliente publicado', Quantidade: 3 }],
+      }),
+    };
+  };
+
+  try {
+    const [bp] = await carregarDados();
+    assert.deepEqual(urls, ['/api/bps', '/historico_bps_desenho.json']);
+    assert.equal(bp.bp, '777');
+  } finally {
+    globalThis.fetch = fetchOriginal;
+  }
+});
