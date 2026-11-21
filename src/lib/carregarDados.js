@@ -60,17 +60,21 @@ function mapearRegistro(reg, idx) {
 }
 
 export async function carregarDados() {
-  const resp = await fetch('/local-data/historico_bps_desenho.json', { cache: 'no-store' });
-  if (!resp.ok) throw new Error(`Não foi possível carregar o JSON local (HTTP ${resp.status}).`);
+  const resp = await fetch('/api/bps', { cache: 'no-store' });
+  if (!resp.ok) {
+    const error = new Error(`Não foi possível carregar os dados de BPs (HTTP ${resp.status}).`);
+    error.status = resp.status;
+    throw error;
+  }
 
   const arquivo = await resp.json();
-  if (!Array.isArray(arquivo.registros) || !arquivo.registros.length) {
-    throw new Error('O JSON local não contém registros de BP válidos.');
+  if (!arquivo || !Array.isArray(arquivo.registros) || !arquivo.registros.length) {
+    throw new Error('O armazenamento não retornou registros de BP válidos.');
   }
 
   const mapeados = arquivo.registros
     .map((reg, idx) => mapearRegistro(reg, idx))
     .filter(Boolean);
-  if (!mapeados.length) throw new Error('O JSON local não contém registros de BP válidos.');
+  if (!mapeados.length) throw new Error('O armazenamento não retornou registros de BP válidos.');
   return ordenarFilaBPs(mapeados);
 }

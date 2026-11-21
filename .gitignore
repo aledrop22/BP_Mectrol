@@ -3,6 +3,8 @@ dist/
 __pycache__/
 *.pyc
 .env
+.env.local
+.vercel/
 bp_mectrol.zip
 bp_mectrol_novo/
 scrapy_bp_mectrol/__pycache__/

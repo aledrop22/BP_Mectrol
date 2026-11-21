@@ -86,7 +86,19 @@ function localBpCsv() {
         }
       })
 
-      server.middlewares.use('/local-data/historico_bps_desenho.json', async (req, res, next) => {
+      server.middlewares.use('/api/auth', (req, res) => {
+        if (req.method !== 'GET') {
+          res.statusCode = 405
+          res.end('Método não permitido.')
+          return
+        }
+
+        res.setHeader('Content-Type', 'application/json; charset=utf-8')
+        res.setHeader('Cache-Control', 'no-store')
+        res.end(JSON.stringify({ authenticated: true, local: true }))
+      })
+
+      server.middlewares.use('/api/bps', async (req, res, next) => {
         if (req.method !== 'GET') {
           res.statusCode = 405
           res.end('Método não permitido.')
@@ -100,8 +112,9 @@ function localBpCsv() {
           res.end(json)
         } catch (error) {
           if (error.code === 'ENOENT') {
+            res.setHeader('Content-Type', 'application/json; charset=utf-8')
             res.statusCode = 404
-            res.end('JSON local ainda não foi sincronizado.')
+            res.end(JSON.stringify({ error: 'data_not_synced' }))
             return
           }
           next(error)

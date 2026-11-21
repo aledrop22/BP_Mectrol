@@ -9,6 +9,7 @@ const outputPath = path.join(localDir, 'historico_bps_desenho.json')
 const lockPath = path.join(localDir, 'portal-sync.lock')
 const credentialScript = path.join(root, 'scripts', 'credential_manager.ps1')
 const apiBase = 'https://bp.mectrol.com.br/webservice/index.php/'
+const vercelSyncUrl = 'https://bp-mectrol.vercel.app/api/bps'
 const portalProcess = 'RECEBIMENTO DE MATERIAL EM ESTOQUE'
 const listTypes = [
   { tipo: 0, category: 'PENDENCIAS', status: 'Pendente', priority: 0 },
@@ -32,6 +33,23 @@ function readPortalToken() {
     throw new Error('O token armazenado no Windows Credential Manager é inválido.')
   }
   return token
+}
+
+function readVercelSyncSecret() {
+  const result = spawnSync(
+    'powershell.exe',
+    ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', credentialScript, '-Mode', 'ReadVercel'],
+    { encoding: 'utf8', windowsHide: true }
+  )
+  if (result.error) throw new Error(`Não foi possível ler a credencial do Vercel: ${result.error.message}`)
+  if (result.status !== 0) {
+    throw new Error(`Não foi possível ler a credencial de publicação do Vercel: ${result.stderr.trim()}`)
+  }
+  const secret = result.stdout.trim()
+  if (secret && !/^[A-Za-z0-9._-]{32,512}$/.test(secret)) {
+    throw new Error('A credencial de publicação do Vercel armazenada é inválida.')
+  }
+  return secret || null
 }
 
 function getText(value) {
@@ -231,6 +249,29 @@ async function acquireLock() {
   throw new Error('Não foi possível obter o bloqueio para sincronização do portal.')
 }
 
+async function publicarNoVercel(payload) {
+  const secret = readVercelSyncSecret()
+  if (!secret) return 'pendente_configuracao'
+
+  const response = await fetch(vercelSyncUrl, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${secret}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+    signal: AbortSignal.timeout(60000),
+  })
+  if (!response.ok) {
+    throw new Error(`A publicação privada no Vercel respondeu HTTP ${response.status}.`)
+  }
+  const result = await response.json()
+  if (!result.saved || result.total !== payload.total) {
+    throw new Error('O Vercel não confirmou a gravação dos dados privados.')
+  }
+  return 'publicado'
+}
+
 async function main() {
   await mkdir(localDir, { recursive: true })
   const lock = await acquireLock()
@@ -269,6 +310,7 @@ async function main() {
     const temporaryPath = `${outputPath}.${process.pid}.tmp`
     await writeFile(temporaryPath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8')
     await rename(temporaryPath, outputPath)
+    const publicacaoVercel = await publicarNoVercel(payload)
 
     const coverage = Object.fromEntries(
       ['Cliente', 'Nota_Fiscal', 'Quantidade', 'Filial', 'Vendedor', 'Defeito'].map((field) => [
@@ -279,6 +321,7 @@ async function main() {
     console.log(JSON.stringify({
       atualizadoEm: payload.atualizadoEm,
       total: records.length,
+      publicacaoVercel,
       categorias: Object.fromEntries(
         [...latestByBp.values()].reduce((counts, item) => {
           counts.set(item.listType.category, (counts.get(item.listType.category) || 0) + 1)

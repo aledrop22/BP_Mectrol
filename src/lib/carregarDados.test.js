@@ -5,7 +5,7 @@ import { carregarDados } from './carregarDados.js';
 test('carrega e mapeia registros do JSON local', async () => {
   const fetchOriginal = globalThis.fetch;
   globalThis.fetch = async (url, options) => {
-    assert.equal(url, '/local-data/historico_bps_desenho.json');
+    assert.equal(url, '/api/bps');
     assert.equal(options.cache, 'no-store');
     return {
       ok: true,
@@ -45,7 +45,7 @@ test('rejeita JSON sem registros válidos', async () => {
   });
 
   try {
-    await assert.rejects(carregarDados(), /não contém registros de BP válidos/);
+    await assert.rejects(carregarDados(), /não retornou registros de BP válidos/);
   } finally {
     globalThis.fetch = fetchOriginal;
   }

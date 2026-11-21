@@ -1,6 +1,6 @@
 param(
   [Parameter(Mandatory = $true)]
-  [ValidateSet('Store', 'Read')]
+  [ValidateSet('Store', 'Read', 'StoreVercel', 'ReadVercel')]
   [string]$Mode
 )
 
@@ -40,13 +40,16 @@ namespace BpLocal {
 }
 "@
 
-$target = 'BP_MECTROL_PORTAL_SESSION'
+$isVercel = $Mode.EndsWith('Vercel')
+$target = if ($isVercel) { 'BP_MECTROL_VERCEL_SYNC_SECRET' } else { 'BP_MECTROL_PORTAL_SESSION' }
+$isStore = $Mode.StartsWith('Store')
 
-if ($Mode -eq 'Store') {
+if ($isStore) {
   [Console]::InputEncoding = New-Object System.Text.UTF8Encoding($false)
   $token = [Console]::In.ReadToEnd().Trim()
-  if ($token -notmatch '^[A-Za-z0-9._-]{20,512}$') {
-    throw 'Token de sessão inválido.'
+  $minimumLength = if ($isVercel) { 32 } else { 20 }
+  if ($token -notmatch "^[A-Za-z0-9._-]{$minimumLength,512}$") {
+    throw 'Segredo fornecido inválido.'
   }
 
   $bytes = [System.Text.Encoding]::Unicode.GetBytes($token)
@@ -58,11 +61,15 @@ if ($Mode -eq 'Store') {
     $credential = New-Object BpLocal.CredentialStore+Credential
     $credential.Type = 1
     $credential.TargetName = $target
-    $credential.Comment = 'Token local de sincronização do portal MECTROL'
+    $credential.Comment = if ($isVercel) {
+      'Segredo local para publicação privada no Vercel'
+    } else {
+      'Token local de sincronização do portal MECTROL'
+    }
     $credential.CredentialBlobSize = [uint32]$bytes.Length
     $credential.CredentialBlob = $handle.AddrOfPinnedObject()
     $credential.Persist = 2
-    $credential.UserName = 'portal-session'
+    $credential.UserName = if ($isVercel) { 'vercel-sync' } else { 'portal-session' }
     if (-not [BpLocal.CredentialStore]::CredWrite([ref]$credential, 0)) {
       throw [ComponentModel.Win32Exception]::new(
         [Runtime.InteropServices.Marshal]::GetLastWin32Error()
@@ -77,6 +84,9 @@ if ($Mode -eq 'Store') {
 
 $pointer = [IntPtr]::Zero
 if (-not [BpLocal.CredentialStore]::CredRead($target, 1, 0, [ref]$pointer)) {
+  if ($Mode -eq 'ReadVercel') {
+    exit 0
+  }
   throw 'Token de sessão não encontrado no Windows Credential Manager.'
 }
 
@@ -89,7 +99,7 @@ try {
     $credential.CredentialBlob,
     [int]($credential.CredentialBlobSize / 2)
   )
-  if (-not $token) {
+  if (-not $token -and $Mode -ne 'ReadVercel') {
     throw 'Token de sessão vazio no Windows Credential Manager.'
   }
   [Console]::Out.Write($token)
