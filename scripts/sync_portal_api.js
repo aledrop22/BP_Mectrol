@@ -46,7 +46,7 @@ function readVercelSyncSecret() {
     throw new Error(`Não foi possível ler a credencial de publicação do Vercel: ${result.stderr.trim()}`)
   }
   const secret = result.stdout.trim()
-  if (secret && !/^[A-Za-z0-9._-]{32,512}$/.test(secret)) {
+  if (secret && !/^[!-~]{32,512}$/.test(secret)) {
     throw new Error('A credencial de publicação do Vercel armazenada é inválida.')
   }
   return secret || null

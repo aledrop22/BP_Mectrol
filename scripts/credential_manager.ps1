@@ -48,8 +48,13 @@ if ($isStore) {
   [Console]::InputEncoding = New-Object System.Text.UTF8Encoding($false)
   $token = [Console]::In.ReadToEnd().Trim()
   $minimumLength = if ($isVercel) { 32 } else { 20 }
-  if ($token -notmatch "^[A-Za-z0-9._-]{$minimumLength,512}$") {
-    throw 'Segredo fornecido inválido.'
+  $validToken = if ($isVercel) {
+    $token -match "^[!-~]{$minimumLength,512}$"
+  } else {
+    $token -match "^[A-Za-z0-9._-]{$minimumLength,512}$"
+  }
+  if (-not $validToken) {
+    throw 'Segredo inválido: use 32 a 512 caracteres ASCII visíveis, sem espaços.'
   }
 
   $bytes = [System.Text.Encoding]::Unicode.GetBytes($token)
