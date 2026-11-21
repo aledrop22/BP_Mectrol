@@ -854,7 +854,7 @@ export default function PainelDashboardVisual({
                       <strong className="text-red-400">{item.prazoEnvio}</strong>
                     </p>
                     <p className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
-                      Vend: {item.vendedor} · Sup: {eq.coordenador} · Assist: {eq.assistente}
+                      Vend: {item.vendedor} · Sup: {eq.coordenador} · Assist: {item.assistente || eq.assistente}
                     </p>
                   </button>
                 );
@@ -947,7 +947,7 @@ export default function PainelDashboardVisual({
                           {item.vendedor}
                         </div>
                         <div className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
-                          Assist: {eq.assistente}
+                          Assist: {item.assistente || eq.assistente}
                         </div>
                       </td>
                       <td className="py-2 px-2 font-mono font-extrabold tabular-nums whitespace-nowrap" style={{ color: 'var(--accent-text)' }}>
@@ -1100,7 +1100,7 @@ export default function PainelDashboardVisual({
                           {item.vendedor}
                         </div>
                         <div className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
-                          Assist: {eq.assistente}
+                          Assist: {item.assistente || eq.assistente}
                         </div>
                       </td>
                       <td className="py-2 px-3 font-mono font-bold whitespace-nowrap">
@@ -1578,7 +1578,7 @@ export default function PainelDashboardVisual({
                         NF {item.nf} · {eq.curto} ({item.vendedor})
                       </div>
                       <div className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
-                        Sup: {eq.coordenador} · Assist: {eq.assistente}
+                        Sup: {eq.coordenador} · Assist: {item.assistente || eq.assistente}
                       </div>
                     </article>
                   );
@@ -1649,7 +1649,7 @@ export default function PainelDashboardVisual({
                         NF {item.nf} · {eq.curto} ({item.vendedor})
                       </div>
                       <div className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
-                        Sup: {eq.coordenador} · Assist: {eq.assistente}
+                        Sup: {eq.coordenador} · Assist: {item.assistente || eq.assistente}
                       </div>
 
                       {/* Edição rápida do dimensional do croqui */}
@@ -1806,7 +1806,7 @@ export default function PainelDashboardVisual({
                         Solicitação: {item.solicitadoEm || 'Não informada'} · NF {item.nf}
                       </div>
                       <div className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
-                        {eq.curto} ({item.vendedor}) · Sup: {eq.coordenador} · Assist: {eq.assistente}
+                        {eq.curto} ({item.vendedor}) · Sup: {eq.coordenador} · Assist: {item.assistente || eq.assistente}
                       </div>
                       <div
                         className="pt-1.5 border-t flex justify-between items-center gap-2"
