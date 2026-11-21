@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import {
   ordenarFilaBPs,
   calcularPosicaoNaFila,
@@ -126,6 +127,16 @@ test('a atividade real prevalece sobre o status ao classificar a etapa do BP', (
     atividade: 'REALIZAÇÃO DE CROQUI',
   };
   assert.equal(obterEtapaMacroBP(bpCroquiConcluido), 'FILA_DESENHO_FINAL');
+});
+
+test('pendências usam o histórico para separar pré-BP, laudo e croqui', () => {
+  const payload = JSON.parse(readFileSync(new URL('../../public/historico_bps_desenho.json', import.meta.url), 'utf8'));
+  const porBp = new Map(payload.registros.map((registro) => [String(registro.BP), registro]));
+
+  assert.equal(porBp.get('54767').Etapa_Macro, 'PRE_BP');
+  assert.equal(porBp.get('55116').Etapa_Macro, 'AGUARDANDO_LAUDO');
+  assert.equal(porBp.get('55119').Etapa_Macro, 'AGUARDANDO_LAUDO');
+  assert.equal(porBp.get('54984').Etapa_Macro, 'FILA_CROQUI');
 });
 
 test('filtrarBPsPorPeriodoOuCalendario e calcularComparativoDatas funcionam desde 01/01/2026 e geram Excel/PDF válidos', () => {

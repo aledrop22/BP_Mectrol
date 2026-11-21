@@ -241,19 +241,16 @@ function mapearEtapaPorHistorico(historico, category) {
   if (!entradaNfConcluida) return 'PRE_BP'
 
   const laudoDifuso = encontrarAtividadeHistorico(historico, 'LAUDO DE MANUTENÇÃO DE FUSOS')
-  const laudoFinal = encontrarAtividadeHistorico(historico, 'LAUDO MANUTENÇÃO-FINAL')
-  const laudoFinalAlternativo = encontrarAtividadeHistorico(historico, 'LAUDO DE MANUTENCAO-FINAL')
-  const laudoFinalHifen = encontrarAtividadeHistorico(historico, 'LAUDO DE MANUTENCAO - FINAL')
-  const laudoConcluido =
-    atividadeConcluidaHistorico(historico, 'LAUDO DE MANUTENÇÃO DE FUSOS') ||
-    atividadeConcluidaHistorico(historico, 'LAUDO MANUTENÇÃO-FINAL') ||
-    atividadeConcluidaHistorico(historico, 'LAUDO DE MANUTENCAO-FINAL') ||
-    atividadeConcluidaHistorico(historico, 'LAUDO DE MANUTENCAO - FINAL')
+  const laudoFinal = encontrarAtividadeHistorico(historico, 'LAUDO DE MANUTENÇÃO - FINAL') ||
+    encontrarAtividadeHistorico(historico, 'LAUDO MANUTENÇÃO-FINAL') ||
+    encontrarAtividadeHistorico(historico, 'LAUDO DE MANUTENCAO-FINAL')
+  const laudoDifusoConcluido = Boolean(laudoDifuso && (laudoDifuso.entrega || laudoDifuso.update_hora))
+  const laudoFinalConcluido = Boolean(laudoFinal && (laudoFinal.entrega || laudoFinal.update_hora))
 
   const croqui = encontrarAtividadeHistorico(historico, 'REALIZAÇÃO DE CROQUI')
   const croquiConcluido = Boolean(croqui && (croqui.entrega || croqui.update_hora))
   if (croquiConcluido) return 'FILA_DESENHO_FINAL'
-  if (laudoConcluido || laudoFinal || laudoFinalAlternativo || laudoFinalHifen || laudoDifuso) return 'FILA_CROQUI'
+  if (laudoDifusoConcluido && laudoFinalConcluido) return 'FILA_CROQUI'
 
   return 'AGUARDANDO_LAUDO'
 }

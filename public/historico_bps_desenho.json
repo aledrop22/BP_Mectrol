@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "atualizadoEm": "2026-11-21T21:42:52.643Z",
+  "atualizadoEm": "2026-11-21T22:11:37.506Z",
   "total": 33,
   "registros": [
     {
@@ -2698,7 +2698,7 @@
       "Categoria_Solicitacao": "PENDENCIAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
       "Descricao": "N° DA NF: 2435; CLIENTE/FORNECEDOR: VOLVO EQUIPAMENTOS DE CONSTRUCAO LATIN AMERICA LTDA.; N° DA NOTA FISCAL: 2435; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 17/11/2026;",
-      "Etapa_Macro": "FILA_CROQUI",
+      "Etapa_Macro": "AGUARDANDO_LAUDO",
       "Laudo_Manutencao_Difuso": "",
       "Laudo_Manutencao_Final": "",
       "Historico": [
@@ -2892,7 +2892,7 @@
       "Categoria_Solicitacao": "PENDENCIAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
       "Descricao": "N° DA NF: 17259; CLIENTE/FORNECEDOR: TRUKPRO COMPONENTES AUTOMOTIVOS LTDA; N° DA NOTA FISCAL: 17259; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 18/11/2026;",
-      "Etapa_Macro": "FILA_CROQUI",
+      "Etapa_Macro": "AGUARDANDO_LAUDO",
       "Laudo_Manutencao_Difuso": "",
       "Laudo_Manutencao_Final": "",
       "Historico": [
@@ -3357,7 +3357,7 @@
       "Categoria_Solicitacao": "PENDENCIAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
       "Descricao": "N° DA NF: 148545; CLIENTE/FORNECEDOR: PAINCO INDUSTRIA E COMERCIO SOCIEDADE ANONIMA; N° DA NOTA FISCAL: 148545; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 19/11/2026;",
-      "Etapa_Macro": "FILA_CROQUI",
+      "Etapa_Macro": "AGUARDANDO_LAUDO",
       "Laudo_Manutencao_Difuso": "",
       "Laudo_Manutencao_Final": "",
       "Historico": [
@@ -3442,7 +3442,7 @@
       "Categoria_Solicitacao": "PENDENCIAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
       "Descricao": "N° DA NF: 148549; CLIENTE/FORNECEDOR: PAINCO INDUSTRIA E COMERCIO SOCIEDADE ANONIMA; N° DA NOTA FISCAL: 148549; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 19/11/2026;",
-      "Etapa_Macro": "FILA_CROQUI",
+      "Etapa_Macro": "AGUARDANDO_LAUDO",
       "Laudo_Manutencao_Difuso": "",
       "Laudo_Manutencao_Final": "",
       "Historico": [

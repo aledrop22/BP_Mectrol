@@ -186,6 +186,7 @@ export default function PainelDashboardVisual({
   const concluidosBpsExibido = resumoFluxo.concluidosBps;
   const paraFazerBpsExibido = Math.max(0, totalBpsExibido - concluidosBpsExibido);
   const totalFusosExibido = resumoFluxo.totalFusos;
+  const fatorEscala = 1;
 
   const isNeutroDark = paletaId === 'dark-neutro' && modoCor === 'dark';
 
