@@ -95,11 +95,18 @@ async function lerCache() {
     if (!Array.isArray(previousPayload.registros)) {
       throw new Error('O histórico local de BPs possui um formato inválido.')
     }
+    const cachedByBp = {}
+    for (const record of previousPayload.registros) {
+      const aliases = [record.BP, record.Solicitacao].filter(Boolean).map((value) => String(value))
+      for (const alias of aliases) {
+        cachedByBp[alias] = {
+          record,
+          sourceFingerprint: fingerprints[record.BP] ?? fingerprints[record.Solicitacao] ?? null,
+        }
+      }
+    }
     return {
-      cachedByBp: Object.fromEntries(previousPayload.registros.map((record) => [
-        record.BP,
-        { record, sourceFingerprint: fingerprints[record.BP] ?? null },
-      ])),
+      cachedByBp,
       previousPayload,
     }
   } catch (error) {
@@ -212,9 +219,12 @@ async function detalharProcesso(row, token, category) {
   const info = listTypes.find((item) => item.category === category)
   const entrega = formatarData(row.entrega)
   const prazo = formatarData(row.prazo_execucao)
+  const bpSolicitacao = getText(detail.solicitacao_id)
+  const bpNumero = bpSolicitacao ? bpSolicitacao.replace(/\D/g, '') : numeroBP(row)
 
   return {
-    BP: numeroBP(row),
+    BP: bpNumero,
+    Solicitacao: bpSolicitacao,
     Cliente: valorCampo(elementos, 'cliente_nome') || getText(row.cliente_nome),
     Razao_Social: valorCampo(elementos, 'razao_social'),
     Nota_Fiscal: valorCampo(elementos, 'n_da_nota_f'),
@@ -315,7 +325,8 @@ async function main() {
       const fingerprint = sourceFingerprint(row, listType.category)
       const previous = cachedByBp[bp]
       let record
-      if (needsDetailRefresh(previous, listType.category, fingerprint)) {
+      if (needsDetailRefresh(previous, listType.category, fingerprint) ||
+          !previous?.record?.Solicitacao) {
         record = await detalharProcesso(row, token, listType.category)
         detailedCount += 1
       } else {
@@ -323,7 +334,7 @@ async function main() {
         reusedCount += 1
       }
       records.push(record)
-      nextFingerprints[bp] = fingerprint
+      nextFingerprints[record.BP] = fingerprint
     }
     records.sort((a, b) => Number(a.BP) - Number(b.BP))
 

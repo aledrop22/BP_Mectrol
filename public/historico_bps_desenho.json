@@ -1,14 +1,15 @@
 {
   "schemaVersion": 1,
-  "atualizadoEm": "2026-11-21T16:01:19.173Z",
+  "atualizadoEm": "2026-11-21T21:16:25.662Z",
   "total": 33,
   "registros": [
     {
-      "BP": "498",
+      "BP": "53193",
+      "Solicitacao": "53193",
       "Cliente": "COMPANHIA BRASILEIRA DE ALUMINIO",
       "Razao_Social": "",
       "Nota_Fiscal": "1416969",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Não informado",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
@@ -27,11 +28,12 @@
       "Descricao": "N° DA NF: 1416969; CLIENTE/FORNECEDOR: COMPANHIA BRASILEIRA DE ALUMINIO; N° DA NOTA FISCAL: 1416969; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 18/09/2026;"
     },
     {
-      "BP": "545",
+      "BP": "54015",
+      "Solicitacao": "54015",
       "Cliente": "SAINT-GOBAIN DO BRASIL PRODUTOS INDUSTRIAIS E PARA CONSTRUCAO LTDA",
       "Razao_Social": "",
       "Nota_Fiscal": "487470",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "FUSO ENVIADO PARA ANALISE DE REPARO\n\nPRE CARGA\nFOLGA\nANALISE EMPENAMENTO\nPOLIMENTO",
       "Filial": "03.02 - COMERCIAL SAO PAULO",
@@ -50,11 +52,12 @@
       "Descricao": "N° DA NF: 487470; CLIENTE/FORNECEDOR: SAINT-GOBAIN DO BRASIL PRODUTOS INDUSTRIAIS E PARA CONSTRUCAO LTDA; N° DA NOTA FISCAL: 487470; FILIAL RESPONSÁVEL: 03.02 - COMERCIAL SAO PAULO; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 03/11/2026;"
     },
     {
-      "BP": "568",
+      "BP": "54292",
+      "Solicitacao": "54292",
       "Cliente": "PARKER HANNIFIN",
       "Razao_Social": "",
       "Nota_Fiscal": "541109",
-      "Quantidade": 30,
+      "Quantidade": 3,
       "Motivo_Recebimento": "",
       "Defeito": "NÃO CONSTA",
       "Filial": "03.05 - COMERCIAL CAXIAS",
@@ -73,11 +76,12 @@
       "Descricao": "N° DA NF: 541109; CLIENTE/FORNECEDOR: PARKER HANNIFIN; N° DA NOTA FISCAL: 541109; FILIAL RESPONSÁVEL: 03.05 - COMERCIAL CAXIAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 20/10/2026;"
     },
     {
-      "BP": "571",
+      "BP": "54300",
+      "Solicitacao": "54300",
       "Cliente": "SANGATI BERGA SA",
       "Razao_Social": "",
       "Nota_Fiscal": "34795",
-      "Quantidade": 30,
+      "Quantidade": 3,
       "Motivo_Recebimento": "",
       "Defeito": "NÃO CONSTA",
       "Filial": "03.01 - COMERCIAL BAURU",
@@ -96,11 +100,12 @@
       "Descricao": "N° DA NF: 34795; CLIENTE/FORNECEDOR: SANGATI BERGA SA; N° DA NOTA FISCAL: 34795; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 06/11/2026;"
     },
     {
-      "BP": "577",
+      "BP": "54461",
+      "Solicitacao": "54461",
       "Cliente": "MEDAL METALURGICA DALLA LANA LTDA",
       "Razao_Social": "",
       "Nota_Fiscal": "251787",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Verificar possível recuperação no fuso de esferas.",
       "Filial": "03.06 - COMERCIAL JOINVILLE",
@@ -119,11 +124,12 @@
       "Descricao": "N° DA NF: 251787; CLIENTE/FORNECEDOR: MEDAL METALURGICA DALLA LANA LTDA; N° DA NOTA FISCAL: 251787; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 28/10/2026;"
     },
     {
-      "BP": "578",
+      "BP": "54462",
+      "Solicitacao": "54462",
       "Cliente": "EMBRAER S.A.",
       "Razao_Social": "",
       "Nota_Fiscal": "678605",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "NÃO CONSTA",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
@@ -142,11 +148,12 @@
       "Descricao": "N° DA NF: 678605; CLIENTE/FORNECEDOR: EMBRAER S.A.; N° DA NOTA FISCAL: 678605; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 29/10/2026;"
     },
     {
-      "BP": "579",
+      "BP": "54463",
+      "Solicitacao": "54463",
       "Cliente": "EMBRAER S.A.",
       "Razao_Social": "",
       "Nota_Fiscal": "678606",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "NÃO CONSTA",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
@@ -165,11 +172,12 @@
       "Descricao": "N° DA NF: 678606; CLIENTE/FORNECEDOR: EMBRAER S.A.; N° DA NOTA FISCAL: 678606; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 29/10/2026;"
     },
     {
-      "BP": "585",
+      "BP": "54528",
+      "Solicitacao": "54528",
       "Cliente": "ZF AUTOMOTIVE BRASIL LTDA",
       "Razao_Social": "",
       "Nota_Fiscal": "204635",
-      "Quantidade": 30,
+      "Quantidade": 3,
       "Motivo_Recebimento": "",
       "Defeito": "Fusos para manutenção",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
@@ -188,11 +196,12 @@
       "Descricao": "N° DA NF: 204635; CLIENTE/FORNECEDOR: ZF AUTOMOTIVE BRASIL LTDA; N° DA NOTA FISCAL: 204635; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 28/10/2026;"
     },
     {
-      "BP": "587",
+      "BP": "54537",
+      "Solicitacao": "54537",
       "Cliente": "MEDAL METALURGICA DALLA LANA LTDA",
       "Razao_Social": "",
       "Nota_Fiscal": "251930",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "MANUTENÇÃO DE FUSOS",
       "Filial": "03.06 - COMERCIAL JOINVILLE",
@@ -211,11 +220,12 @@
       "Descricao": "N° DA NF: 251930; CLIENTE/FORNECEDOR: MEDAL METALURGICA DALLA LANA LTDA; N° DA NOTA FISCAL: 251930; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 03/11/2026;"
     },
     {
-      "BP": "588",
+      "BP": "54538",
+      "Solicitacao": "54538",
       "Cliente": "SEW-EURODRIVE BRASIL LTDA",
       "Razao_Social": "",
       "Nota_Fiscal": "622940",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Fuso para manutenção",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
@@ -234,11 +244,12 @@
       "Descricao": "N° DA NF: 622940; CLIENTE/FORNECEDOR: SEW-EURODRIVE BRASIL LTDA; N° DA NOTA FISCAL: 622940; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 29/10/2026;"
     },
     {
-      "BP": "590",
+      "BP": "54567",
+      "Solicitacao": "54567",
       "Cliente": "AEROPORTOS BRASIL - VIRACOPOS S/A",
       "Razao_Social": "",
       "Nota_Fiscal": "10725",
-      "Quantidade": 20,
+      "Quantidade": 2,
       "Motivo_Recebimento": "",
       "Defeito": "Fuso para manutenção.",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
@@ -257,11 +268,12 @@
       "Descricao": "N° DA NF: 10725; CLIENTE/FORNECEDOR: AEROPORTOS BRASIL - VIRACOPOS S/A; N° DA NOTA FISCAL: 10725; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 29/10/2026;"
     },
     {
-      "BP": "593",
+      "BP": "54680",
+      "Solicitacao": "54680",
       "Cliente": "NETZSCH DO BRASIL INDUSTRIA E COMERCIO LTDA",
       "Razao_Social": "",
       "Nota_Fiscal": "880265",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Verificar possível recuperação do fuso de esferas.",
       "Filial": "03.06 - COMERCIAL JOINVILLE",
@@ -280,11 +292,12 @@
       "Descricao": "N° DA NF: 880265; CLIENTE/FORNECEDOR: NETZSCH DO BRASIL INDUSTRIA E COMERCIO LTDA; N° DA NOTA FISCAL: 880265; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 04/11/2026;"
     },
     {
-      "BP": "595",
+      "BP": "54682",
+      "Solicitacao": "54682",
       "Cliente": "ROBERT BOSCH DIRECAO AUTOMOTIVA LTDA",
       "Razao_Social": "",
       "Nota_Fiscal": "673971",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Fuso para manutenção.",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
@@ -303,11 +316,12 @@
       "Descricao": "N° DA NF: 673971; CLIENTE/FORNECEDOR: ROBERT BOSCH DIRECAO AUTOMOTIVA LTDA; N° DA NOTA FISCAL: 673971; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 17/11/2026;"
     },
     {
-      "BP": "598",
+      "BP": "54686",
+      "Solicitacao": "54686",
       "Cliente": "CESAR HARUJI TANAKA",
       "Razao_Social": "",
       "Nota_Fiscal": "5869",
-      "Quantidade": 20,
+      "Quantidade": 2,
       "Motivo_Recebimento": "",
       "Defeito": "NÃO CONSTA",
       "Filial": "03.01 - COMERCIAL BAURU",
@@ -326,11 +340,12 @@
       "Descricao": "N° DA NF: 5869; CLIENTE/FORNECEDOR: CESAR HARUJI TANAKA; N° DA NOTA FISCAL: 5869; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 04/11/2026;"
     },
     {
-      "BP": "600",
+      "BP": "54767",
+      "Solicitacao": "54767",
       "Cliente": "INFRAMERICA CONCESSIONARIA DO AEROPORTO DE BRASILIA SA",
       "Razao_Social": "",
       "Nota_Fiscal": "160",
-      "Quantidade": 20,
+      "Quantidade": 2,
       "Motivo_Recebimento": "",
       "Defeito": "NÃO CONSTA",
       "Filial": "03.01 - COMERCIAL BAURU",
@@ -349,11 +364,12 @@
       "Descricao": "N° DA NF: 160; CLIENTE/FORNECEDOR: INFRAMERICA CONCESSIONARIA DO AEROPORTO DE BRASILIA SA; N° DA NOTA FISCAL: 160; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 19/11/2026;"
     },
     {
-      "BP": "601",
+      "BP": "54772",
+      "Solicitacao": "54772",
       "Cliente": "H.F. SISTEMAS DE FREIO LTDA",
       "Razao_Social": "",
       "Nota_Fiscal": "193974",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Verificar possivel recuperação do fuso de esferas.",
       "Filial": "03.06 - COMERCIAL JOINVILLE",
@@ -372,11 +388,12 @@
       "Descricao": "N° DA NF: 193974; CLIENTE/FORNECEDOR: H.F. SISTEMAS DE FREIO LTDA; N° DA NOTA FISCAL: 193974; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 17/11/2026;"
     },
     {
-      "BP": "603",
+      "BP": "54815",
+      "Solicitacao": "54815",
       "Cliente": "AAM DO BRASIL LTDA",
       "Razao_Social": "",
       "Nota_Fiscal": "230676",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Desgaste por tempo de uso",
       "Filial": "03.03 - COMERCIAL CURITIBA",
@@ -395,11 +412,12 @@
       "Descricao": "N° DA NF: 230676; CLIENTE/FORNECEDOR: AAM DO BRASIL LTDA; N° DA NOTA FISCAL: 230676; FILIAL RESPONSÁVEL: 03.03 - COMERCIAL CURITIBA; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 19/11/2026;"
     },
     {
-      "BP": "604",
+      "BP": "54847",
+      "Solicitacao": "54847",
       "Cliente": "MEDAL METALURGICA DALLA LANA LTDA",
       "Razao_Social": "",
       "Nota_Fiscal": "252512",
-      "Quantidade": 20,
+      "Quantidade": 2,
       "Motivo_Recebimento": "",
       "Defeito": "verificar possível recuperação dos fusos de esferas.",
       "Filial": "03.06 - COMERCIAL JOINVILLE",
@@ -418,11 +436,12 @@
       "Descricao": "N° DA NF: 252512; CLIENTE/FORNECEDOR: MEDAL METALURGICA DALLA LANA LTDA; N° DA NOTA FISCAL: 252512; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 11/11/2026;"
     },
     {
-      "BP": "606",
+      "BP": "54867",
+      "Solicitacao": "54867",
       "Cliente": "METALKRAFT SA SISTEMAS AUTOMOTIVOS",
       "Razao_Social": "",
       "Nota_Fiscal": "445975",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Enviado para ser feita análise de manutenção.",
       "Filial": "03.03 - COMERCIAL CURITIBA",
@@ -441,11 +460,12 @@
       "Descricao": "N° DA NF: 445975; CLIENTE/FORNECEDOR: METALKRAFT SA SISTEMAS AUTOMOTIVOS; N° DA NOTA FISCAL: 445975; FILIAL RESPONSÁVEL: 03.03 - COMERCIAL CURITIBA; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 16/11/2026;"
     },
     {
-      "BP": "608",
+      "BP": "54869",
+      "Solicitacao": "54869",
       "Cliente": "PEDERTRACTOR IND COM DE PECAS TRATORES E SERV SA",
       "Razao_Social": "",
       "Nota_Fiscal": "780314",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Manutenção Recorrente",
       "Filial": "03.01 - COMERCIAL BAURU",
@@ -464,11 +484,12 @@
       "Descricao": "N° DA NF: 780314; CLIENTE/FORNECEDOR: PEDERTRACTOR IND COM DE PECAS TRATORES E SERV SA; N° DA NOTA FISCAL: 780314; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 11/11/2026;"
     },
     {
-      "BP": "609",
+      "BP": "54878",
+      "Solicitacao": "54878",
       "Cliente": "PEDERTRACTOR IND COM DE PECAS TRATORES E SERV SA",
       "Razao_Social": "",
       "Nota_Fiscal": "780341",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Manutenção Recorrente",
       "Filial": "03.01 - COMERCIAL BAURU",
@@ -487,11 +508,12 @@
       "Descricao": "N° DA NF: 780341; CLIENTE/FORNECEDOR: PEDERTRACTOR IND COM DE PECAS TRATORES E SERV SA; N° DA NOTA FISCAL: 780341; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 11/11/2026;"
     },
     {
-      "BP": "610",
+      "BP": "54879",
+      "Solicitacao": "54879",
       "Cliente": "COOPERATIVA CENTRAL AURORA ALIMENTOS",
       "Razao_Social": "",
       "Nota_Fiscal": "181608",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Cliente enviou os fusos para avaliação de conserto e manutenção.",
       "Filial": "03.06 - COMERCIAL JOINVILLE",
@@ -510,11 +532,12 @@
       "Descricao": "N° DA NF: 181608; CLIENTE/FORNECEDOR: COOPERATIVA CENTRAL AURORA ALIMENTOS; N° DA NOTA FISCAL: 181608; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 13/11/2026;"
     },
     {
-      "BP": "612",
+      "BP": "54904",
+      "Solicitacao": "54904",
       "Cliente": "NETZSCH DO BRASIL INDUSTRIA E COMERCIO LTDA",
       "Razao_Social": "",
       "Nota_Fiscal": "881912",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "MANUTENÇÃO DE FUSOS",
       "Filial": "03.06 - COMERCIAL JOINVILLE",
@@ -533,11 +556,12 @@
       "Descricao": "N° DA NF: 881912; CLIENTE/FORNECEDOR: NETZSCH DO BRASIL INDUSTRIA E COMERCIO LTDA; N° DA NOTA FISCAL: 881912; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 13/11/2026;"
     },
     {
-      "BP": "615",
+      "BP": "54941",
+      "Solicitacao": "54941",
       "Cliente": "PARKER HANNIFIN",
       "Razao_Social": "",
       "Nota_Fiscal": "542706",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Cliente alegou que o fuso está apresentando travadas, avaliar se está apresentando problemas",
       "Filial": "03.05 - COMERCIAL CAXIAS",
@@ -556,11 +580,12 @@
       "Descricao": "N° DA NF: 542706; CLIENTE/FORNECEDOR: PARKER HANNIFIN; N° DA NOTA FISCAL: 542706; FILIAL RESPONSÁVEL: 03.05 - COMERCIAL CAXIAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 13/11/2026;"
     },
     {
-      "BP": "616",
+      "BP": "54942",
+      "Solicitacao": "54942",
       "Cliente": "VOLVO EQUIPAMENTOS DE CONSTRUCAO LATIN AMERICA LTDA.",
       "Razao_Social": "",
       "Nota_Fiscal": "2435",
-      "Quantidade": 20,
+      "Quantidade": 2,
       "Motivo_Recebimento": "",
       "Defeito": "Manutenção paliativa",
       "Filial": "03.01 - COMERCIAL BAURU",
@@ -579,11 +604,12 @@
       "Descricao": "N° DA NF: 2435; CLIENTE/FORNECEDOR: VOLVO EQUIPAMENTOS DE CONSTRUCAO LATIN AMERICA LTDA.; N° DA NOTA FISCAL: 2435; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 17/11/2026;"
     },
     {
-      "BP": "618",
+      "BP": "54950",
+      "Solicitacao": "54950",
       "Cliente": "MEDAL METALURGICA DALLA LANA LTDA",
       "Razao_Social": "",
       "Nota_Fiscal": "252886",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Manutenção",
       "Filial": "03.06 - COMERCIAL JOINVILLE",
@@ -602,11 +628,12 @@
       "Descricao": "N° DA NF: 252886; CLIENTE/FORNECEDOR: MEDAL METALURGICA DALLA LANA LTDA; N° DA NOTA FISCAL: 252886; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 16/11/2026;"
     },
     {
-      "BP": "619",
+      "BP": "54951",
+      "Solicitacao": "54951",
       "Cliente": "TRUKPRO COMPONENTES AUTOMOTIVOS LTDA",
       "Razao_Social": "",
       "Nota_Fiscal": "17259",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Manutenção paliativa",
       "Filial": "03.01 - COMERCIAL BAURU",
@@ -625,11 +652,12 @@
       "Descricao": "N° DA NF: 17259; CLIENTE/FORNECEDOR: TRUKPRO COMPONENTES AUTOMOTIVOS LTDA; N° DA NOTA FISCAL: 17259; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 18/11/2026;"
     },
     {
-      "BP": "622",
+      "BP": "54984",
+      "Solicitacao": "54984",
       "Cliente": "DEDINI S/A INDUSTRIAS DE BASE",
       "Razao_Social": "",
       "Nota_Fiscal": "15737",
-      "Quantidade": 40,
+      "Quantidade": 4,
       "Motivo_Recebimento": "",
       "Defeito": "Fuso para manutenção.",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
@@ -648,11 +676,12 @@
       "Descricao": "N° DA NF: 15737; CLIENTE/FORNECEDOR: DEDINI S/A INDUSTRIAS DE BASE; N° DA NOTA FISCAL: 15737; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 17/11/2026;"
     },
     {
-      "BP": "623",
+      "BP": "55014",
+      "Solicitacao": "55014",
       "Cliente": "AUTOCAM DO BRASIL USINAGEM LTDA",
       "Razao_Social": "",
       "Nota_Fiscal": "58896",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Fuso para manutenção",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
@@ -671,11 +700,12 @@
       "Descricao": "N° DA NF: 58896; CLIENTE/FORNECEDOR: AUTOCAM DO BRASIL USINAGEM LTDA; N° DA NOTA FISCAL: 58896; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 18/11/2026;"
     },
     {
-      "BP": "624",
+      "BP": "55040",
+      "Solicitacao": "55040",
       "Cliente": "VOLVO EQUIPAMENTOS DE CONSTRUCAO LATIN AMERICA LTDA.",
       "Razao_Social": "",
       "Nota_Fiscal": "2448",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Manutenção Paliativa",
       "Filial": "03.01 - COMERCIAL BAURU",
@@ -694,11 +724,12 @@
       "Descricao": "N° DA NF: 2448; CLIENTE/FORNECEDOR: VOLVO EQUIPAMENTOS DE CONSTRUCAO LATIN AMERICA LTDA.; N° DA NOTA FISCAL: 2448; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 17/11/2026;"
     },
     {
-      "BP": "626",
+      "BP": "55069",
+      "Solicitacao": "55069",
       "Cliente": "ALFAGOMMA DO BRASIL LTDA",
       "Razao_Social": "",
       "Nota_Fiscal": "248428",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Fuso enviado para análise de reparo.",
       "Filial": "03.07 - COMERCIAL BELO HORIZONTE",
@@ -717,11 +748,12 @@
       "Descricao": "N° DA NF: 248428; CLIENTE/FORNECEDOR: ALFAGOMMA DO BRASIL LTDA; N° DA NOTA FISCAL: 248428; FILIAL RESPONSÁVEL: 03.07 - COMERCIAL BELO HORIZONTE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 18/11/2026;"
     },
     {
-      "BP": "627",
+      "BP": "55116",
+      "Solicitacao": "55116",
       "Cliente": "PAINCO INDUSTRIA E COMERCIO SOCIEDADE ANONIMA",
       "Razao_Social": "",
       "Nota_Fiscal": "148545",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Fuso para manutenção",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
@@ -740,11 +772,12 @@
       "Descricao": "N° DA NF: 148545; CLIENTE/FORNECEDOR: PAINCO INDUSTRIA E COMERCIO SOCIEDADE ANONIMA; N° DA NOTA FISCAL: 148545; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 19/11/2026;"
     },
     {
-      "BP": "629",
+      "BP": "55119",
+      "Solicitacao": "55119",
       "Cliente": "PAINCO INDUSTRIA E COMERCIO SOCIEDADE ANONIMA",
       "Razao_Social": "",
       "Nota_Fiscal": "148549",
-      "Quantidade": 10,
+      "Quantidade": 1,
       "Motivo_Recebimento": "",
       "Defeito": "Fuso para manutenção",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
