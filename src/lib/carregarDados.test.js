@@ -90,3 +90,32 @@ test('normaliza quantidade para inteiro sem zeros decimais', async () => {
     globalThis.fetch = fetchOriginal;
   }
 });
+
+test('preserva assistente e histórico recebido da API', async () => {
+  const fetchOriginal = globalThis.fetch;
+  globalThis.fetch = async () => ({
+    ok: true,
+    json: async () => ({
+      registros: [{
+        BP: '54984',
+        Solicitacao: '54984',
+        Assistente: 'Vanessa Santos',
+        Etapa_Macro: 'FILA_CROQUI',
+        Historico: [{
+          Atividade: 'INFORMAÇÕES PARA RECEBIMENTO',
+          Executor: 'Vanessa Santos',
+        }],
+      }],
+    }),
+  });
+
+  try {
+    const [bp] = await carregarDados();
+    assert.equal(bp.solicitacao, '54984');
+    assert.equal(bp.assistente, 'Vanessa Santos');
+    assert.equal(bp.etapaMacro, 'FILA_CROQUI');
+    assert.equal(bp.historico[0].Executor, 'Vanessa Santos');
+  } finally {
+    globalThis.fetch = fetchOriginal;
+  }
+});

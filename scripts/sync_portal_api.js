@@ -204,6 +204,60 @@ function extractArrival(description) {
   return match ? match[1].trim() : ''
 }
 
+function normalizarTextoHistorico(value) {
+  return getText(value)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim()
+    .toUpperCase()
+}
+
+function lerHistorico(detail) {
+  const historico = detail.solicitacao?.historico
+  return Array.isArray(historico) ? historico : []
+}
+
+function encontrarAtividadeHistorico(historico, termo) {
+  const alvo = normalizarTextoHistorico(termo)
+  return historico.find((item) =>
+    normalizarTextoHistorico(
+      item.versao_processo_atividade_descricao ||
+      item.versao_processo_atividade_descricao ||
+      item.atividade
+    ).includes(alvo)
+  )
+}
+
+function atividadeConcluidaHistorico(historico, termo) {
+  const atividade = encontrarAtividadeHistorico(historico, termo)
+  return Boolean(atividade && (atividade.entrega || atividade.update_hora))
+}
+
+function mapearEtapaPorHistorico(historico, category) {
+  if (category === 'CONCLUIDAS') return 'CONCLUIDO'
+
+  const entradaNf = encontrarAtividadeHistorico(historico, 'ENTRADA DE NOTA FISCAL')
+  const entradaNfConcluida = Boolean(entradaNf && (entradaNf.entrega || entradaNf.update_hora))
+  if (!entradaNfConcluida) return 'PRE_BP'
+
+  const laudoDifuso = encontrarAtividadeHistorico(historico, 'LAUDO DE MANUTENÇÃO DE FUSOS')
+  const laudoFinal = encontrarAtividadeHistorico(historico, 'LAUDO MANUTENÇÃO-FINAL')
+  const laudoFinalAlternativo = encontrarAtividadeHistorico(historico, 'LAUDO DE MANUTENCAO-FINAL')
+  const laudoFinalHifen = encontrarAtividadeHistorico(historico, 'LAUDO DE MANUTENCAO - FINAL')
+  const laudoConcluido =
+    atividadeConcluidaHistorico(historico, 'LAUDO DE MANUTENÇÃO DE FUSOS') ||
+    atividadeConcluidaHistorico(historico, 'LAUDO MANUTENÇÃO-FINAL') ||
+    atividadeConcluidaHistorico(historico, 'LAUDO DE MANUTENCAO-FINAL') ||
+    atividadeConcluidaHistorico(historico, 'LAUDO DE MANUTENCAO - FINAL')
+
+  const croqui = encontrarAtividadeHistorico(historico, 'REALIZAÇÃO DE CROQUI')
+  const croquiConcluido = Boolean(croqui && (croqui.entrega || croqui.update_hora))
+  if (croquiConcluido) return 'FILA_DESENHO_FINAL'
+  if (laudoConcluido || laudoFinal || laudoFinalAlternativo || laudoFinalHifen || laudoDifuso) return 'FILA_CROQUI'
+
+  return 'AGUARDANDO_LAUDO'
+}
+
 async function detalharProcesso(row, token, category) {
   const id = getText(row.solicitacao_atividade_id)
   if (!id) throw new Error(`O BP ${numeroBP(row)} não possui identificador para consulta de detalhe.`)
@@ -221,6 +275,16 @@ async function detalharProcesso(row, token, category) {
   const prazo = formatarData(row.prazo_execucao)
   const bpSolicitacao = getText(detail.solicitacao_id)
   const bpNumero = bpSolicitacao ? bpSolicitacao.replace(/\D/g, '') : numeroBP(row)
+  const historico = lerHistorico(detail)
+  const recebimento = historico.find((item) =>
+    normalizarTextoHistorico(item.versao_processo_atividade_descricao).includes('INFORMACOES PARA RECEBIMENTO')
+  )
+  const assistente = getText(recebimento?.executor_nome || recebimento?.usuario_nome)
+  const laudoDifuso = encontrarAtividadeHistorico(historico, 'LAUDO DE MANUTENÇÃO DE FUSOS')
+  const laudoFinal = encontrarAtividadeHistorico(historico, 'LAUDO MANUTENÇÃO-FINAL') ||
+    encontrarAtividadeHistorico(historico, 'LAUDO DE MANUTENCAO-FINAL') ||
+    encontrarAtividadeHistorico(historico, 'LAUDO DE MANUTENCAO - FINAL')
+  const etapaMacro = mapearEtapaPorHistorico(historico, category)
 
   return {
     BP: bpNumero,
@@ -232,7 +296,7 @@ async function detalharProcesso(row, token, category) {
     Motivo_Recebimento: valorCampo(elementos, 'motivo_recebimento'),
     Defeito: valorCampo(elementos, 'descreva_o_defeito_'),
     Filial: valorCampo(elementos, 'grupo_comercial_resp'),
-    Assistente: '',
+    Assistente: assistente,
     Vendedor: valorCampo(elementos, 'vendedor'),
     Chegada: extractArrival(descricao),
     Prazo: prazo,
@@ -245,6 +309,17 @@ async function detalharProcesso(row, token, category) {
     Categoria_Solicitacao: category,
     Atividade: getText(row.atividade_descricao),
     Descricao: descricao,
+    Etapa_Macro: etapaMacro,
+    Laudo_Manutencao_Difuso: laudoDifuso?.entrega || laudoDifuso?.update_hora || '',
+    Laudo_Manutencao_Final: laudoFinal?.entrega || laudoFinal?.update_hora || '',
+    Historico: historico.map((item) => ({
+      Atividade: getText(item.versao_processo_atividade_descricao),
+      Usuario: getText(item.usuario_nome),
+      Executor: getText(item.executor_nome),
+      Inicio: formatarData(item.data),
+      Entrega: formatarData(item.entrega),
+      Concluido: Boolean(item.entrega || item.update_hora),
+    })),
   }
 }
 
@@ -326,7 +401,8 @@ async function main() {
       const previous = cachedByBp[bp]
       let record
       if (needsDetailRefresh(previous, listType.category, fingerprint) ||
-          !previous?.record?.Solicitacao) {
+          !previous?.record?.Solicitacao ||
+          !Object.prototype.hasOwnProperty.call(previous?.record || {}, 'Historico')) {
         record = await detalharProcesso(row, token, listType.category)
         detailedCount += 1
       } else {

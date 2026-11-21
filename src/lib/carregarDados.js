@@ -13,6 +13,7 @@ function mapearRegistro(reg, idx) {
 
   return {
     bp: bpNum,
+    solicitacao: reg.Solicitacao || bpNum,
     cliente: reg.Cliente || '',
     razao: reg.Razao_Social || '',
     nf: reg.Nota_Fiscal || '',
@@ -45,6 +46,7 @@ function mapearRegistro(reg, idx) {
     responsavel: reg.Responsavel || '',
     categoriaSolicitacao: reg.Categoria_Solicitacao || '',
     atividade: reg.Atividade || '',
+    historico: Array.isArray(reg.Historico) ? reg.Historico : [],
     descricao: reg.Descricao || '',
     diametro: reg.Diametro_Primitivo || '',
     passo: reg.Passo || '',

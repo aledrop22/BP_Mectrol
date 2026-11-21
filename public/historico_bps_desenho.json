@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "atualizadoEm": "2026-11-21T21:16:25.662Z",
+  "atualizadoEm": "2026-11-21T21:42:52.643Z",
   "total": 33,
   "registros": [
     {
@@ -13,7 +13,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Não informado",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
-      "Assistente": "",
+      "Assistente": "Vanessa Santos",
       "Vendedor": "IGOR LELAL",
       "Chegada": "18/09/2026",
       "Prazo": "21/09/2026 10:36",
@@ -25,7 +25,76 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "PENDENCIAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 1416969; CLIENTE/FORNECEDOR: COMPANHIA BRASILEIRA DE ALUMINIO; N° DA NOTA FISCAL: 1416969; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 18/09/2026;"
+      "Descricao": "N° DA NF: 1416969; CLIENTE/FORNECEDOR: COMPANHIA BRASILEIRA DE ALUMINIO; N° DA NOTA FISCAL: 1416969; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 18/09/2026;",
+      "Etapa_Macro": "FILA_CROQUI",
+      "Laudo_Manutencao_Difuso": "2026-11-05 13:12:35",
+      "Laudo_Manutencao_Final": "2026-11-05 13:19:31",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "04/09/2026 09:30",
+          "Entrega": "04/09/2026 09:30",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Vanessa Santos",
+          "Inicio": "04/09/2026 09:30",
+          "Entrega": "08/09/2026 14:10",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Vanessa Santos",
+          "Executor": "Estoque",
+          "Inicio": "08/09/2026 14:10",
+          "Entrega": "18/09/2026 10:35",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "18/09/2026 10:35",
+          "Entrega": "21/09/2026 14:41",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "18/09/2026 10:36",
+          "Entrega": "05/11/2026 13:12",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "18/09/2026 10:36",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "21/09/2026 14:41",
+          "Entrega": "21/09/2026 14:45",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "05/11/2026 13:12",
+          "Entrega": "05/11/2026 13:19",
+          "Concluido": true
+        }
+      ]
     },
     {
       "BP": "54015",
@@ -37,7 +106,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "FUSO ENVIADO PARA ANALISE DE REPARO\n\nPRE CARGA\nFOLGA\nANALISE EMPENAMENTO\nPOLIMENTO",
       "Filial": "03.02 - COMERCIAL SAO PAULO",
-      "Assistente": "",
+      "Assistente": "Ingryd Heloisa Geraldo da Silva",
       "Vendedor": "VICTOR AUGUSTO SILVA",
       "Chegada": "03/11/2026",
       "Prazo": "03/11/2026 17:00",
@@ -49,7 +118,84 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 487470; CLIENTE/FORNECEDOR: SAINT-GOBAIN DO BRASIL PRODUTOS INDUSTRIAIS E PARA CONSTRUCAO LTDA; N° DA NOTA FISCAL: 487470; FILIAL RESPONSÁVEL: 03.02 - COMERCIAL SAO PAULO; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 03/11/2026;"
+      "Descricao": "N° DA NF: 487470; CLIENTE/FORNECEDOR: SAINT-GOBAIN DO BRASIL PRODUTOS INDUSTRIAIS E PARA CONSTRUCAO LTDA; N° DA NOTA FISCAL: 487470; FILIAL RESPONSÁVEL: 03.02 - COMERCIAL SAO PAULO; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 03/11/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-11-06 15:49:23",
+      "Laudo_Manutencao_Final": "2026-11-06 15:54:19",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "06/10/2026 11:30",
+          "Entrega": "06/10/2026 11:30",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Ingryd Heloisa Geraldo da Silva",
+          "Inicio": "06/10/2026 11:30",
+          "Entrega": "06/10/2026 13:26",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Ingryd Heloisa Geraldo da Silva",
+          "Executor": "Estoque",
+          "Inicio": "06/10/2026 13:26",
+          "Entrega": "03/11/2026 07:17",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "03/11/2026 07:17",
+          "Entrega": "05/11/2026 08:10",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "03/11/2026 07:17",
+          "Entrega": "06/11/2026 15:49",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "03/11/2026 07:17",
+          "Entrega": "10/11/2026 11:39",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "05/11/2026 08:10",
+          "Entrega": "05/11/2026 09:27",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "06/11/2026 15:49",
+          "Entrega": "06/11/2026 15:54",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "",
+          "Inicio": "10/11/2026 11:39",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "54292",
@@ -61,7 +207,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "NÃO CONSTA",
       "Filial": "03.05 - COMERCIAL CAXIAS",
-      "Assistente": "",
+      "Assistente": "Valdeci Antônio Cardoso Junior",
       "Vendedor": "EDUARDO DEL RIO",
       "Chegada": "20/10/2026",
       "Prazo": "21/10/2026 11:00",
@@ -73,7 +219,84 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 541109; CLIENTE/FORNECEDOR: PARKER HANNIFIN; N° DA NOTA FISCAL: 541109; FILIAL RESPONSÁVEL: 03.05 - COMERCIAL CAXIAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 20/10/2026;"
+      "Descricao": "N° DA NF: 541109; CLIENTE/FORNECEDOR: PARKER HANNIFIN; N° DA NOTA FISCAL: 541109; FILIAL RESPONSÁVEL: 03.05 - COMERCIAL CAXIAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 20/10/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-10-21 15:52:19",
+      "Laudo_Manutencao_Final": "2026-10-21 16:10:17",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "20/10/2026 09:20",
+          "Entrega": "20/10/2026 09:20",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Valdeci Antônio Cardoso Junior",
+          "Inicio": "20/10/2026 09:20",
+          "Entrega": "20/10/2026 11:54",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Valdeci Antônio Cardoso Junior",
+          "Executor": "Estoque",
+          "Inicio": "20/10/2026 11:54",
+          "Entrega": "20/10/2026 12:06",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "20/10/2026 12:06",
+          "Entrega": "21/10/2026 08:59",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "20/10/2026 12:06",
+          "Entrega": "21/10/2026 15:52",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "20/10/2026 12:06",
+          "Entrega": "11/11/2026 14:13",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "21/10/2026 08:59",
+          "Entrega": "21/10/2026 09:33",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "21/10/2026 15:52",
+          "Entrega": "21/10/2026 16:10",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "",
+          "Inicio": "11/11/2026 14:13",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "54300",
@@ -85,7 +308,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "NÃO CONSTA",
       "Filial": "03.01 - COMERCIAL BAURU",
-      "Assistente": "",
+      "Assistente": "Valdeci Antônio Cardoso Junior",
       "Vendedor": "LUCAS NOGUEIRA",
       "Chegada": "06/11/2026",
       "Prazo": "09/11/2026 11:42",
@@ -97,7 +320,92 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 34795; CLIENTE/FORNECEDOR: SANGATI BERGA SA; N° DA NOTA FISCAL: 34795; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 06/11/2026;"
+      "Descricao": "N° DA NF: 34795; CLIENTE/FORNECEDOR: SANGATI BERGA SA; N° DA NOTA FISCAL: 34795; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 06/11/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-11-09 16:35:01",
+      "Laudo_Manutencao_Final": "2026-11-09 16:52:04",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "20/10/2026 10:20",
+          "Entrega": "20/10/2026 10:20",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Valdeci Antônio Cardoso Junior",
+          "Inicio": "20/10/2026 10:20",
+          "Entrega": "20/10/2026 13:18",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Valdeci Antônio Cardoso Junior",
+          "Executor": "Estoque",
+          "Inicio": "20/10/2026 13:18",
+          "Entrega": "06/11/2026 11:42",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "06/11/2026 11:42",
+          "Entrega": "09/11/2026 17:55",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "06/11/2026 11:42",
+          "Entrega": "09/11/2026 16:35",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "06/11/2026 11:42",
+          "Entrega": "12/11/2026 11:30",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "09/11/2026 16:35",
+          "Entrega": "09/11/2026 16:52",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "09/11/2026 17:55",
+          "Entrega": "10/11/2026 10:36",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "",
+          "Inicio": "12/11/2026 11:30",
+          "Entrega": "",
+          "Concluido": true
+        },
+        {
+          "Atividade": "",
+          "Usuario": "Pamela Alves",
+          "Executor": "",
+          "Inicio": "17/11/2026 14:54",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "54461",
@@ -109,7 +417,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Verificar possível recuperação no fuso de esferas.",
       "Filial": "03.06 - COMERCIAL JOINVILLE",
-      "Assistente": "",
+      "Assistente": "Carlos Anderson de Freitas Maia",
       "Vendedor": "Carlos Maia",
       "Chegada": "28/10/2026",
       "Prazo": "29/10/2026 11:48",
@@ -121,7 +429,116 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 251787; CLIENTE/FORNECEDOR: MEDAL METALURGICA DALLA LANA LTDA; N° DA NOTA FISCAL: 251787; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 28/10/2026;"
+      "Descricao": "N° DA NF: 251787; CLIENTE/FORNECEDOR: MEDAL METALURGICA DALLA LANA LTDA; N° DA NOTA FISCAL: 251787; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 28/10/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-10-28 16:12:22",
+      "Laudo_Manutencao_Final": "2026-10-28 16:19:29",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "26/10/2026 16:10",
+          "Entrega": "26/10/2026 16:10",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Carlos Anderson de Freitas Maia",
+          "Inicio": "26/10/2026 16:10",
+          "Entrega": "26/10/2026 16:28",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Carlos Anderson de Freitas Maia",
+          "Executor": "Estoque",
+          "Inicio": "26/10/2026 16:28",
+          "Entrega": "28/10/2026 13:48",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "28/10/2026 13:48",
+          "Entrega": "29/10/2026 16:15",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "28/10/2026 13:48",
+          "Entrega": "28/10/2026 16:12",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "28/10/2026 13:48",
+          "Entrega": "16/11/2026 13:39",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "28/10/2026 16:12",
+          "Entrega": "28/10/2026 16:19",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "29/10/2026 16:15",
+          "Entrega": "29/10/2026 16:18",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "Alan Cardeck",
+          "Inicio": "16/11/2026 13:39",
+          "Entrega": "16/11/2026 14:38",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAR MANUTENÇÃO",
+          "Usuario": "Alan Cardeck",
+          "Executor": "Manutenção",
+          "Inicio": "16/11/2026 14:38",
+          "Entrega": "18/11/2026 10:18",
+          "Concluido": true
+        },
+        {
+          "Atividade": "CONFECCIONAR DESENHO - ETAPA 01",
+          "Usuario": "Manutenção",
+          "Executor": "João Pedro Pavani Custódio",
+          "Inicio": "18/11/2026 10:18",
+          "Entrega": "18/11/2026 11:06",
+          "Concluido": true
+        },
+        {
+          "Atividade": "FATURAR",
+          "Usuario": "Manutenção",
+          "Executor": "",
+          "Inicio": "18/11/2026 10:18",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "CONFECCIONAR DESENHO - ETAPA 02",
+          "Usuario": "João Pedro Pavani Custódio",
+          "Executor": "João Pedro Pavani Custódio",
+          "Inicio": "18/11/2026 11:06",
+          "Entrega": "18/11/2026 11:06",
+          "Concluido": true
+        }
+      ]
     },
     {
       "BP": "54462",
@@ -133,7 +550,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "NÃO CONSTA",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
-      "Assistente": "",
+      "Assistente": "Valdeci Antônio Cardoso Junior",
       "Vendedor": "LUCAS NOGUEIRA",
       "Chegada": "29/10/2026",
       "Prazo": "30/10/2026 09:44",
@@ -145,7 +562,92 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 678605; CLIENTE/FORNECEDOR: EMBRAER S.A.; N° DA NOTA FISCAL: 678605; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 29/10/2026;"
+      "Descricao": "N° DA NF: 678605; CLIENTE/FORNECEDOR: EMBRAER S.A.; N° DA NOTA FISCAL: 678605; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 29/10/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-10-29 16:30:57",
+      "Laudo_Manutencao_Final": "2026-10-29 16:46:29",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "26/10/2026 16:15",
+          "Entrega": "26/10/2026 16:15",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Valdeci Antônio Cardoso Junior",
+          "Inicio": "26/10/2026 16:15",
+          "Entrega": "27/10/2026 08:30",
+          "Concluido": true
+        },
+        {
+          "Atividade": "",
+          "Usuario": "Vanessa Santos",
+          "Executor": "",
+          "Inicio": "26/10/2026 17:30",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Valdeci Antônio Cardoso Junior",
+          "Executor": "Estoque",
+          "Inicio": "27/10/2026 08:30",
+          "Entrega": "29/10/2026 10:44",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "29/10/2026 10:44",
+          "Entrega": "29/10/2026 13:53",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "29/10/2026 10:44",
+          "Entrega": "29/10/2026 16:30",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "29/10/2026 10:44",
+          "Entrega": "12/11/2026 16:09",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Aparecida Teixeira",
+          "Inicio": "29/10/2026 13:53",
+          "Entrega": "30/10/2026 10:49",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "29/10/2026 16:30",
+          "Entrega": "29/10/2026 16:46",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "",
+          "Inicio": "12/11/2026 16:09",
+          "Entrega": "",
+          "Concluido": true
+        }
+      ]
     },
     {
       "BP": "54463",
@@ -157,7 +659,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "NÃO CONSTA",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
-      "Assistente": "",
+      "Assistente": "Valdeci Antônio Cardoso Junior",
       "Vendedor": "LUCAS NOGUEIRA",
       "Chegada": "29/10/2026",
       "Prazo": "30/10/2026 09:32",
@@ -169,7 +671,92 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 678606; CLIENTE/FORNECEDOR: EMBRAER S.A.; N° DA NOTA FISCAL: 678606; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 29/10/2026;"
+      "Descricao": "N° DA NF: 678606; CLIENTE/FORNECEDOR: EMBRAER S.A.; N° DA NOTA FISCAL: 678606; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 29/10/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-10-30 09:14:39",
+      "Laudo_Manutencao_Final": "2026-10-30 09:19:22",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "26/10/2026 16:15",
+          "Entrega": "26/10/2026 16:15",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Valdeci Antônio Cardoso Junior",
+          "Inicio": "26/10/2026 16:15",
+          "Entrega": "27/10/2026 08:29",
+          "Concluido": true
+        },
+        {
+          "Atividade": "",
+          "Usuario": "Vanessa Santos",
+          "Executor": "",
+          "Inicio": "26/10/2026 17:30",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Valdeci Antônio Cardoso Junior",
+          "Executor": "Estoque",
+          "Inicio": "27/10/2026 08:29",
+          "Entrega": "29/10/2026 10:32",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "29/10/2026 10:32",
+          "Entrega": "29/10/2026 13:56",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "29/10/2026 10:32",
+          "Entrega": "30/10/2026 09:14",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "29/10/2026 10:32",
+          "Entrega": "12/11/2026 15:25",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Aparecida Teixeira",
+          "Inicio": "29/10/2026 13:56",
+          "Entrega": "30/10/2026 11:01",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "30/10/2026 09:14",
+          "Entrega": "30/10/2026 09:19",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "",
+          "Inicio": "12/11/2026 15:25",
+          "Entrega": "",
+          "Concluido": true
+        }
+      ]
     },
     {
       "BP": "54528",
@@ -181,7 +768,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Fusos para manutenção",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
-      "Assistente": "",
+      "Assistente": "Vanessa Santos",
       "Vendedor": "LUCAS NOGUEIRA",
       "Chegada": "28/10/2026",
       "Prazo": "29/10/2026 14:22",
@@ -193,7 +780,84 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 204635; CLIENTE/FORNECEDOR: ZF AUTOMOTIVE BRASIL LTDA; N° DA NOTA FISCAL: 204635; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 28/10/2026;"
+      "Descricao": "N° DA NF: 204635; CLIENTE/FORNECEDOR: ZF AUTOMOTIVE BRASIL LTDA; N° DA NOTA FISCAL: 204635; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 28/10/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-10-29 11:55:02",
+      "Laudo_Manutencao_Final": "2026-10-29 13:23:36",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "28/10/2026 12:35",
+          "Entrega": "28/10/2026 12:35",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Vanessa Santos",
+          "Inicio": "28/10/2026 12:35",
+          "Entrega": "28/10/2026 15:14",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Vanessa Santos",
+          "Executor": "Estoque",
+          "Inicio": "28/10/2026 15:14",
+          "Entrega": "28/10/2026 15:22",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "28/10/2026 15:22",
+          "Entrega": "05/11/2026 14:00",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "28/10/2026 15:22",
+          "Entrega": "29/10/2026 11:55",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "28/10/2026 15:22",
+          "Entrega": "17/11/2026 14:01",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "29/10/2026 11:55",
+          "Entrega": "29/10/2026 13:23",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "05/11/2026 14:00",
+          "Entrega": "05/11/2026 14:03",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "",
+          "Inicio": "17/11/2026 14:01",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "54537",
@@ -205,7 +869,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "MANUTENÇÃO DE FUSOS",
       "Filial": "03.06 - COMERCIAL JOINVILLE",
-      "Assistente": "",
+      "Assistente": "Alan Cardeck",
       "Vendedor": "CARLOS MAIA",
       "Chegada": "03/11/2026",
       "Prazo": "03/11/2026 17:00",
@@ -217,7 +881,116 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 251930; CLIENTE/FORNECEDOR: MEDAL METALURGICA DALLA LANA LTDA; N° DA NOTA FISCAL: 251930; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 03/11/2026;"
+      "Descricao": "N° DA NF: 251930; CLIENTE/FORNECEDOR: MEDAL METALURGICA DALLA LANA LTDA; N° DA NOTA FISCAL: 251930; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 03/11/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-11-04 13:15:01",
+      "Laudo_Manutencao_Final": "2026-11-04 13:26:30",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "28/10/2026 14:10",
+          "Entrega": "28/10/2026 14:10",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Alan Cardeck",
+          "Inicio": "28/10/2026 14:10",
+          "Entrega": "30/10/2026 08:28",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Alan Cardeck",
+          "Executor": "Estoque",
+          "Inicio": "30/10/2026 08:28",
+          "Entrega": "03/11/2026 07:43",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "03/11/2026 07:43",
+          "Entrega": "05/11/2026 09:20",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "03/11/2026 07:43",
+          "Entrega": "04/11/2026 13:15",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "03/11/2026 07:43",
+          "Entrega": "12/11/2026 11:46",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "04/11/2026 13:15",
+          "Entrega": "04/11/2026 13:26",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "05/11/2026 09:20",
+          "Entrega": "05/11/2026 09:51",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "Alan Cardeck",
+          "Inicio": "12/11/2026 11:46",
+          "Entrega": "16/11/2026 14:35",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAR MANUTENÇÃO",
+          "Usuario": "Alan Cardeck",
+          "Executor": "Manutenção",
+          "Inicio": "16/11/2026 14:35",
+          "Entrega": "17/11/2026 16:43",
+          "Concluido": true
+        },
+        {
+          "Atividade": "CONFECCIONAR DESENHO - ETAPA 01",
+          "Usuario": "Manutenção",
+          "Executor": "João Pedro Pavani Custódio",
+          "Inicio": "17/11/2026 16:43",
+          "Entrega": "17/11/2026 17:45",
+          "Concluido": true
+        },
+        {
+          "Atividade": "FATURAR",
+          "Usuario": "Manutenção",
+          "Executor": "",
+          "Inicio": "17/11/2026 16:43",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "CONFECCIONAR DESENHO - ETAPA 02",
+          "Usuario": "João Pedro Pavani Custódio",
+          "Executor": "João Pedro Pavani Custódio",
+          "Inicio": "17/11/2026 17:45",
+          "Entrega": "17/11/2026 17:45",
+          "Concluido": true
+        }
+      ]
     },
     {
       "BP": "54538",
@@ -229,7 +1002,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Fuso para manutenção",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
-      "Assistente": "",
+      "Assistente": "Vanessa Santos",
       "Vendedor": "IGOR LEAL",
       "Chegada": "29/10/2026",
       "Prazo": "30/10/2026 10:05",
@@ -241,7 +1014,84 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 622940; CLIENTE/FORNECEDOR: SEW-EURODRIVE BRASIL LTDA; N° DA NOTA FISCAL: 622940; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 29/10/2026;"
+      "Descricao": "N° DA NF: 622940; CLIENTE/FORNECEDOR: SEW-EURODRIVE BRASIL LTDA; N° DA NOTA FISCAL: 622940; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 29/10/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-10-30 10:52:51",
+      "Laudo_Manutencao_Final": "2026-10-30 10:58:11",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "28/10/2026 14:10",
+          "Entrega": "28/10/2026 14:10",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Vanessa Santos",
+          "Inicio": "28/10/2026 14:10",
+          "Entrega": "28/10/2026 14:23",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Vanessa Santos",
+          "Executor": "Estoque",
+          "Inicio": "28/10/2026 14:23",
+          "Entrega": "29/10/2026 11:05",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "29/10/2026 11:05",
+          "Entrega": "29/10/2026 13:58",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "29/10/2026 11:05",
+          "Entrega": "30/10/2026 10:52",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "29/10/2026 11:05",
+          "Entrega": "12/11/2026 15:50",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Aparecida Teixeira",
+          "Inicio": "29/10/2026 13:58",
+          "Entrega": "30/10/2026 11:10",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "30/10/2026 10:52",
+          "Entrega": "30/10/2026 10:58",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "",
+          "Inicio": "12/11/2026 15:50",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "54567",
@@ -253,7 +1103,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Fuso para manutenção.",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
-      "Assistente": "",
+      "Assistente": "Vanessa Santos",
       "Vendedor": "LUCAS NOGUEIRA",
       "Chegada": "29/10/2026",
       "Prazo": "30/10/2026 15:31",
@@ -265,7 +1115,84 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 10725; CLIENTE/FORNECEDOR: AEROPORTOS BRASIL - VIRACOPOS S/A; N° DA NOTA FISCAL: 10725; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 29/10/2026;"
+      "Descricao": "N° DA NF: 10725; CLIENTE/FORNECEDOR: AEROPORTOS BRASIL - VIRACOPOS S/A; N° DA NOTA FISCAL: 10725; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 29/10/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-11-03 17:04:05",
+      "Laudo_Manutencao_Final": "2026-11-03 17:17:15",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "29/10/2026 09:35",
+          "Entrega": "29/10/2026 09:35",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Vanessa Santos",
+          "Inicio": "29/10/2026 09:35",
+          "Entrega": "29/10/2026 09:40",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Vanessa Santos",
+          "Executor": "Estoque",
+          "Inicio": "29/10/2026 09:40",
+          "Entrega": "29/10/2026 16:31",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "29/10/2026 16:31",
+          "Entrega": "05/11/2026 15:17",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "29/10/2026 16:31",
+          "Entrega": "03/11/2026 17:04",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "29/10/2026 16:31",
+          "Entrega": "10/11/2026 11:32",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "03/11/2026 17:04",
+          "Entrega": "03/11/2026 17:17",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "05/11/2026 15:17",
+          "Entrega": "05/11/2026 15:17",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "",
+          "Inicio": "10/11/2026 11:32",
+          "Entrega": "",
+          "Concluido": true
+        }
+      ]
     },
     {
       "BP": "54680",
@@ -277,7 +1204,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Verificar possível recuperação do fuso de esferas.",
       "Filial": "03.06 - COMERCIAL JOINVILLE",
-      "Assistente": "",
+      "Assistente": "Carlos Anderson de Freitas Maia",
       "Vendedor": "Carlos Maia",
       "Chegada": "04/11/2026",
       "Prazo": "05/11/2026 10:14",
@@ -289,7 +1216,156 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 880265; CLIENTE/FORNECEDOR: NETZSCH DO BRASIL INDUSTRIA E COMERCIO LTDA; N° DA NOTA FISCAL: 880265; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 04/11/2026;"
+      "Descricao": "N° DA NF: 880265; CLIENTE/FORNECEDOR: NETZSCH DO BRASIL INDUSTRIA E COMERCIO LTDA; N° DA NOTA FISCAL: 880265; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 04/11/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-11-04 14:53:26",
+      "Laudo_Manutencao_Final": "2026-11-04 14:58:47",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "03/11/2026 15:40",
+          "Entrega": "03/11/2026 15:40",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Carlos Anderson de Freitas Maia",
+          "Inicio": "03/11/2026 15:40",
+          "Entrega": "03/11/2026 16:40",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Carlos Anderson de Freitas Maia",
+          "Executor": "Estoque",
+          "Inicio": "03/11/2026 16:40",
+          "Entrega": "04/11/2026 11:13",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "04/11/2026 11:13",
+          "Entrega": "05/11/2026 10:33",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "04/11/2026 11:14",
+          "Entrega": "04/11/2026 14:53",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "04/11/2026 11:14",
+          "Entrega": "13/11/2026 16:48",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "04/11/2026 14:53",
+          "Entrega": "04/11/2026 14:58",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "05/11/2026 10:33",
+          "Entrega": "05/11/2026 10:37",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "João Pedro Pavani Custódio",
+          "Executor": "",
+          "Inicio": "13/11/2026 10:21",
+          "Entrega": "",
+          "Concluido": true
+        },
+        {
+          "Atividade": "",
+          "Usuario": "Hugo Yamasita Domingues",
+          "Executor": "",
+          "Inicio": "13/11/2026 10:45",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "",
+          "Usuario": "Hugo Yamasita Domingues",
+          "Executor": "",
+          "Inicio": "13/11/2026 10:45",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "",
+          "Usuario": "Hugo Yamasita Domingues",
+          "Executor": "",
+          "Inicio": "13/11/2026 10:45",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "",
+          "Usuario": "Hugo Yamasita Domingues",
+          "Executor": "",
+          "Inicio": "13/11/2026 10:45",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "Alan Cardeck",
+          "Inicio": "13/11/2026 16:48",
+          "Entrega": "13/11/2026 17:02",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAR MANUTENÇÃO",
+          "Usuario": "Alan Cardeck",
+          "Executor": "Manutenção",
+          "Inicio": "13/11/2026 17:02",
+          "Entrega": "16/11/2026 09:28",
+          "Concluido": true
+        },
+        {
+          "Atividade": "CONFECCIONAR DESENHO - ETAPA 01",
+          "Usuario": "Manutenção",
+          "Executor": "Willian Sabino",
+          "Inicio": "16/11/2026 09:28",
+          "Entrega": "16/11/2026 13:45",
+          "Concluido": true
+        },
+        {
+          "Atividade": "FATURAR",
+          "Usuario": "Manutenção",
+          "Executor": "",
+          "Inicio": "16/11/2026 09:28",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "CONFECCIONAR DESENHO - ETAPA 02",
+          "Usuario": "Willian Sabino",
+          "Executor": "Willian Sabino",
+          "Inicio": "16/11/2026 13:45",
+          "Entrega": "16/11/2026 13:49",
+          "Concluido": true
+        }
+      ]
     },
     {
       "BP": "54682",
@@ -301,7 +1377,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Fuso para manutenção.",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
-      "Assistente": "",
+      "Assistente": "Vanessa Santos",
       "Vendedor": "IGOR LEAL",
       "Chegada": "17/11/2026",
       "Prazo": "18/11/2026 14:10",
@@ -313,7 +1389,84 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 673971; CLIENTE/FORNECEDOR: ROBERT BOSCH DIRECAO AUTOMOTIVA LTDA; N° DA NOTA FISCAL: 673971; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 17/11/2026;"
+      "Descricao": "N° DA NF: 673971; CLIENTE/FORNECEDOR: ROBERT BOSCH DIRECAO AUTOMOTIVA LTDA; N° DA NOTA FISCAL: 673971; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 17/11/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-11-18 10:10:16",
+      "Laudo_Manutencao_Final": "2026-11-18 10:15:02",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "03/11/2026 15:40",
+          "Entrega": "03/11/2026 15:40",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Vanessa Santos",
+          "Inicio": "03/11/2026 15:40",
+          "Entrega": "12/11/2026 09:29",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Vanessa Santos",
+          "Executor": "Estoque",
+          "Inicio": "12/11/2026 09:29",
+          "Entrega": "17/11/2026 15:10",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "17/11/2026 15:10",
+          "Entrega": "18/11/2026 16:05",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "17/11/2026 15:10",
+          "Entrega": "18/11/2026 10:10",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "17/11/2026 15:10",
+          "Entrega": "18/11/2026 17:11",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "18/11/2026 10:10",
+          "Entrega": "18/11/2026 10:15",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "18/11/2026 16:05",
+          "Entrega": "19/11/2026 08:36",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "",
+          "Inicio": "18/11/2026 17:11",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "54686",
@@ -325,7 +1478,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "NÃO CONSTA",
       "Filial": "03.01 - COMERCIAL BAURU",
-      "Assistente": "",
+      "Assistente": "Valdeci Antônio Cardoso Junior",
       "Vendedor": "LUCAS NOGUEIRA",
       "Chegada": "04/11/2026",
       "Prazo": "05/11/2026 16:20",
@@ -337,7 +1490,116 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 5869; CLIENTE/FORNECEDOR: CESAR HARUJI TANAKA; N° DA NOTA FISCAL: 5869; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 04/11/2026;"
+      "Descricao": "N° DA NF: 5869; CLIENTE/FORNECEDOR: CESAR HARUJI TANAKA; N° DA NOTA FISCAL: 5869; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 04/11/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-11-06 11:40:45",
+      "Laudo_Manutencao_Final": "2026-11-06 11:54:35",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "03/11/2026 15:45",
+          "Entrega": "03/11/2026 15:45",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Valdeci Antônio Cardoso Junior",
+          "Inicio": "03/11/2026 15:45",
+          "Entrega": "03/11/2026 15:51",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Valdeci Antônio Cardoso Junior",
+          "Executor": "Estoque",
+          "Inicio": "03/11/2026 15:51",
+          "Entrega": "04/11/2026 17:20",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "04/11/2026 17:20",
+          "Entrega": "05/11/2026 11:09",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "04/11/2026 17:20",
+          "Entrega": "06/11/2026 11:40",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "04/11/2026 17:20",
+          "Entrega": "11/11/2026 17:02",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "05/11/2026 11:09",
+          "Entrega": "05/11/2026 11:11",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "06/11/2026 11:40",
+          "Entrega": "06/11/2026 11:54",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "Pamela Alves",
+          "Inicio": "11/11/2026 17:02",
+          "Entrega": "12/11/2026 14:36",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAR MANUTENÇÃO",
+          "Usuario": "Pamela Alves",
+          "Executor": "Manutenção",
+          "Inicio": "12/11/2026 14:36",
+          "Entrega": "12/11/2026 16:48",
+          "Concluido": true
+        },
+        {
+          "Atividade": "CONFECCIONAR DESENHO - ETAPA 01",
+          "Usuario": "Manutenção",
+          "Executor": "Willian Sabino",
+          "Inicio": "12/11/2026 16:48",
+          "Entrega": "16/11/2026 13:45",
+          "Concluido": true
+        },
+        {
+          "Atividade": "FATURAR",
+          "Usuario": "Manutenção",
+          "Executor": "",
+          "Inicio": "12/11/2026 16:48",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "CONFECCIONAR DESENHO - ETAPA 02",
+          "Usuario": "Willian Sabino",
+          "Executor": "Willian Sabino",
+          "Inicio": "16/11/2026 13:45",
+          "Entrega": "16/11/2026 13:49",
+          "Concluido": true
+        }
+      ]
     },
     {
       "BP": "54767",
@@ -349,7 +1611,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "NÃO CONSTA",
       "Filial": "03.01 - COMERCIAL BAURU",
-      "Assistente": "",
+      "Assistente": "Valdeci Antônio Cardoso Junior",
       "Vendedor": "LUCAS NOGUEIRA",
       "Chegada": "19/11/2026",
       "Prazo": "20/11/2026 14:04",
@@ -361,7 +1623,60 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "PENDENCIAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 160; CLIENTE/FORNECEDOR: INFRAMERICA CONCESSIONARIA DO AEROPORTO DE BRASILIA SA; N° DA NOTA FISCAL: 160; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 19/11/2026;"
+      "Descricao": "N° DA NF: 160; CLIENTE/FORNECEDOR: INFRAMERICA CONCESSIONARIA DO AEROPORTO DE BRASILIA SA; N° DA NOTA FISCAL: 160; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 19/11/2026;",
+      "Etapa_Macro": "PRE_BP",
+      "Laudo_Manutencao_Difuso": "",
+      "Laudo_Manutencao_Final": "",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "05/11/2026 17:05",
+          "Entrega": "05/11/2026 17:05",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Valdeci Antônio Cardoso Junior",
+          "Inicio": "05/11/2026 17:05",
+          "Entrega": "06/11/2026 08:06",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Valdeci Antônio Cardoso Junior",
+          "Executor": "Estoque",
+          "Inicio": "06/11/2026 08:06",
+          "Entrega": "19/11/2026 15:04",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "19/11/2026 15:04",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "19/11/2026 15:04",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "19/11/2026 15:04",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "54772",
@@ -373,7 +1688,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Verificar possivel recuperação do fuso de esferas.",
       "Filial": "03.06 - COMERCIAL JOINVILLE",
-      "Assistente": "",
+      "Assistente": "Carlos Anderson de Freitas Maia",
       "Vendedor": "Carlos Maia",
       "Chegada": "17/11/2026",
       "Prazo": "18/11/2026 15:19",
@@ -385,7 +1700,76 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 193974; CLIENTE/FORNECEDOR: H.F. SISTEMAS DE FREIO LTDA; N° DA NOTA FISCAL: 193974; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 17/11/2026;"
+      "Descricao": "N° DA NF: 193974; CLIENTE/FORNECEDOR: H.F. SISTEMAS DE FREIO LTDA; N° DA NOTA FISCAL: 193974; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 17/11/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "",
+      "Laudo_Manutencao_Final": "",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "05/11/2026 17:30",
+          "Entrega": "05/11/2026 17:30",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Carlos Anderson de Freitas Maia",
+          "Inicio": "05/11/2026 17:30",
+          "Entrega": "05/11/2026 17:39",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Carlos Anderson de Freitas Maia",
+          "Executor": "Estoque",
+          "Inicio": "05/11/2026 17:39",
+          "Entrega": "17/11/2026 16:19",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "17/11/2026 16:19",
+          "Entrega": "18/11/2026 16:08",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "17/11/2026 16:19",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "17/11/2026 16:19",
+          "Entrega": "19/11/2026 13:58",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "18/11/2026 16:08",
+          "Entrega": "19/11/2026 09:09",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "",
+          "Inicio": "19/11/2026 13:58",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "54815",
@@ -397,7 +1781,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Desgaste por tempo de uso",
       "Filial": "03.03 - COMERCIAL CURITIBA",
-      "Assistente": "",
+      "Assistente": "Lucas Messias",
       "Vendedor": "Messias",
       "Chegada": "19/11/2026",
       "Prazo": "20/11/2026 13:50",
@@ -409,7 +1793,68 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 230676; CLIENTE/FORNECEDOR: AAM DO BRASIL LTDA; N° DA NOTA FISCAL: 230676; FILIAL RESPONSÁVEL: 03.03 - COMERCIAL CURITIBA; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 19/11/2026;"
+      "Descricao": "N° DA NF: 230676; CLIENTE/FORNECEDOR: AAM DO BRASIL LTDA; N° DA NOTA FISCAL: 230676; FILIAL RESPONSÁVEL: 03.03 - COMERCIAL CURITIBA; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 19/11/2026;",
+      "Etapa_Macro": "PRE_BP",
+      "Laudo_Manutencao_Difuso": "",
+      "Laudo_Manutencao_Final": "",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "09/11/2026 10:50",
+          "Entrega": "09/11/2026 10:50",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Lucas Messias",
+          "Inicio": "09/11/2026 10:50",
+          "Entrega": "19/11/2026 14:47",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Lucas Messias",
+          "Executor": "Estoque",
+          "Inicio": "19/11/2026 14:47",
+          "Entrega": "19/11/2026 14:50",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "19/11/2026 14:50",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "19/11/2026 14:50",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "19/11/2026 14:50",
+          "Entrega": "19/11/2026 17:09",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "",
+          "Inicio": "19/11/2026 17:09",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "54847",
@@ -421,7 +1866,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "verificar possível recuperação dos fusos de esferas.",
       "Filial": "03.06 - COMERCIAL JOINVILLE",
-      "Assistente": "",
+      "Assistente": "Carlos Anderson de Freitas Maia",
       "Vendedor": "Carlos Maia",
       "Chegada": "11/11/2026",
       "Prazo": "12/11/2026 14:09",
@@ -433,7 +1878,116 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 252512; CLIENTE/FORNECEDOR: MEDAL METALURGICA DALLA LANA LTDA; N° DA NOTA FISCAL: 252512; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 11/11/2026;"
+      "Descricao": "N° DA NF: 252512; CLIENTE/FORNECEDOR: MEDAL METALURGICA DALLA LANA LTDA; N° DA NOTA FISCAL: 252512; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 11/11/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-11-12 14:07:00",
+      "Laudo_Manutencao_Final": "2026-11-12 14:19:14",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "10/11/2026 10:55",
+          "Entrega": "10/11/2026 10:55",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Carlos Anderson de Freitas Maia",
+          "Inicio": "10/11/2026 10:55",
+          "Entrega": "11/11/2026 09:04",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Carlos Anderson de Freitas Maia",
+          "Executor": "Estoque",
+          "Inicio": "11/11/2026 09:04",
+          "Entrega": "11/11/2026 15:09",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "11/11/2026 15:09",
+          "Entrega": "11/11/2026 17:59",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "11/11/2026 15:09",
+          "Entrega": "12/11/2026 14:07",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "11/11/2026 15:09",
+          "Entrega": "13/11/2026 14:18",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "11/11/2026 17:59",
+          "Entrega": "12/11/2026 17:39",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "12/11/2026 14:07",
+          "Entrega": "12/11/2026 14:19",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "Alan Cardeck",
+          "Inicio": "13/11/2026 14:18",
+          "Entrega": "16/11/2026 14:33",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAR MANUTENÇÃO",
+          "Usuario": "Alan Cardeck",
+          "Executor": "Manutenção",
+          "Inicio": "16/11/2026 14:33",
+          "Entrega": "17/11/2026 16:46",
+          "Concluido": true
+        },
+        {
+          "Atividade": "CONFECCIONAR DESENHO - ETAPA 01",
+          "Usuario": "Manutenção",
+          "Executor": "João Pedro Pavani Custódio",
+          "Inicio": "17/11/2026 16:46",
+          "Entrega": "17/11/2026 17:45",
+          "Concluido": true
+        },
+        {
+          "Atividade": "FATURAR",
+          "Usuario": "Manutenção",
+          "Executor": "",
+          "Inicio": "17/11/2026 16:46",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "CONFECCIONAR DESENHO - ETAPA 02",
+          "Usuario": "João Pedro Pavani Custódio",
+          "Executor": "João Pedro Pavani Custódio",
+          "Inicio": "17/11/2026 17:45",
+          "Entrega": "17/11/2026 17:46",
+          "Concluido": true
+        }
+      ]
     },
     {
       "BP": "54867",
@@ -445,7 +1999,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Enviado para ser feita análise de manutenção.",
       "Filial": "03.03 - COMERCIAL CURITIBA",
-      "Assistente": "",
+      "Assistente": "Gabriela Pereira",
       "Vendedor": "LUCAS MESSIAS PINTOR",
       "Chegada": "16/11/2026",
       "Prazo": "17/11/2026 08:55",
@@ -457,7 +2011,84 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 445975; CLIENTE/FORNECEDOR: METALKRAFT SA SISTEMAS AUTOMOTIVOS; N° DA NOTA FISCAL: 445975; FILIAL RESPONSÁVEL: 03.03 - COMERCIAL CURITIBA; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 16/11/2026;"
+      "Descricao": "N° DA NF: 445975; CLIENTE/FORNECEDOR: METALKRAFT SA SISTEMAS AUTOMOTIVOS; N° DA NOTA FISCAL: 445975; FILIAL RESPONSÁVEL: 03.03 - COMERCIAL CURITIBA; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 16/11/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-11-17 17:18:57",
+      "Laudo_Manutencao_Final": "2026-11-17 17:24:49",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "10/11/2026 17:25",
+          "Entrega": "10/11/2026 17:25",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Gabriela Pereira",
+          "Inicio": "10/11/2026 17:25",
+          "Entrega": "16/11/2026 09:25",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Gabriela Pereira",
+          "Executor": "Estoque",
+          "Inicio": "16/11/2026 09:25",
+          "Entrega": "16/11/2026 09:55",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "16/11/2026 09:55",
+          "Entrega": "17/11/2026 09:04",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "16/11/2026 09:55",
+          "Entrega": "17/11/2026 17:18",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "16/11/2026 09:55",
+          "Entrega": "17/11/2026 08:36",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "17/11/2026 09:04",
+          "Entrega": "17/11/2026 09:07",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "17/11/2026 17:18",
+          "Entrega": "17/11/2026 17:24",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Manutenção",
+          "Executor": "",
+          "Inicio": "17/11/2026 17:24",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "54869",
@@ -469,7 +2100,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Manutenção Recorrente",
       "Filial": "03.01 - COMERCIAL BAURU",
-      "Assistente": "",
+      "Assistente": "Pamela Alves",
       "Vendedor": "Lucas A. Nogueira",
       "Chegada": "11/11/2026",
       "Prazo": "12/11/2026 14:23",
@@ -481,7 +2112,108 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 780314; CLIENTE/FORNECEDOR: PEDERTRACTOR IND COM DE PECAS TRATORES E SERV SA; N° DA NOTA FISCAL: 780314; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 11/11/2026;"
+      "Descricao": "N° DA NF: 780314; CLIENTE/FORNECEDOR: PEDERTRACTOR IND COM DE PECAS TRATORES E SERV SA; N° DA NOTA FISCAL: 780314; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 11/11/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-11-12 16:02:02",
+      "Laudo_Manutencao_Final": "2026-11-12 16:15:27",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "10/11/2026 17:30",
+          "Entrega": "10/11/2026 17:30",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Pamela Alves",
+          "Inicio": "10/11/2026 17:30",
+          "Entrega": "11/11/2026 10:41",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Pamela Alves",
+          "Executor": "Estoque",
+          "Inicio": "11/11/2026 10:41",
+          "Entrega": "11/11/2026 15:23",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "11/11/2026 15:23",
+          "Entrega": "11/11/2026 18:00",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "11/11/2026 15:23",
+          "Entrega": "12/11/2026 16:02",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "11/11/2026 15:23",
+          "Entrega": "13/11/2026 12:44",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "11/11/2026 18:00",
+          "Entrega": "12/11/2026 17:41",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "12/11/2026 16:02",
+          "Entrega": "12/11/2026 16:15",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "Pamela Alves",
+          "Inicio": "13/11/2026 12:44",
+          "Entrega": "17/11/2026 10:19",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAR MANUTENÇÃO",
+          "Usuario": "Pamela Alves",
+          "Executor": "Manutenção",
+          "Inicio": "17/11/2026 10:19",
+          "Entrega": "18/11/2026 14:30",
+          "Concluido": true
+        },
+        {
+          "Atividade": "CONFECCIONAR DESENHO - ETAPA 01",
+          "Usuario": "Manutenção",
+          "Executor": "",
+          "Inicio": "18/11/2026 14:30",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "FATURAR",
+          "Usuario": "Manutenção",
+          "Executor": "",
+          "Inicio": "18/11/2026 14:30",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "54878",
@@ -493,7 +2225,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Manutenção Recorrente",
       "Filial": "03.01 - COMERCIAL BAURU",
-      "Assistente": "",
+      "Assistente": "Pamela Alves",
       "Vendedor": "Lucas A. Nogueira",
       "Chegada": "11/11/2026",
       "Prazo": "12/11/2026 14:22",
@@ -505,7 +2237,108 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 780341; CLIENTE/FORNECEDOR: PEDERTRACTOR IND COM DE PECAS TRATORES E SERV SA; N° DA NOTA FISCAL: 780341; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 11/11/2026;"
+      "Descricao": "N° DA NF: 780341; CLIENTE/FORNECEDOR: PEDERTRACTOR IND COM DE PECAS TRATORES E SERV SA; N° DA NOTA FISCAL: 780341; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 11/11/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-11-12 16:36:21",
+      "Laudo_Manutencao_Final": "2026-11-12 16:44:51",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "11/11/2026 09:35",
+          "Entrega": "11/11/2026 09:35",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Pamela Alves",
+          "Inicio": "11/11/2026 09:35",
+          "Entrega": "11/11/2026 10:44",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Pamela Alves",
+          "Executor": "Estoque",
+          "Inicio": "11/11/2026 10:44",
+          "Entrega": "11/11/2026 15:22",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "11/11/2026 15:22",
+          "Entrega": "11/11/2026 18:01",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "11/11/2026 15:22",
+          "Entrega": "12/11/2026 16:36",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "11/11/2026 15:22",
+          "Entrega": "13/11/2026 13:16",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "11/11/2026 18:01",
+          "Entrega": "12/11/2026 17:46",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "12/11/2026 16:36",
+          "Entrega": "12/11/2026 16:44",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "Pamela Alves",
+          "Inicio": "13/11/2026 13:16",
+          "Entrega": "17/11/2026 10:06",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAR MANUTENÇÃO",
+          "Usuario": "Pamela Alves",
+          "Executor": "Manutenção",
+          "Inicio": "17/11/2026 10:06",
+          "Entrega": "18/11/2026 14:32",
+          "Concluido": true
+        },
+        {
+          "Atividade": "CONFECCIONAR DESENHO - ETAPA 01",
+          "Usuario": "Manutenção",
+          "Executor": "",
+          "Inicio": "18/11/2026 14:32",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "FATURAR",
+          "Usuario": "Manutenção",
+          "Executor": "",
+          "Inicio": "18/11/2026 14:32",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "54879",
@@ -517,7 +2350,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Cliente enviou os fusos para avaliação de conserto e manutenção.",
       "Filial": "03.06 - COMERCIAL JOINVILLE",
-      "Assistente": "",
+      "Assistente": "Gabriela Pereira",
       "Vendedor": "GABRIEL LOPES",
       "Chegada": "13/11/2026",
       "Prazo": "16/11/2026 10:14",
@@ -529,7 +2362,92 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 181608; CLIENTE/FORNECEDOR: COOPERATIVA CENTRAL AURORA ALIMENTOS; N° DA NOTA FISCAL: 181608; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 13/11/2026;"
+      "Descricao": "N° DA NF: 181608; CLIENTE/FORNECEDOR: COOPERATIVA CENTRAL AURORA ALIMENTOS; N° DA NOTA FISCAL: 181608; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 13/11/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-11-17 14:02:36",
+      "Laudo_Manutencao_Final": "2026-11-17 14:08:20",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "11/11/2026 09:35",
+          "Entrega": "11/11/2026 09:35",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Gabriela Pereira",
+          "Inicio": "11/11/2026 09:35",
+          "Entrega": "11/11/2026 13:50",
+          "Concluido": true
+        },
+        {
+          "Atividade": "",
+          "Usuario": "Amanda Maule",
+          "Executor": "",
+          "Inicio": "11/11/2026 09:45",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Gabriela Pereira",
+          "Executor": "Estoque",
+          "Inicio": "11/11/2026 13:50",
+          "Entrega": "13/11/2026 10:14",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "13/11/2026 10:14",
+          "Entrega": "13/11/2026 16:24",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "13/11/2026 10:14",
+          "Entrega": "17/11/2026 14:02",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "13/11/2026 10:14",
+          "Entrega": "16/11/2026 08:47",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "13/11/2026 16:24",
+          "Entrega": "13/11/2026 16:47",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "17/11/2026 14:02",
+          "Entrega": "17/11/2026 14:08",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Manutenção",
+          "Executor": "",
+          "Inicio": "17/11/2026 14:08",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "54904",
@@ -541,7 +2459,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "MANUTENÇÃO DE FUSOS",
       "Filial": "03.06 - COMERCIAL JOINVILLE",
-      "Assistente": "",
+      "Assistente": "Alan Cardeck",
       "Vendedor": "Carlos Maia",
       "Chegada": "13/11/2026",
       "Prazo": "16/11/2026 09:53",
@@ -553,7 +2471,108 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 881912; CLIENTE/FORNECEDOR: NETZSCH DO BRASIL INDUSTRIA E COMERCIO LTDA; N° DA NOTA FISCAL: 881912; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 13/11/2026;"
+      "Descricao": "N° DA NF: 881912; CLIENTE/FORNECEDOR: NETZSCH DO BRASIL INDUSTRIA E COMERCIO LTDA; N° DA NOTA FISCAL: 881912; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 13/11/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-11-17 13:11:25",
+      "Laudo_Manutencao_Final": "2026-11-17 13:16:00",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "11/11/2026 17:20",
+          "Entrega": "11/11/2026 17:20",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Alan Cardeck",
+          "Inicio": "11/11/2026 17:20",
+          "Entrega": "12/11/2026 11:27",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Alan Cardeck",
+          "Executor": "Estoque",
+          "Inicio": "12/11/2026 11:27",
+          "Entrega": "13/11/2026 09:53",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "13/11/2026 09:53",
+          "Entrega": "13/11/2026 15:28",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "13/11/2026 09:53",
+          "Entrega": "17/11/2026 13:11",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "13/11/2026 09:53",
+          "Entrega": "16/11/2026 10:06",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "13/11/2026 15:28",
+          "Entrega": "13/11/2026 15:31",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "17/11/2026 13:11",
+          "Entrega": "17/11/2026 13:16",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Manutenção",
+          "Executor": "Alan Cardeck",
+          "Inicio": "17/11/2026 13:16",
+          "Entrega": "18/11/2026 14:32",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAR MANUTENÇÃO",
+          "Usuario": "Alan Cardeck",
+          "Executor": "Manutenção",
+          "Inicio": "18/11/2026 14:32",
+          "Entrega": "19/11/2026 16:49",
+          "Concluido": true
+        },
+        {
+          "Atividade": "CONFECCIONAR DESENHO - ETAPA 01",
+          "Usuario": "Manutenção",
+          "Executor": "",
+          "Inicio": "19/11/2026 16:49",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "FATURAR",
+          "Usuario": "Manutenção",
+          "Executor": "",
+          "Inicio": "19/11/2026 16:49",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "54941",
@@ -565,7 +2584,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Cliente alegou que o fuso está apresentando travadas, avaliar se está apresentando problemas",
       "Filial": "03.05 - COMERCIAL CAXIAS",
-      "Assistente": "",
+      "Assistente": "Gabriel Martins",
       "Vendedor": "Eduardo Del Rio",
       "Chegada": "13/11/2026",
       "Prazo": "16/11/2026 15:49",
@@ -577,7 +2596,84 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 542706; CLIENTE/FORNECEDOR: PARKER HANNIFIN; N° DA NOTA FISCAL: 542706; FILIAL RESPONSÁVEL: 03.05 - COMERCIAL CAXIAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 13/11/2026;"
+      "Descricao": "N° DA NF: 542706; CLIENTE/FORNECEDOR: PARKER HANNIFIN; N° DA NOTA FISCAL: 542706; FILIAL RESPONSÁVEL: 03.05 - COMERCIAL CAXIAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 13/11/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-11-13 16:38:36",
+      "Laudo_Manutencao_Final": "2026-11-13 16:44:01",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "12/11/2026 21:39",
+          "Entrega": "12/11/2026 21:39",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Gabriel Martins",
+          "Inicio": "12/11/2026 21:39",
+          "Entrega": "13/11/2026 15:28",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Gabriel Martins",
+          "Executor": "Estoque",
+          "Inicio": "13/11/2026 15:28",
+          "Entrega": "13/11/2026 15:49",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "13/11/2026 15:49",
+          "Entrega": "13/11/2026 16:51",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "13/11/2026 15:49",
+          "Entrega": "13/11/2026 16:38",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "13/11/2026 15:49",
+          "Entrega": "17/11/2026 08:18",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "13/11/2026 16:38",
+          "Entrega": "13/11/2026 16:44",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "13/11/2026 16:51",
+          "Entrega": "13/11/2026 16:52",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "",
+          "Inicio": "17/11/2026 08:18",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "54942",
@@ -589,7 +2685,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Manutenção paliativa",
       "Filial": "03.01 - COMERCIAL BAURU",
-      "Assistente": "",
+      "Assistente": "Pamela Alves",
       "Vendedor": "Lucas A. Nogueira",
       "Chegada": "17/11/2026",
       "Prazo": "18/11/2026 14:44",
@@ -601,7 +2697,68 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "PENDENCIAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 2435; CLIENTE/FORNECEDOR: VOLVO EQUIPAMENTOS DE CONSTRUCAO LATIN AMERICA LTDA.; N° DA NOTA FISCAL: 2435; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 17/11/2026;"
+      "Descricao": "N° DA NF: 2435; CLIENTE/FORNECEDOR: VOLVO EQUIPAMENTOS DE CONSTRUCAO LATIN AMERICA LTDA.; N° DA NOTA FISCAL: 2435; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 17/11/2026;",
+      "Etapa_Macro": "FILA_CROQUI",
+      "Laudo_Manutencao_Difuso": "",
+      "Laudo_Manutencao_Final": "",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "12/11/2026 21:39",
+          "Entrega": "12/11/2026 21:39",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Pamela Alves",
+          "Inicio": "12/11/2026 21:39",
+          "Entrega": "13/11/2026 15:35",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Pamela Alves",
+          "Executor": "Estoque",
+          "Inicio": "13/11/2026 15:35",
+          "Entrega": "17/11/2026 15:44",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "17/11/2026 15:44",
+          "Entrega": "18/11/2026 16:06",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "17/11/2026 15:44",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "17/11/2026 15:44",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "18/11/2026 16:06",
+          "Entrega": "19/11/2026 08:39",
+          "Concluido": true
+        }
+      ]
     },
     {
       "BP": "54950",
@@ -613,7 +2770,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Manutenção",
       "Filial": "03.06 - COMERCIAL JOINVILLE",
-      "Assistente": "",
+      "Assistente": "Alan Cardeck",
       "Vendedor": "Carlos Maia",
       "Chegada": "16/11/2026",
       "Prazo": "17/11/2026 13:54",
@@ -625,7 +2782,92 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 252886; CLIENTE/FORNECEDOR: MEDAL METALURGICA DALLA LANA LTDA; N° DA NOTA FISCAL: 252886; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 16/11/2026;"
+      "Descricao": "N° DA NF: 252886; CLIENTE/FORNECEDOR: MEDAL METALURGICA DALLA LANA LTDA; N° DA NOTA FISCAL: 252886; FILIAL RESPONSÁVEL: 03.06 - COMERCIAL JOINVILLE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 16/11/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "2026-11-18 08:39:51",
+      "Laudo_Manutencao_Final": "2026-11-18 08:47:01",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Hugo Yamasita Domingues",
+          "Executor": "Hugo Yamasita Domingues",
+          "Inicio": "13/11/2026 10:59",
+          "Entrega": "13/11/2026 10:59",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Hugo Yamasita Domingues",
+          "Executor": "Alan Cardeck",
+          "Inicio": "13/11/2026 10:59",
+          "Entrega": "13/11/2026 16:56",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Alan Cardeck",
+          "Executor": "Estoque",
+          "Inicio": "13/11/2026 16:56",
+          "Entrega": "16/11/2026 14:54",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "16/11/2026 14:54",
+          "Entrega": "17/11/2026 09:08",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "16/11/2026 14:54",
+          "Entrega": "18/11/2026 08:39",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "16/11/2026 14:54",
+          "Entrega": "18/11/2026 08:50",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "17/11/2026 09:08",
+          "Entrega": "17/11/2026 09:11",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "18/11/2026 08:39",
+          "Entrega": "18/11/2026 08:47",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "Alan Cardeck",
+          "Inicio": "18/11/2026 08:50",
+          "Entrega": "18/11/2026 16:02",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAR MANUTENÇÃO",
+          "Usuario": "Alan Cardeck",
+          "Executor": "",
+          "Inicio": "18/11/2026 16:02",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "54951",
@@ -637,7 +2879,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Manutenção paliativa",
       "Filial": "03.01 - COMERCIAL BAURU",
-      "Assistente": "",
+      "Assistente": "Pamela Alves",
       "Vendedor": "Lucas A. Nogueira",
       "Chegada": "18/11/2026",
       "Prazo": "19/11/2026 13:56",
@@ -649,7 +2891,76 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "PENDENCIAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 17259; CLIENTE/FORNECEDOR: TRUKPRO COMPONENTES AUTOMOTIVOS LTDA; N° DA NOTA FISCAL: 17259; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 18/11/2026;"
+      "Descricao": "N° DA NF: 17259; CLIENTE/FORNECEDOR: TRUKPRO COMPONENTES AUTOMOTIVOS LTDA; N° DA NOTA FISCAL: 17259; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 18/11/2026;",
+      "Etapa_Macro": "FILA_CROQUI",
+      "Laudo_Manutencao_Difuso": "",
+      "Laudo_Manutencao_Final": "",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Hugo Yamasita Domingues",
+          "Executor": "Hugo Yamasita Domingues",
+          "Inicio": "13/11/2026 10:59",
+          "Entrega": "13/11/2026 10:59",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Hugo Yamasita Domingues",
+          "Executor": "Pamela Alves",
+          "Inicio": "13/11/2026 10:59",
+          "Entrega": "17/11/2026 15:16",
+          "Concluido": true
+        },
+        {
+          "Atividade": "",
+          "Usuario": "Pamela Alves",
+          "Executor": "",
+          "Inicio": "17/11/2026 14:41",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Pamela Alves",
+          "Executor": "Estoque",
+          "Inicio": "17/11/2026 15:16",
+          "Entrega": "18/11/2026 14:56",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "18/11/2026 14:56",
+          "Entrega": "18/11/2026 16:10",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "18/11/2026 14:56",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "18/11/2026 14:56",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "18/11/2026 16:10",
+          "Entrega": "19/11/2026 09:18",
+          "Concluido": true
+        }
+      ]
     },
     {
       "BP": "54984",
@@ -661,7 +2972,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Fuso para manutenção.",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
-      "Assistente": "",
+      "Assistente": "Vanessa Santos",
       "Vendedor": "IGOR / FERNANDO",
       "Chegada": "17/11/2026",
       "Prazo": "18/11/2026 13:19",
@@ -673,7 +2984,76 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "PENDENCIAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 15737; CLIENTE/FORNECEDOR: DEDINI S/A INDUSTRIAS DE BASE; N° DA NOTA FISCAL: 15737; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 17/11/2026;"
+      "Descricao": "N° DA NF: 15737; CLIENTE/FORNECEDOR: DEDINI S/A INDUSTRIAS DE BASE; N° DA NOTA FISCAL: 15737; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 17/11/2026;",
+      "Etapa_Macro": "FILA_CROQUI",
+      "Laudo_Manutencao_Difuso": "2026-11-18 09:46:41",
+      "Laudo_Manutencao_Final": "2026-11-18 09:53:37",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "16/11/2026 10:26",
+          "Entrega": "16/11/2026 10:26",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Vanessa Santos",
+          "Inicio": "16/11/2026 10:26",
+          "Entrega": "16/11/2026 15:04",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Vanessa Santos",
+          "Executor": "Estoque",
+          "Inicio": "16/11/2026 15:04",
+          "Entrega": "17/11/2026 14:19",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "17/11/2026 14:19",
+          "Entrega": "18/11/2026 16:04",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "17/11/2026 14:19",
+          "Entrega": "18/11/2026 09:46",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "17/11/2026 14:19",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "18/11/2026 09:46",
+          "Entrega": "18/11/2026 09:53",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "18/11/2026 16:04",
+          "Entrega": "19/11/2026 08:07",
+          "Concluido": true
+        }
+      ]
     },
     {
       "BP": "55014",
@@ -685,7 +3065,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Fuso para manutenção",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
-      "Assistente": "",
+      "Assistente": "Vanessa Santos",
       "Vendedor": "IGOR LEAL",
       "Chegada": "18/11/2026",
       "Prazo": "19/11/2026 13:49",
@@ -697,7 +3077,76 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 58896; CLIENTE/FORNECEDOR: AUTOCAM DO BRASIL USINAGEM LTDA; N° DA NOTA FISCAL: 58896; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 18/11/2026;"
+      "Descricao": "N° DA NF: 58896; CLIENTE/FORNECEDOR: AUTOCAM DO BRASIL USINAGEM LTDA; N° DA NOTA FISCAL: 58896; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 18/11/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "",
+      "Laudo_Manutencao_Final": "",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "16/11/2026 16:20",
+          "Entrega": "16/11/2026 16:20",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Vanessa Santos",
+          "Inicio": "16/11/2026 16:20",
+          "Entrega": "17/11/2026 14:49",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Vanessa Santos",
+          "Executor": "Estoque",
+          "Inicio": "17/11/2026 14:49",
+          "Entrega": "18/11/2026 14:49",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "18/11/2026 14:49",
+          "Entrega": "18/11/2026 16:09",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "18/11/2026 14:49",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "18/11/2026 14:49",
+          "Entrega": "19/11/2026 14:54",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "18/11/2026 16:09",
+          "Entrega": "19/11/2026 09:16",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "",
+          "Inicio": "19/11/2026 14:54",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "55040",
@@ -709,7 +3158,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Manutenção Paliativa",
       "Filial": "03.01 - COMERCIAL BAURU",
-      "Assistente": "",
+      "Assistente": "Pamela Alves",
       "Vendedor": "Lucas A. Nogueira",
       "Chegada": "17/11/2026",
       "Prazo": "18/11/2026 14:45",
@@ -721,7 +3170,76 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "PENDENCIAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 2448; CLIENTE/FORNECEDOR: VOLVO EQUIPAMENTOS DE CONSTRUCAO LATIN AMERICA LTDA.; N° DA NOTA FISCAL: 2448; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 17/11/2026;"
+      "Descricao": "N° DA NF: 2448; CLIENTE/FORNECEDOR: VOLVO EQUIPAMENTOS DE CONSTRUCAO LATIN AMERICA LTDA.; N° DA NOTA FISCAL: 2448; FILIAL RESPONSÁVEL: 03.01 - COMERCIAL BAURU; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 17/11/2026;",
+      "Etapa_Macro": "FILA_CROQUI",
+      "Laudo_Manutencao_Difuso": "2026-11-18 13:53:07",
+      "Laudo_Manutencao_Final": "2026-11-18 14:01:44",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "17/11/2026 11:00",
+          "Entrega": "17/11/2026 11:00",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Pamela Alves",
+          "Inicio": "17/11/2026 11:00",
+          "Entrega": "17/11/2026 14:44",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Pamela Alves",
+          "Executor": "Estoque",
+          "Inicio": "17/11/2026 14:44",
+          "Entrega": "17/11/2026 15:45",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "17/11/2026 15:45",
+          "Entrega": "18/11/2026 16:07",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "Manutenção",
+          "Inicio": "17/11/2026 15:45",
+          "Entrega": "18/11/2026 13:53",
+          "Concluido": true
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "17/11/2026 15:45",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO - FINAL",
+          "Usuario": "Manutenção",
+          "Executor": "Manutenção",
+          "Inicio": "18/11/2026 13:53",
+          "Entrega": "18/11/2026 14:01",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "18/11/2026 16:07",
+          "Entrega": "19/11/2026 08:43",
+          "Concluido": true
+        }
+      ]
     },
     {
       "BP": "55069",
@@ -733,7 +3251,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Fuso enviado para análise de reparo.",
       "Filial": "03.07 - COMERCIAL BELO HORIZONTE",
-      "Assistente": "",
+      "Assistente": "Mariana Mara",
       "Vendedor": "IGOR AMARAL",
       "Chegada": "18/11/2026",
       "Prazo": "19/11/2026 14:48",
@@ -745,7 +3263,76 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "ATIVIDADES_EXECUTADAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 248428; CLIENTE/FORNECEDOR: ALFAGOMMA DO BRASIL LTDA; N° DA NOTA FISCAL: 248428; FILIAL RESPONSÁVEL: 03.07 - COMERCIAL BELO HORIZONTE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 18/11/2026;"
+      "Descricao": "N° DA NF: 248428; CLIENTE/FORNECEDOR: ALFAGOMMA DO BRASIL LTDA; N° DA NOTA FISCAL: 248428; FILIAL RESPONSÁVEL: 03.07 - COMERCIAL BELO HORIZONTE; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 18/11/2026;",
+      "Etapa_Macro": "FILA_DESENHO_FINAL",
+      "Laudo_Manutencao_Difuso": "",
+      "Laudo_Manutencao_Final": "",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "17/11/2026 17:55",
+          "Entrega": "17/11/2026 17:55",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Mariana Mara",
+          "Inicio": "17/11/2026 17:55",
+          "Entrega": "18/11/2026 15:37",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Mariana Mara",
+          "Executor": "Estoque",
+          "Inicio": "18/11/2026 15:37",
+          "Entrega": "18/11/2026 15:48",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "18/11/2026 15:48",
+          "Entrega": "18/11/2026 16:10",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "18/11/2026 15:48",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "Alexandre Cardoso de Souza",
+          "Inicio": "18/11/2026 15:48",
+          "Entrega": "19/11/2026 14:26",
+          "Concluido": true
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "18/11/2026 16:10",
+          "Entrega": "19/11/2026 08:04",
+          "Concluido": true
+        },
+        {
+          "Atividade": "APROVAÇÃO COMERCIAL [LAUDO + CROQUI]",
+          "Usuario": "Alexandre Cardoso de Souza",
+          "Executor": "",
+          "Inicio": "19/11/2026 14:26",
+          "Entrega": "",
+          "Concluido": false
+        }
+      ]
     },
     {
       "BP": "55116",
@@ -757,7 +3344,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Fuso para manutenção",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
-      "Assistente": "",
+      "Assistente": "Vanessa Santos",
       "Vendedor": "IGOR LEAL",
       "Chegada": "19/11/2026",
       "Prazo": "20/11/2026 14:23",
@@ -769,7 +3356,68 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "PENDENCIAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 148545; CLIENTE/FORNECEDOR: PAINCO INDUSTRIA E COMERCIO SOCIEDADE ANONIMA; N° DA NOTA FISCAL: 148545; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 19/11/2026;"
+      "Descricao": "N° DA NF: 148545; CLIENTE/FORNECEDOR: PAINCO INDUSTRIA E COMERCIO SOCIEDADE ANONIMA; N° DA NOTA FISCAL: 148545; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 19/11/2026;",
+      "Etapa_Macro": "FILA_CROQUI",
+      "Laudo_Manutencao_Difuso": "",
+      "Laudo_Manutencao_Final": "",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "19/11/2026 14:20",
+          "Entrega": "19/11/2026 14:20",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Vanessa Santos",
+          "Inicio": "19/11/2026 14:20",
+          "Entrega": "19/11/2026 15:18",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Vanessa Santos",
+          "Executor": "Estoque",
+          "Inicio": "19/11/2026 15:18",
+          "Entrega": "19/11/2026 15:23",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "19/11/2026 15:23",
+          "Entrega": "19/11/2026 15:58",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "19/11/2026 15:23",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "19/11/2026 15:23",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "19/11/2026 15:58",
+          "Entrega": "19/11/2026 16:02",
+          "Concluido": true
+        }
+      ]
     },
     {
       "BP": "55119",
@@ -781,7 +3429,7 @@
       "Motivo_Recebimento": "",
       "Defeito": "Fuso para manutenção",
       "Filial": "03.04 - COMERCIAL CAMPINAS",
-      "Assistente": "",
+      "Assistente": "Vanessa Santos",
       "Vendedor": "IGOR LEAL",
       "Chegada": "19/11/2026",
       "Prazo": "20/11/2026 14:24",
@@ -793,7 +3441,68 @@
       "Responsavel": "[G] Desenho",
       "Categoria_Solicitacao": "PENDENCIAS",
       "Atividade": "REALIZAÇÃO DE CROQUI",
-      "Descricao": "N° DA NF: 148549; CLIENTE/FORNECEDOR: PAINCO INDUSTRIA E COMERCIO SOCIEDADE ANONIMA; N° DA NOTA FISCAL: 148549; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 19/11/2026;"
+      "Descricao": "N° DA NF: 148549; CLIENTE/FORNECEDOR: PAINCO INDUSTRIA E COMERCIO SOCIEDADE ANONIMA; N° DA NOTA FISCAL: 148549; FILIAL RESPONSÁVEL: 03.04 - COMERCIAL CAMPINAS; MOTIVO DO RECEBIMENTO DO ITEM:: MANUTENÇÃO DE FUSOS; DATA DE CHEGADA: 19/11/2026;",
+      "Etapa_Macro": "FILA_CROQUI",
+      "Laudo_Manutencao_Difuso": "",
+      "Laudo_Manutencao_Final": "",
+      "Historico": [
+        {
+          "Atividade": "RECEBIMENTO DA NF DIGITAL",
+          "Usuario": "Admin",
+          "Executor": "Admin",
+          "Inicio": "19/11/2026 14:55",
+          "Entrega": "19/11/2026 14:55",
+          "Concluido": true
+        },
+        {
+          "Atividade": "INFORMAÇÕES PARA RECEBIMENTO",
+          "Usuario": "Admin",
+          "Executor": "Vanessa Santos",
+          "Inicio": "19/11/2026 14:55",
+          "Entrega": "19/11/2026 15:19",
+          "Concluido": true
+        },
+        {
+          "Atividade": "RECEBIMENTO DA PEÇA EM ESTOQUE",
+          "Usuario": "Vanessa Santos",
+          "Executor": "Estoque",
+          "Inicio": "19/11/2026 15:19",
+          "Entrega": "19/11/2026 15:24",
+          "Concluido": true
+        },
+        {
+          "Atividade": "ENTRADA DE NOTA FISCAL",
+          "Usuario": "Estoque",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "19/11/2026 15:24",
+          "Entrega": "19/11/2026 15:59",
+          "Concluido": true
+        },
+        {
+          "Atividade": "LAUDO DE MANUTENÇÃO DE FUSOS",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "19/11/2026 15:24",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "REALIZAÇÃO DE CROQUI",
+          "Usuario": "Estoque",
+          "Executor": "",
+          "Inicio": "19/11/2026 15:24",
+          "Entrega": "",
+          "Concluido": false
+        },
+        {
+          "Atividade": "GERAR PEDIDO DE RETORNO",
+          "Usuario": "Patricia Nogueira Tavares",
+          "Executor": "Patricia Nogueira Tavares",
+          "Inicio": "19/11/2026 15:59",
+          "Entrega": "19/11/2026 16:17",
+          "Concluido": true
+        }
+      ]
     }
   ]
 }
