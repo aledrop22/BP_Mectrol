@@ -1,4 +1,4 @@
-import { obterEtapaMacroBP, calcularResumoSeisEtapas, gerarNomePastaPadrao, obterEquipeFilial } from './filaEngine';
+import { obterEtapaMacroBP, calcularResumoSeisEtapas, gerarNomePastaPadrao, obterEquipeFilial } from './filaEngine.js';
 
 // Data de referência do sistema (18/11/2026)
 export const DATA_REF_ISO = '2026-11-18';

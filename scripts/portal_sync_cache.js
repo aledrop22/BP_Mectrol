@@ -31,3 +31,7 @@ export function needsDetailRefresh(previous, category, fingerprint) {
   if (previous.sourceFingerprint == null) return false
   return previous.sourceFingerprint !== fingerprint
 }
+
+export function recordsChanged(previousRecords, records) {
+  return JSON.stringify(previousRecords) !== JSON.stringify(records)
+}

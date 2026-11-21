@@ -18,7 +18,6 @@ import {
 } from './lib/filaEngine';
 import SidebarCroquis, { MODELOS_DASHBOARD } from './components/SidebarCroquis';
 import PainelDashboardVisual from './components/PainelDashboardVisual';
-import PortalLogin from './components/PortalLogin';
 import ModalFuraFilaDiretoria from './components/ModalFuraFilaDiretoria';
 import { filtrarBPsPorPeriodoOuCalendario } from './lib/comparativoExportEngine';
 
@@ -52,65 +51,28 @@ export default function DashboardNextBP() {
   // Modal Fura-Fila Diretoria e Notificação
   const [modalFuraFilaItem, setModalFuraFilaItem] = useState(null);
   const [avisoTempoReal, setAvisoTempoReal] = useState(null);
-  const [accessStatus, setAccessStatus] = useState('checking');
-  const [authLocal, setAuthLocal] = useState(false);
-  const [authError, setAuthError] = useState('');
 
   useEffect(() => {
-    let ativo = true;
-    const verificarAcesso = async () => {
-      try {
-        const response = await fetch('/api/auth', { cache: 'no-store' });
-        const result = await response.json();
-        if (!ativo) return;
-        if (response.status === 401) {
-          setAuthLocal(false);
-          setAuthError('');
-          setAccessStatus('unauthenticated');
-          return;
-        }
-        if (!response.ok) {
-          throw new Error(result.message || 'Não foi possível verificar o acesso ao painel.');
-        }
-        setAuthLocal(result.local === true);
-        setAccessStatus(result.authenticated ? 'authenticated' : 'unauthenticated');
-      } catch (error) {
-        if (!ativo) return;
-        setAuthError(error.message);
-        setAccessStatus('unauthenticated');
-      }
-    };
-
-    void verificarAcesso();
-    return () => {
-      ativo = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (accessStatus !== 'authenticated') return undefined;
     let ativo = true;
     const atualizarDados = async () => {
       try {
         const ordenados = ordenarFilaBPs(await carregarDados());
         if (!ativo) return;
         setBps(ordenados);
+        setAvisoTempoReal((aviso) =>
+          aviso?.titulo === 'Dados reais indisponíveis' ? null : aviso
+        );
         setBpSelecionadoId((selecionado) =>
           ordenados.some((item) => String(item.bp) === String(selecionado))
             ? selecionado
             : ordenados[0]?.bp || ''
         );
       } catch (error) {
-        if (error.status === 401) {
-          setBps([]);
-          setAccessStatus('unauthenticated');
-          return;
-        }
         console.error('Não foi possível carregar os dados reais dos BPs.', error);
         if (ativo) {
           setAvisoTempoReal({
             titulo: 'Dados reais indisponíveis',
-            detalhe: 'A sincronização ou o armazenamento privado pode estar indisponível.',
+            detalhe: 'O JSON local ainda não foi sincronizado ou está indisponível.',
           });
         }
       }
@@ -122,7 +84,7 @@ export default function DashboardNextBP() {
       ativo = false;
       clearInterval(intervalo);
     };
-  }, [accessStatus]);
+  }, []);
 
   const temaAtivo = useMemo(
     () => obterVariaveisTema(paletaId, modoCor),
@@ -312,35 +274,6 @@ export default function DashboardNextBP() {
     setTimeout(() => setCopiadoId(null), 2000);
   };
 
-  const sairDoPainel = async () => {
-    try {
-      const response = await fetch('/api/auth', { method: 'DELETE' });
-      if (!response.ok) throw new Error('Não foi possível encerrar a sessão.')
-      setBps([]);
-      setAccessStatus('unauthenticated');
-    } catch (error) {
-      setAvisoTempoReal({
-        titulo: 'Não foi possível sair',
-        detalhe: error.message,
-      });
-    }
-  };
-
-  if (accessStatus === 'checking') {
-    return <PortalLogin checking />;
-  }
-  if (accessStatus !== 'authenticated') {
-    return (
-      <PortalLogin
-        initialError={authError}
-        onAuthenticated={() => {
-          setAuthError('');
-          setAccessStatus('authenticated');
-        }}
-      />
-    );
-  }
-
   return (
     <div
       className="h-screen w-full overflow-hidden flex flex-col transition-colors"
@@ -385,16 +318,6 @@ export default function DashboardNextBP() {
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-          {!authLocal && (
-            <button
-              type="button"
-              onClick={() => void sairDoPainel()}
-              className="px-3 py-1.5 text-xs font-semibold rounded-lg border"
-              style={{ borderColor: 'var(--border-strong)', color: 'var(--text-secondary)' }}
-            >
-              Sair
-            </button>
-          )}
           <button
             type="button"
             onClick={() => setModalFuraFilaItem(bpsOrdenados[0])}

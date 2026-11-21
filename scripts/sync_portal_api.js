@@ -2,7 +2,7 @@ import { spawnSync } from 'node:child_process'
 import { mkdir, open, readFile, rename, rm, stat, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { needsDetailRefresh, sourceFingerprint } from './portal_sync_cache.js'
+import { needsDetailRefresh, recordsChanged, sourceFingerprint } from './portal_sync_cache.js'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const localDir = path.join(root, 'local_data')
@@ -11,7 +11,7 @@ const cachePath = path.join(localDir, 'portal-sync-cache.json')
 const lockPath = path.join(localDir, 'portal-sync.lock')
 const credentialScript = path.join(root, 'scripts', 'credential_manager.ps1')
 const apiBase = 'https://bp.mectrol.com.br/webservice/index.php/'
-const vercelSyncUrl = 'https://bp-mectrol.vercel.app/api/bps'
+const requestTimeoutMs = 30000
 const portalProcess = 'RECEBIMENTO DE MATERIAL EM ESTOQUE'
 const listTypes = [
   { tipo: 0, category: 'PENDENCIAS', status: 'Pendente', priority: 0 },
@@ -35,23 +35,6 @@ function readPortalToken() {
     throw new Error('O token armazenado no Windows Credential Manager é inválido.')
   }
   return token
-}
-
-function readVercelSyncSecret() {
-  const result = spawnSync(
-    'powershell.exe',
-    ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', credentialScript, '-Mode', 'ReadVercel'],
-    { encoding: 'utf8', windowsHide: true }
-  )
-  if (result.error) throw new Error(`Não foi possível ler a credencial do Vercel: ${result.error.message}`)
-  if (result.status !== 0) {
-    throw new Error(`Não foi possível ler a credencial de publicação do Vercel: ${result.stderr.trim()}`)
-  }
-  const secret = result.stdout.trim()
-  if (secret && !/^[!-~]{32,512}$/.test(secret)) {
-    throw new Error('A credencial de publicação do Vercel armazenada é inválida.')
-  }
-  return secret || null
 }
 
 function getText(value) {
@@ -110,12 +93,15 @@ async function lerCache() {
     if (!Array.isArray(previousPayload.registros)) {
       throw new Error('O histórico local de BPs possui um formato inválido.')
     }
-    return Object.fromEntries(previousPayload.registros.map((record) => [
-      record.BP,
-      { record, sourceFingerprint: fingerprints[record.BP] ?? null },
-    ]))
+    return {
+      cachedByBp: Object.fromEntries(previousPayload.registros.map((record) => [
+        record.BP,
+        { record, sourceFingerprint: fingerprints[record.BP] ?? null },
+      ])),
+      previousPayload,
+    }
   } catch (error) {
-    if (error.code === 'ENOENT') return {}
+    if (error.code === 'ENOENT') return { cachedByBp: {}, previousPayload: null }
     throw error
   }
 }
@@ -133,6 +119,7 @@ async function requestJson(url, token) {
       'X-Auth-Token': token,
       'X-Frontend': 'beta',
     },
+    signal: AbortSignal.timeout(requestTimeoutMs),
   })
   if (!response.ok) throw new Error(`API do portal respondeu HTTP ${response.status} em ${url.pathname}.`)
   try {
@@ -288,36 +275,13 @@ async function acquireLock() {
   throw new Error('Não foi possível obter o bloqueio para sincronização do portal.')
 }
 
-async function publicarNoVercel(payload) {
-  const secret = readVercelSyncSecret()
-  if (!secret) return 'pendente_configuracao'
-
-  const response = await fetch(vercelSyncUrl, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${secret}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-    signal: AbortSignal.timeout(60000),
-  })
-  if (!response.ok) {
-    throw new Error(`A publicação privada no Vercel respondeu HTTP ${response.status}.`)
-  }
-  const result = await response.json()
-  if (!result.saved || result.total !== payload.total) {
-    throw new Error('O Vercel não confirmou a gravação dos dados privados.')
-  }
-  return 'publicado'
-}
-
 async function main() {
   await mkdir(localDir, { recursive: true })
   const lock = await acquireLock()
   let token
   try {
     token = readPortalToken()
-    const cachedByBp = await lerCache()
+    const { cachedByBp, previousPayload } = await lerCache()
     const latestByBp = new Map()
     for (const listType of listTypes) {
       const processes = await listarProcessos(token, listType)
@@ -355,15 +319,17 @@ async function main() {
     }
     records.sort((a, b) => Number(a.BP) - Number(b.BP))
 
+    const dadosAlterados = recordsChanged(previousPayload?.registros, records)
     const payload = {
       schemaVersion: 1,
-      atualizadoEm: new Date().toISOString(),
+      atualizadoEm: dadosAlterados
+        ? new Date().toISOString()
+        : previousPayload.atualizadoEm,
       total: records.length,
       registros: records,
     }
-    await salvarJsonAtomico(outputPath, payload)
+    if (dadosAlterados) await salvarJsonAtomico(outputPath, payload)
     await salvarJsonAtomico(cachePath, { schemaVersion: 1, assinaturas: nextFingerprints })
-    const publicacaoVercel = await publicarNoVercel(payload)
 
     const coverage = Object.fromEntries(
       ['Cliente', 'Nota_Fiscal', 'Quantidade', 'Filial', 'Vendedor', 'Defeito'].map((field) => [
@@ -374,9 +340,9 @@ async function main() {
     console.log(JSON.stringify({
       atualizadoEm: payload.atualizadoEm,
       total: records.length,
+      dadosAlterados,
       detalhados: detailedCount,
       reutilizados: reusedCount,
-      publicacaoVercel,
       categorias: Object.fromEntries(
         [...latestByBp.values()].reduce((counts, item) => {
           counts.set(item.listType.category, (counts.get(item.listType.category) || 0) + 1)

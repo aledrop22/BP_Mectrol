@@ -86,18 +86,6 @@ function localBpCsv() {
         }
       })
 
-      server.middlewares.use('/api/auth', (req, res) => {
-        if (req.method !== 'GET') {
-          res.statusCode = 405
-          res.end('Método não permitido.')
-          return
-        }
-
-        res.setHeader('Content-Type', 'application/json; charset=utf-8')
-        res.setHeader('Cache-Control', 'no-store')
-        res.end(JSON.stringify({ authenticated: true, local: true }))
-      })
-
       server.middlewares.use('/api/bps', async (req, res, next) => {
         if (req.method !== 'GET') {
           res.statusCode = 405

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { needsDetailRefresh, sourceFingerprint } from './portal_sync_cache.js'
+import { needsDetailRefresh, recordsChanged, sourceFingerprint } from './portal_sync_cache.js'
 
 const row = {
   solicitacao_atividade_id: 'atividade-1',
@@ -51,4 +51,12 @@ test('refreshes details when the activity or responsible person changes', () => 
 
 test('establishes a fingerprint for legacy cached records without refreshing them', () => {
   assert.equal(needsDetailRefresh(cachedRecord('PENDENCIAS', null), 'PENDENCIAS', 'current'), false)
+})
+
+test('reports whether local records changed before writing the JSON', () => {
+  const records = [{ BP: '123', Cliente: 'Cliente teste' }]
+
+  assert.equal(recordsChanged(records, records), false)
+  assert.equal(recordsChanged(records, [{ ...records[0], Cliente: 'Cliente alterado' }]), true)
+  assert.equal(recordsChanged(undefined, records), true)
 })

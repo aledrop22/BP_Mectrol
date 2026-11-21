@@ -8,8 +8,9 @@ Dashboard avançado (React + Tailwind) com 6 visualizações diferentes para ges
 - Pipeline Diretoria Rápido
 - Croquis Interativos
 
-Alimentado pelo CSV `public/historico_bps_desenho.csv`, atualizado automaticamente
-pelo Scrapy + GitHub Actions a cada 2 horas.
+Os dados são coletados do portal MECTROL e mantidos localmente em
+`local_data/historico_bps_desenho.json`. O painel local não usa senha própria,
+planilha ou armazenamento na Vercel.
 
 ## Estrutura
 
@@ -18,8 +19,9 @@ pelo Scrapy + GitHub Actions a cada 2 horas.
 ├── package.json
 ├── vite.config.js
 ├── tailwind.config.js
-├── public/
-│   └── historico_bps_desenho.csv   # Base de dados consumida pelo painel
+├── local_data/
+│   ├── historico_bps_desenho.json  # Dados locais (ignorado pelo Git)
+│   └── portal-sync-cache.json      # Cache de comparação local
 ├── src/
 │   ├── main.jsx
 │   ├── App.jsx                  # Dashboard principal com 6 visualizações
@@ -34,10 +36,10 @@ pelo Scrapy + GitHub Actions a cada 2 horas.
 │   │   ├── PipelineDiretoriaRapido.jsx
 │   │   └── SidebarCroquis.jsx
 │   ├── data/
-│   │   ├── dados.js            # Dados de demonstração (fallback offline)
+│   │   ├── dados.js            # Configuração inicial das filiais
 │   │   └── temas.js            # Paletas de temas (dark/white, colorido/neutro)
 │   └── lib/
-│       ├── carregarDados.js    # Parser CSV + fetch do histórico
+│       ├── carregarDados.js    # Leitura do JSON local
 │       ├── filaEngine.js       # Motor de ordenação de fila
 │       └── comparativoExportEngine.js  # Motor de calendário/exportação
 ├── scripts/
@@ -53,81 +55,47 @@ pelo Scrapy + GitHub Actions a cada 2 horas.
 │   └── spiders/
 │       └── bp_spider.py         # Spider para extrair dados do sistema web interno
 ├── requirements.txt
-├── backup_original/            # Backup do código anterior
-└── .github/workflows/
-    └── atualizar-bps.yml       # Roda Scrapy a cada 2h e commita o CSV atualizado
+└── backup_original/            # Backup do código anterior
 ```
 
-## Como funciona o fluxo
+## Como funciona o fluxo local
 
-1. **GitHub Actions** (`atualizar-bps.yml`) executa a cada 2h:
-   - roda `scripts/run_scrapy.py`, que executa o spider Scrapy para extrair
-     dados do sistema web interno da empresa;
-   - gera/atualiza o arquivo `public/historico_bps_desenho.csv`;
-   - *(opcional)* roda `scripts/monitor_email.py` para marcar BPs como URGENTE via IMAP;
-   - commita o CSV atualizado no repositório.
+1. `scripts/install_portal_sync_task.ps1` agenda a coleta a cada cinco minutos.
+2. `scripts/sync_portal_api.js` compara os BPs com o cache e grava o JSON local
+   somente quando os dados mudam.
+3. `npm run dev` abre o painel em `http://127.0.0.1:3000`; a tela relê o JSON
+   local a cada cinco minutos.
 
-2. **Vercel** serve o build do React; o app faz `fetch('/historico_bps_desenho.csv')`
-   e renderiza o dashboard. Se o CSV falhar, usa os dados de `src/data/dados.js`.
-
-3. **`organizar_pastas.py`** roda localmente: dado um BP, lê o CSV, monta o nome
-   padrão (`BP 53193 - NF 1416969 - Fuso 40x10x1250`), cria a pasta do cliente
-   em `\\SERVIDOR\Manutencao\Clientes\<CLIENTE>` se não existir, move as fotos
-   da pasta temporária e gera o `.zip`.
+O token de sessão é usado apenas para acessar o portal de origem e fica no Windows
+Credential Manager. Os dados e o cache em `local_data/` são ignorados pelo Git.
 
 ## Rodar localmente
 
 ```bash
-# Frontend
-npm install
-npm run dev        # painel em http://localhost:3000
-
-# Scrapy (extração de dados)
-pip install -r requirements.txt
-
-# TESTE: Gerar CSV de exemplo (sem acessar sistema real)
-python scripts/test_scrapy_csv.py
-
-# PRODUÇÃO: Executar Scrapy com URL real configurada
-python scripts/run_scrapy.py
+npm run dev        # painel em http://127.0.0.1:3000
 ```
+
+Para instalar a sincronização automática de cinco em cinco minutos, execute
+`scripts/install_portal_sync_task.ps1` uma vez no Windows. A coleta requer o token
+de sessão do portal de origem; o painel local não pede senha.
+
+Extração detalhada alternativa, fora do fluxo automático: `python scripts/extract_bp_details.py`.
 
 ### Sincronização incremental do portal (Windows)
 
 A tarefa instalada por `scripts/install_portal_sync_task.ps1` consulta as quatro
-listas a cada cinco minutos para detectar BPs novos e mudanças de etapa/atividade.
+listas do portal a cada cinco minutos e salva os dados somente neste computador
+em `local_data/historico_bps_desenho.json`.
 Os detalhes de BPs sem mudanças são reutilizados do cache local
 `local_data/portal-sync-cache.json`, evitando consultar novamente cada BP a cada ciclo.
-
-## Configuração necessária
-
-### Secrets do GitHub (Settings → Secrets → Actions)
-- `SISTEMA_URL`: URL do sistema web interno
-- `SISTEMA_USUARIO`: Usuário de autenticação (se necessário)
-- `SISTEMA_SENHA`: Senha de autenticação (se necessário)
-- `IMAP_SERVIDOR`, `IMAP_USUARIO`, `IMAP_SENHA`: para o monitor de e-mail (opcional)
-
-### Configuração do Scrapy
-
-O site https://bp.mectrol.com.br/ é uma SPA (Single Page Application) que carrega dados via JavaScript.
-
-**IMPORTANTE**: Você precisa encontrar a API interna do sistema ou usar Selenium. Veja instruções detalhadas em `INSTRUCAO_SCRAPY.md`.
-
-**Resumo rápido:**
-1. Abra https://bp.mectrol.com.br/ no navegador
-2. Pressione F12 → aba Network
-3. Filtre por XHR/Fetch e encontre a API que retorna os dados
-4. Configure a URL no spider `scrapy_bp_mectrol/spiders/bp_spider.py`
-
-**Alternativa mais rápida:** Exporte os dados manualmente do sistema para CSV e salve em `public/historico_bps_desenho.csv`.
+O painel local lê esse JSON e atualiza a tela a cada cinco minutos. Nenhuma senha
+do painel, segredo da Vercel ou planilha é necessária. O token de sessão do portal
+é usado somente para acessar os dados de origem e fica no Windows Credential Manager.
+Os arquivos de dados locais são ignorados pelo Git e não são enviados ao repositório.
 
 ### Configuração local
 - **`scripts/organizar_pastas.py`**: ajuste `PASTA_SERVIDOR_MANUTENCAO` e
   `PASTA_FOTOS_AVULSAS` para os caminhos reais da sua rede.
-
-### Deploy Vercel
-Importe o repositório; a Vercel detecta Vite automaticamente
-(build: `npm run build`, output: `dist`).
 
 ## Correções aplicadas
 
