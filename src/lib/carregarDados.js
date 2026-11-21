@@ -50,6 +50,7 @@ function mapearRegistro(reg, idx) {
     descricao: reg.Descricao || '',
     diametro: reg.Diametro_Primitivo || '',
     passo: reg.Passo || '',
+    compUtil: reg.Comp_Util || '',
     compTotal: reg.Comp_Total || '',
     precisao: reg.Precisao || '',
     diretoriaOverride: false,

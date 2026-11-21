@@ -21,6 +21,28 @@ import PainelDashboardVisual from './components/PainelDashboardVisual';
 import ModalFuraFilaDiretoria from './components/ModalFuraFilaDiretoria';
 import { filtrarBPsPorPeriodoOuCalendario } from './lib/comparativoExportEngine';
 
+const CROQUI_LOCAL_STORAGE_KEY = 'mectrol-nextbp-croqui-local';
+
+function lerCroquiLocal() {
+  try {
+    const value = JSON.parse(localStorage.getItem(CROQUI_LOCAL_STORAGE_KEY) || '{}');
+    return value && typeof value === 'object' ? value : {};
+  } catch {
+    return {};
+  }
+}
+
+function mesclarCroquiLocal(listaBps) {
+  const salvo = lerCroquiLocal();
+  return listaBps.map((item) => ({
+    ...item,
+    diametro: salvo[item.bp]?.diametro ?? item.diametro,
+    passo: salvo[item.bp]?.passo ?? item.passo,
+    compUtil: salvo[item.bp]?.compUtil ?? item.compUtil,
+    compTotal: salvo[item.bp]?.compTotal ?? item.compTotal,
+  }));
+}
+
 export default function DashboardNextBP() {
   const [bps, setBps] = useState([]);
   const [filiaisDb, setFiliaisDb] = useState(FILIAIS_DB_INICIAL);
@@ -58,7 +80,7 @@ export default function DashboardNextBP() {
       try {
         const ordenados = ordenarFilaBPs(await carregarDados());
         if (!ativo) return;
-        setBps(ordenados);
+        setBps(mesclarCroquiLocal(ordenados));
         setAvisoTempoReal((aviso) =>
           aviso?.titulo === 'Dados reais indisponíveis' ? null : aviso
         );
@@ -205,9 +227,23 @@ export default function DashboardNextBP() {
   };
 
   const atualizarCampo = (bpNum, campo, valor) => {
-    setBps((prev) =>
-      prev.map((item) => (item.bp === bpNum ? { ...item, [campo]: valor } : item))
-    );
+    setBps((prev) => {
+      const atualizada = prev.map((item) => (item.bp === bpNum ? { ...item, [campo]: valor } : item));
+      if (['diametro', 'passo', 'compUtil', 'compTotal'].includes(campo)) {
+        const salvo = lerCroquiLocal();
+        const item = atualizada.find((b) => b.bp === bpNum);
+        if (item) {
+          salvo[bpNum] = {
+            diametro: item.diametro || '',
+            passo: item.passo || '',
+            compUtil: item.compUtil || '',
+            compTotal: item.compTotal || '',
+          };
+          localStorage.setItem(CROQUI_LOCAL_STORAGE_KEY, JSON.stringify(salvo));
+        }
+      }
+      return atualizada;
+    });
   };
 
   const handleMudarEtapaBP = (bpNum, novaEtapaMacro) => {

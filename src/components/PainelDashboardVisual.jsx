@@ -902,7 +902,7 @@ export default function PainelDashboardVisual({
                   <th className="py-2 px-2 whitespace-nowrap">Filial (& Supervisor)</th>
                   <th className="py-2 px-2 whitespace-nowrap">Vendedor (& Assistente)</th>
                   <th className="py-2 px-2 whitespace-nowrap">Fusos</th>
-                  <th className="py-2 px-2 whitespace-nowrap">Dimensional / Laudo</th>
+                  <th className="py-2 px-2 whitespace-nowrap">Solicitação</th>
                   <th className="py-2 px-2 whitespace-nowrap">Tempo</th>
                   <th className="py-2 px-2 whitespace-nowrap">Status Atual</th>
                 </tr>
@@ -954,25 +954,12 @@ export default function PainelDashboardVisual({
                         {item.quantidade} un.
                       </td>
                       <td className="py-2 px-2 font-mono tabular-nums whitespace-nowrap">
-                        {item.diametro && item.passo && item.compTotal ? (
-                          <div>
-                            <span className="text-emerald-500 font-semibold block">
-                              Ø{item.diametro}×P{item.passo}×{item.compTotal}mm
-                            </span>
-                            <span className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
-                              {item.croquiAntesDoLaudo ? 'Croqui Pré-Laudo' : 'Laudo Validado'}
-                            </span>
-                          </div>
-                        ) : (
-                          <div>
-                            <span className="text-amber-500 font-semibold block">
-                              {item.croquiAntesDoLaudo ? 'Liberado Pré-Laudo' : 'Aguarda Laudo'}
-                            </span>
-                            <span className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
-                              {item.dimensionalStatus}
-                            </span>
-                          </div>
-                        )}
+                        <span className="text-sky-400 font-semibold block">
+                          {item.solicitadoEm || 'Não informada'}
+                        </span>
+                        <span className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
+                          Data inicial
+                        </span>
                       </td>
                       <td className="py-2 px-2 font-mono tabular-nums whitespace-nowrap" style={{ color: 'var(--text-secondary)' }}>
                         {item.tempoParado}
@@ -1593,38 +1580,6 @@ export default function PainelDashboardVisual({
                       <div className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
                         Sup: {eq.coordenador} · Assist: {eq.assistente}
                       </div>
-                      <div
-                        className="pt-1.5 border-t flex flex-wrap justify-between items-center gap-1.5"
-                        style={{ borderColor: 'var(--border-subtle)' }}
-                      >
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onAtualizarCampo(item.bp, 'croquiAntesDoLaudo', true);
-                            onMudarEtapaBP(item.bp, 'FILA_CROQUI');
-                          }}
-                          className="px-2 py-1 rounded text-[10px] font-bold border whitespace-nowrap"
-                          style={{
-                            backgroundColor: 'var(--bg-elevated)',
-                            borderColor: 'var(--border-strong)',
-                            color: 'var(--text-secondary)',
-                          }}
-                        >
-                          Croqui Antes do Laudo
-                        </button>
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onMudarEtapaBP(item.bp, 'FILA_CROQUI');
-                          }}
-                          className="px-2.5 py-1 rounded text-[11px] font-bold text-white bg-orange-500 inline-flex items-center gap-1 whitespace-nowrap"
-                        >
-                          <span>Laudo OK → Fila de Croqui</span>
-                          <ArrowRight className="w-3 h-3 shrink-0" />
-                        </button>
-                      </div>
                     </article>
                   );
                 })}
@@ -1699,7 +1654,7 @@ export default function PainelDashboardVisual({
 
                       {/* Edição rápida do dimensional do croqui */}
                       <div
-                        className="grid grid-cols-3 gap-1 pt-1"
+                        className="grid grid-cols-4 gap-1 pt-1"
                         onClick={(e) => e.stopPropagation()}
                       >
                         <select
@@ -1736,8 +1691,21 @@ export default function PainelDashboardVisual({
                         </select>
                         <input
                           type="text"
-                          aria-label={`Croqui Comprimento BP ${item.bp}`}
-                          placeholder="Comp."
+                          aria-label={`Croqui Comprimento Útil BP ${item.bp}`}
+                          placeholder="Comp. útil"
+                          value={item.compUtil || ''}
+                          onChange={(e) => onAtualizarCampo(item.bp, 'compUtil', e.target.value)}
+                          className="rounded px-1.5 py-1 text-xs font-mono border"
+                          style={{
+                            backgroundColor: 'var(--bg-elevated)',
+                            borderColor: 'var(--border-strong)',
+                            color: 'var(--text-primary)',
+                          }}
+                        />
+                        <input
+                          type="text"
+                          aria-label={`Croqui Comprimento Total BP ${item.bp}`}
+                          placeholder="Comp. total"
                           value={item.compTotal}
                           onChange={(e) => onAtualizarCampo(item.bp, 'compTotal', e.target.value)}
                           className="rounded px-1.5 py-1 text-xs font-mono border"
@@ -1768,14 +1736,6 @@ export default function PainelDashboardVisual({
                           <span>Copiar .ZIP</span>
                         </button>
 
-                        <button
-                          type="button"
-                          onClick={() => onMudarEtapaBP(item.bp, 'FILA_DESENHO_FINAL')}
-                          className="px-2.5 py-1 rounded text-[11px] font-bold text-white bg-sky-600 inline-flex items-center gap-1 whitespace-nowrap"
-                        >
-                          <span>Enviar p/ Desenho Final</span>
-                          <ArrowRight className="w-3 h-3 shrink-0" />
-                        </button>
                       </div>
                     </article>
                   );
@@ -1843,7 +1803,7 @@ export default function PainelDashboardVisual({
                         </span>
                       </div>
                       <div className="text-[11px] font-mono" style={{ color: 'var(--text-secondary)' }}>
-                        Croqui Validado: Ø{item.diametro || '40'}×P{item.passo || '10'}×{item.compTotal || '1200'}mm · NF {item.nf}
+                        Solicitação: {item.solicitadoEm || 'Não informada'} · NF {item.nf}
                       </div>
                       <div className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
                         {eq.curto} ({item.vendedor}) · Sup: {eq.coordenador} · Assist: {eq.assistente}
@@ -1856,14 +1816,6 @@ export default function PainelDashboardVisual({
                         <span className="text-[11px] truncate" style={{ color: 'var(--text-muted)' }}>
                           Prazo: {item.prazoEnvio}
                         </span>
-                        <button
-                          type="button"
-                          onClick={() => onMudarEtapaBP(item.bp, 'CONCLUIDO')}
-                          className="px-2.5 py-1 rounded text-[11px] font-bold text-white bg-emerald-600 inline-flex items-center gap-1 whitespace-nowrap shrink-0"
-                        >
-                          <Check className="w-3 h-3 shrink-0" />
-                          <span>Concluir Desenho Final</span>
-                        </button>
                       </div>
                     </article>
                   );
