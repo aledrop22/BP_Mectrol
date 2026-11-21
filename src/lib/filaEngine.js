@@ -326,7 +326,7 @@ export function agruparDashboardVisual(listaBps) {
  * - CONCLUIDO: Concluídos (todas as etapas finalizadas)
  */
 export function obterEtapaMacroBP(item) {
-  if (item.status === 'Concluído' || item.etapaMacro === 'CONCLUIDO') {
+  if (item.etapaMacro && item.etapaMacro === 'CONCLUIDO') {
     return 'CONCLUIDO';
   }
   if (item.etapaMacro && [
@@ -339,6 +339,39 @@ export function obterEtapaMacroBP(item) {
   ].includes(item.etapaMacro)) {
     return item.etapaMacro;
   }
+
+  const categoria = String(item.categoriaSolicitacao || '').trim().toUpperCase();
+  const atividade = String(item.atividade || '').trim().toUpperCase();
+  const status = String(item.status || '').trim().toLowerCase();
+  const responsavel = String(item.responsavel || '').trim().toUpperCase();
+  const nf = String(item.nf || '').trim();
+  const chegada = String(item.chegada || '').trim();
+
+  if (categoria === 'CONCLUIDAS') return 'CONCLUIDO';
+  if (status === 'concluído' && !['PENDENCIAS', 'EM_ANDAMENTO'].includes(categoria)) {
+    if (atividade.includes('CROQUI') || atividade.includes('DESENHO')) {
+      return 'FILA_DESENHO_FINAL';
+    }
+  }
+
+  if (!nf && !chegada) return 'PRE_BP';
+
+  if (atividade.includes('CROQUI') || atividade.includes('DESENHO')) {
+    if (status === 'concluído' || categoria === 'ATIVIDADES_EXECUTADAS') {
+      return 'FILA_DESENHO_FINAL';
+    }
+    return 'FILA_CROQUI';
+  }
+
+  if (atividade.includes('MANUT') || atividade.includes('LAUDO') ||
+      responsavel.includes('MANUTEN')) {
+    if (item.laudoFinalConclusao || item.laudo === 'Concluído') {
+      return 'FILA_CROQUI';
+    }
+    if (status === 'concluído') return 'EM_MANUTENCAO';
+    return 'AGUARDANDO_LAUDO';
+  }
+
   const hist = obterStatusMonitoramentoManutencao(item);
   if (hist.codigo !== 'FINALIZADO') {
     return 'AGUARDANDO_LAUDO';

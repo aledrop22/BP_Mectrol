@@ -73,3 +73,20 @@ test('usa o JSON estático quando a API local não existe', async () => {
     globalThis.fetch = fetchOriginal;
   }
 });
+
+test('normaliza quantidade para inteiro sem zeros decimais', async () => {
+  const fetchOriginal = globalThis.fetch;
+  globalThis.fetch = async () => ({
+    ok: true,
+    json: async () => ({
+      registros: [{ BP: '778', Quantidade: '10.0' }],
+    }),
+  });
+
+  try {
+    const [bp] = await carregarDados();
+    assert.equal(bp.quantidade, 10);
+  } finally {
+    globalThis.fetch = fetchOriginal;
+  }
+});

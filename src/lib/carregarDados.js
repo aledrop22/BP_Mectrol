@@ -16,7 +16,7 @@ function mapearRegistro(reg, idx) {
     cliente: reg.Cliente || '',
     razao: reg.Razao_Social || '',
     nf: reg.Nota_Fiscal || '',
-    quantidade,
+    quantidade: quantidade === null ? null : Math.round(quantidade),
     motivoRecebimento: reg.Motivo_Recebimento || '',
     defeito: reg.Defeito || '',
     tipoServico: '',

@@ -96,6 +96,38 @@ test('calcularResumoSeisEtapas contabiliza corretamente as 6 etapas, fusos totai
   assert.equal(obterEtapaMacroBP(bp53193), 'FILA_DESENHO_FINAL');
 });
 
+test('a atividade real prevalece sobre o status ao classificar a etapa do BP', () => {
+  const bpAguardandoCroqui = {
+    bp: '622',
+    nf: '15737',
+    chegada: '17/11/2026',
+    status: 'Pendente',
+    categoriaSolicitacao: 'PENDENCIAS',
+    atividade: 'REALIZAÇÃO DE CROQUI',
+  };
+  assert.equal(obterEtapaMacroBP(bpAguardandoCroqui), 'FILA_CROQUI');
+
+  const bpSemNF = {
+    bp: '700',
+    nf: '',
+    chegada: '',
+    status: 'Pendente',
+    categoriaSolicitacao: 'PENDENCIAS',
+    atividade: 'RECEBIMENTO',
+  };
+  assert.equal(obterEtapaMacroBP(bpSemNF), 'PRE_BP');
+
+  const bpCroquiConcluido = {
+    bp: '623',
+    nf: '58896',
+    chegada: '18/11/2026',
+    status: 'Concluído',
+    categoriaSolicitacao: 'ATIVIDADES_EXECUTADAS',
+    atividade: 'REALIZAÇÃO DE CROQUI',
+  };
+  assert.equal(obterEtapaMacroBP(bpCroquiConcluido), 'FILA_DESENHO_FINAL');
+});
+
 test('filtrarBPsPorPeriodoOuCalendario e calcularComparativoDatas funcionam desde 01/01/2026 e geram Excel/PDF válidos', () => {
   const porCalendarioAno = filtrarBPsPorPeriodoOuCalendario(DADOS_INICIAIS, {
     filtroPeriodo: 'CALENDARIO',

@@ -180,10 +180,15 @@ function lerQuantidade(elementos) {
   if (!valores.length) return null
 
   return valores.reduce((total, item) => {
-    const texto = getText(item.valor).replace(/\s/g, '').replace(/\./g, '').replace(',', '.')
-    const quantidade = Number(texto)
+    const texto = getText(item.valor).replace(/\s/g, '')
+    let quantidade
+    if (/^\d{1,3}(?:\.\d{3})+,\d+$/.test(texto) || /^\d{1,3}(?:\.\d{3})+$/.test(texto)) {
+      quantidade = Number(texto.replace(/\./g, '').replace(',', '.'))
+    } else {
+      quantidade = Number(texto.replace(',', '.'))
+    }
     if (!Number.isFinite(quantidade)) throw new Error('A API retornou uma quantidade inválida no detalhe do BP.')
-    return total + quantidade
+    return total + Math.round(quantidade)
   }, 0)
 }
 
