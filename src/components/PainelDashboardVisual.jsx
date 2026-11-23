@@ -302,7 +302,7 @@ export default function PainelDashboardVisual({
                 Acompanhamento das 10 Filiais • Depto. Comercial (Bauru • SP • SJC/Vale • Campinas • BH • Joinville • Manaus + 3)
               </h2>
               <p className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
-                Cada filial vincula automaticamente Supervisor/Coordenador e Assistente do Depto. Comercial
+                Vinculação automática: Supervisor/Coordenador e Assistente
               </p>
             </div>
             <div className="flex items-center gap-2">
@@ -624,31 +624,6 @@ export default function PainelDashboardVisual({
             </button>
           </div>
 
-          {/* Resumo Global Soma de BPs (Total vs Realizados vs Para Fazer) */}
-          <div className="flex flex-wrap items-center gap-2.5 text-xs font-mono tabular-nums">
-            <span>
-              Total ({filtroPeriodo === 'CALENDARIO' ? `${formatarDataBR(dataInicio)}–${formatarDataBR(dataFim)}` : filtroPeriodo === 'TODOS' ? 'Histórico' : `${filtroPeriodo}d`}):{' '}
-              <strong style={{ color: 'var(--text-primary)' }}>
-                {totalBpsExibido} BPs ({totalFusosExibido} fusos)
-              </strong>
-            </span>
-            <span aria-hidden="true">·</span>
-            <span className="text-emerald-500 font-bold">
-              Realizados: {concluidosBpsExibido} BPs
-            </span>
-            <span aria-hidden="true">·</span>
-            <span className="text-amber-500 font-bold">
-              Para Fazer: {paraFazerBpsExibido} BPs
-            </span>
-            <span aria-hidden="true">·</span>
-            <span className="text-rose-500 font-bold">
-              Aguardando NF-e: {resumoFluxo.etapas.PRE_BP.bps} BPs
-            </span>
-            <span aria-hidden="true">·</span>
-            <span className="text-orange-500 font-bold">
-              Prontos Croqui: {resumoFluxo.etapas.FILA_CROQUI.bps} BPs
-            </span>
-          </div>
         </div>
       </section>
 
@@ -699,95 +674,6 @@ export default function PainelDashboardVisual({
         <div className="space-y-4" aria-label="Modelo 1: Gestão à Vista baseado no BP Dash 1">
           {/* Parte Superior: 5 Cards de Etapa com Sparklines (EM_MANUTENCAO removido) */}
           {renderTopoSeisCards()}
-
-          {/* Filtros de Filial, Etapa, Solicitação e Busca */}
-          <section
-            className="rounded-xl border p-3"
-            style={{
-              backgroundColor: 'var(--bg-surface)',
-              borderColor: 'var(--border-subtle)',
-            }}
-          >
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div className="flex flex-wrap items-center gap-2">
-                <select
-                  aria-label="Filtrar por Filial"
-                  value={filtroFilial}
-                  onChange={(e) => onMudarFilial(e.target.value)}
-                  className="rounded-lg px-2.5 py-1 text-xs font-semibold border"
-                  style={{
-                    backgroundColor: 'var(--bg-elevated)',
-                    borderColor: 'var(--border-strong)',
-                    color: 'var(--text-primary)',
-                  }}
-                >
-                  <option value="Todas">Filial: Todas as 10 Filiais</option>
-                  {filiaisDb.map((f) => (
-                    <option key={f.codigo} value={f.codigo}>
-                      {f.nome} (Sup: {f.coordenador})
-                    </option>
-                  ))}
-                </select>
-
-                <select
-                  aria-label="Filtrar por Etapa do Fluxo"
-                  value={filtroEtapa}
-                  onChange={(e) => onMudarEtapa(e.target.value)}
-                  className="rounded-lg px-2.5 py-1 text-xs font-semibold border"
-                  style={{
-                    backgroundColor: 'var(--bg-elevated)',
-                    borderColor: 'var(--border-strong)',
-                    color: 'var(--text-primary)',
-                  }}
-                >
-                  <option value="TODAS">Etapa: Todas ({resumoFluxo.totalBps} BPs)</option>
-                  {ETAPAS_FLUXO_CONFIG.filter((et) => et.id !== 'EM_MANUTENCAO').map((et) => (
-                    <option key={et.id} value={et.id}>
-                      {et.titulo} ({resumoFluxo.etapas[et.id]?.bps || 0} BPs)
-                    </option>
-                  ))}
-                </select>
-
-                <select
-                  aria-label="Filtrar por Solicitação"
-                  value={filtroSolicitacao}
-                  onChange={(e) => onMudarFiltroSolicitacao(e.target.value)}
-                  className="rounded-lg px-2.5 py-1 text-xs font-semibold border"
-                  style={{
-                    backgroundColor: 'var(--bg-elevated)',
-                    borderColor: 'var(--border-strong)',
-                    color: 'var(--text-primary)',
-                  }}
-                >
-                  <option value="TODOS">Solicitações: Todos</option>
-                  <option value="PENDENCIAS">Minhas Pendências</option>
-                  <option value="CONCLUIDAS">Minhas Solicitações Concluídas</option>
-                  <option value="EM_ANDAMENTO">Minhas Solicitações em Andamento</option>
-                  <option value="ATIVIDADES_EXECUTADAS">Minhas Atividades Executadas</option>
-                </select>
-              </div>
-
-              <div className="relative">
-                <Search
-                  className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2"
-                  style={{ color: 'var(--text-muted)' }}
-                />
-                <input
-                  type="text"
-                  aria-label="Buscar BP, Cliente, NF ou Vendedor"
-                  placeholder="Buscar BP, Cliente, NF..."
-                  value={busca}
-                  onChange={(e) => onMudarBusca(e.target.value)}
-                  className="rounded-lg pl-8 pr-2.5 py-1 text-xs border w-48 sm:w-60"
-                  style={{
-                    backgroundColor: 'var(--bg-elevated)',
-                    borderColor: 'var(--border-strong)',
-                    color: 'var(--text-primary)',
-                  }}
-                />
-              </div>
-            </div>
-          </section>
 
           {/* Acompanhamento das 10 Filiais + Inspetor Dimensional Rápido */}
           {renderFiliaisEInspetorNoDash()}
@@ -862,6 +748,95 @@ export default function PainelDashboardVisual({
             </div>
           </section>
 
+          {/* Filtros de Solicitação, Filial, Etapa e Busca */}
+          <section
+            className="rounded-xl border p-3"
+            style={{
+              backgroundColor: 'var(--bg-surface)',
+              borderColor: 'var(--border-subtle)',
+            }}
+          >
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <select
+                  aria-label="Filtrar por Solicitação"
+                  value={filtroSolicitacao}
+                  onChange={(e) => onMudarFiltroSolicitacao(e.target.value)}
+                  className="rounded-lg px-2.5 py-1 text-xs font-semibold border"
+                  style={{
+                    backgroundColor: 'var(--bg-elevated)',
+                    borderColor: 'var(--border-strong)',
+                    color: 'var(--text-primary)',
+                  }}
+                >
+                  <option value="TODOS">Solicitações: Todos</option>
+                  <option value="PENDENCIAS">Minhas Pendências</option>
+                  <option value="CONCLUIDAS">Minhas Solicitações Concluídas</option>
+                  <option value="EM_ANDAMENTO">Minhas Solicitações em Andamento</option>
+                  <option value="ATIVIDADES_EXECUTADAS">Minhas Atividades Executadas</option>
+                </select>
+
+                <select
+                  aria-label="Filtrar por Filial"
+                  value={filtroFilial}
+                  onChange={(e) => onMudarFilial(e.target.value)}
+                  className="rounded-lg px-2.5 py-1 text-xs font-semibold border"
+                  style={{
+                    backgroundColor: 'var(--bg-elevated)',
+                    borderColor: 'var(--border-strong)',
+                    color: 'var(--text-primary)',
+                  }}
+                >
+                  <option value="Todas">Filial: Todas as 10 Filiais</option>
+                  {filiaisDb.map((f) => (
+                    <option key={f.codigo} value={f.codigo}>
+                      {f.nome} (Sup: {f.coordenador})
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  aria-label="Filtrar por Etapa do Fluxo"
+                  value={filtroEtapa}
+                  onChange={(e) => onMudarEtapa(e.target.value)}
+                  className="rounded-lg px-2.5 py-1 text-xs font-semibold border"
+                  style={{
+                    backgroundColor: 'var(--bg-elevated)',
+                    borderColor: 'var(--border-strong)',
+                    color: 'var(--text-primary)',
+                  }}
+                >
+                  <option value="TODAS">Etapa: Todas ({resumoFluxo.totalBps} BPs)</option>
+                  {ETAPAS_FLUXO_CONFIG.filter((et) => et.id !== 'EM_MANUTENCAO').map((et) => (
+                    <option key={et.id} value={et.id}>
+                      {et.titulo} ({resumoFluxo.etapas[et.id]?.bps || 0} BPs)
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="relative">
+                <Search
+                  className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2"
+                  style={{ color: 'var(--text-muted)' }}
+                />
+                <input
+                  type="text"
+                  aria-label="Buscar BP, Cliente, NF ou Vendedor"
+                  placeholder="Buscar BP, Cliente, NF..."
+                  value={busca}
+                  onChange={(e) => onMudarBusca(e.target.value)}
+                  className="rounded-lg pl-8 pr-2.5 py-1 text-xs border w-48 sm:w-60"
+                  style={{
+                    backgroundColor: 'var(--bg-elevated)',
+                    borderColor: 'var(--border-strong)',
+                    color: 'var(--text-primary)',
+                  }}
+                />
+              </div>
+            </div>
+          </section>
+
           {/* Tabela Inferior do BP Dash 1: Tabela de Status em Tempo Real com Supervisor e Assistente automáticos */}
           <section
             aria-label="Tabela de Status em Tempo Real"
@@ -880,7 +855,7 @@ export default function PainelDashboardVisual({
                   Tabela Operacional em Tempo Real (Depto. Fiscal → Depto. Manutenção → Fila de Croqui [Depto. Projeto] → Desenho Final [Depto. Projeto])
                 </h2>
                 <p className="text-[11px]" style={{ color: 'var(--text-muted)' }}>
-                  O BP ingressa pela Filial (Depto. Comercial), vinculando automaticamente Supervisor/Coordenador e Assistente ao Vendedor responsável
+                  Vinculação automática de equipe ao Vendedor responsável
                 </p>
               </div>
               <span className="text-xs font-mono tabular-nums" style={{ color: 'var(--text-secondary)' }}>
@@ -999,10 +974,10 @@ export default function PainelDashboardVisual({
             >
               <div>
                 <h2 className="text-sm font-extrabold" style={{ color: 'var(--text-primary)' }}>
-                  Gantt de BPs Ativos, 10 Filiais e Prazos de Envio (Depto. Manutenção → Fila de Croqui [Depto. Projeto] → Desenho Final [Depto. Projeto])
+                  Gantt de BPs Ativos e Prazos de Envio
                 </h2>
                 <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
-                  Acompanhamento em paralelo do Laudo (Depto. Manutenção), Fila de Croqui (Depto. Projeto), Desenho Final (Depto. Projeto) e Execução (Depto. Manutenção) até a data limite.
+                  Acompanhamento de Laudo, Croqui, Desenho e Execução até a data limite
                 </p>
               </div>
 
