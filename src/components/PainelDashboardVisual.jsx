@@ -299,7 +299,7 @@ export default function PainelDashboardVisual({
                 className="text-xs font-extrabold uppercase tracking-wider"
                 style={{ color: 'var(--text-primary)' }}
               >
-                Acompanhamento das 10 Filiais • Depto. Comercial (Bauru • SP • SJC/Vale • Campinas • BH • Joinville • Manaus + 3)
+                Acompanhamento das 10 Filiais • Depto. Comercial
               </h2>
               <p className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
                 Vinculação automática: Supervisor/Coordenador e Assistente
