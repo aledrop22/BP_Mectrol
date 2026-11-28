@@ -17,6 +17,7 @@ import {
   correspondeFiltroSolicitacao,
 } from './lib/filaEngine';
 import SidebarCroquis, { MODELOS_DASHBOARD } from './components/SidebarCroquis';
+import PainelConfigColeta from './components/PainelConfigColeta';
 import PainelDashboardVisual from './components/PainelDashboardVisual';
 import ModalFuraFilaDiretoria from './components/ModalFuraFilaDiretoria';
 import { filtrarBPsPorPeriodoOuCalendario } from './lib/comparativoExportEngine';
@@ -382,6 +383,8 @@ export default function DashboardNextBP() {
           id="painel-paginas-scroll"
           className="flex-1 min-w-0 h-full overflow-y-auto px-3 sm:px-6 py-4 space-y-4"
         >
+          {import.meta.env.DEV && <PainelConfigColeta />}
+
           {avisoTempoReal && (
             <div
               role="status"

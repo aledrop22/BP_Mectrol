@@ -3,6 +3,7 @@ import { mkdir, open, readFile, rename, rm, stat, writeFile } from 'node:fs/prom
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { needsDetailRefresh, recordsChanged, sourceFingerprint } from './portal_sync_cache.js'
+import { portalApiValidationError } from './portal_api_response.js'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const localDir = path.join(root, 'local_data')
@@ -11,10 +12,16 @@ const publicDir = path.join(root, 'public')
 const publicOutputPath = path.join(publicDir, 'historico_bps_desenho.json')
 const cachePath = path.join(localDir, 'portal-sync-cache.json')
 const lockPath = path.join(localDir, 'portal-sync.lock')
+const loginBackoffPath = path.join(localDir, 'portal-login-backoff.json')
 const credentialScript = path.join(root, 'scripts', 'credential_manager.ps1')
 const apiBase = 'https://bp.mectrol.com.br/webservice/index.php/'
 const requestTimeoutMs = 30000
 const portalProcess = 'RECEBIMENTO DE MATERIAL EM ESTOQUE'
+const credentialTargets = {
+  session: 'BP_MECTROL_PORTAL_SESSION',
+  user: 'BP_MECTROL_PORTAL_USER',
+  pass: 'BP_MECTROL_PORTAL_PASS',
+}
 const listTypes = [
   { tipo: 0, category: 'PENDENCIAS', status: 'Pendente', priority: 0 },
   { tipo: 2, category: 'EM_ANDAMENTO', status: 'Em andamento', priority: 1 },
@@ -22,21 +29,124 @@ const listTypes = [
   { tipo: 1, category: 'CONCLUIDAS', status: 'Concluído', priority: 3 },
 ]
 
-function readPortalToken() {
+function readCredential(target) {
   const result = spawnSync(
     'powershell.exe',
-    ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', credentialScript, '-Mode', 'Read'],
+    ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', credentialScript, '-Mode', 'Read', '-Target', target],
     { encoding: 'utf8', windowsHide: true }
   )
-  if (result.error) throw new Error(`Não foi possível ler o token local: ${result.error.message}`)
+  if (result.error || result.status !== 0) return null
+  const value = result.stdout
+  return value && value.trim().length > 0 ? value : null
+}
+
+function storeCredential(target, value) {
+  const result = spawnSync(
+    'powershell.exe',
+    ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', credentialScript, '-Mode', 'Store', '-Target', target],
+    { input: value, encoding: 'utf8', windowsHide: true }
+  )
+  if (result.error) throw new Error(`Não foi possível gravar a credencial ${target}: ${result.error.message}`)
   if (result.status !== 0) {
-    throw new Error(`Não foi possível ler o token do Windows Credential Manager: ${result.stderr.trim()}`)
+    throw new Error(`Não foi possível gravar a credencial ${target} no Windows Credential Manager: ${result.stderr.trim()}`)
   }
-  const token = result.stdout.trim()
-  if (!/^[A-Za-z0-9._-]{20,512}$/.test(token)) {
-    throw new Error('O token armazenado no Windows Credential Manager é inválido.')
-  }
+}
+
+function readPortalToken() {
+  const token = readCredential(credentialTargets.session)
+  if (!token || !/^[A-Za-z0-9._-]{20,512}$/.test(token)) return null
   return token
+}
+
+function base64Utf8(value) {
+  return Buffer.from(value, 'utf8').toString('base64')
+}
+
+async function lerBackoffLogin() {
+  try {
+    const state = JSON.parse(await readFile(loginBackoffPath, 'utf8'))
+    if (state && Number.isFinite(state.nextAttemptAt)) return state
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error
+  }
+  return null
+}
+
+async function registrarFalhaLogin() {
+  const previous = await lerBackoffLogin()
+  const failures = (previous?.consecutiveFailures || 0) + 1
+  const delayMs = Math.min(15 * 60 * 1000 * 2 ** (failures - 1), 12 * 60 * 60 * 1000)
+  await salvarJsonAtomico(loginBackoffPath, {
+    consecutiveFailures: failures,
+    nextAttemptAt: Date.now() + delayMs,
+  })
+}
+
+function erroLoginConsumiuTentativa(message) {
+  const error = new Error(message)
+  error.loginConsumiuTentativa = true
+  return error
+}
+
+async function loginPortal() {
+  const backoff = await lerBackoffLogin()
+  if (backoff && Date.now() < backoff.nextAttemptAt) {
+    const proxima = new Date(backoff.nextAttemptAt).toLocaleString('pt-BR')
+    throw new Error(`Login do portal em espera após ${backoff.consecutiveFailures} falha(s). Próxima tentativa às ${proxima}.`)
+  }
+
+  const username = readCredential(credentialTargets.user)
+  const password = readCredential(credentialTargets.pass)
+  if (!username || !password) {
+    throw new Error(
+      'Credenciais do portal não configuradas. Salve o e-mail e a senha do portal no painel local (Configuração da Coleta) ou no Windows Credential Manager.'
+    )
+  }
+
+  try {
+    const body = new URLSearchParams({
+      username: base64Utf8(username),
+      senha: base64Utf8(password),
+      token: '',
+      servidor_ldap_id: '0',
+    })
+    const response = await fetch(`${apiBase}login/validar/`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'X-Frontend': 'legado',
+      },
+      body,
+      signal: AbortSignal.timeout(requestTimeoutMs),
+    })
+    if (!response.ok) {
+      throw new Error(`Login do portal respondeu HTTP ${response.status}.`)
+    }
+    let payload
+    try {
+      payload = await response.json()
+    } catch {
+      throw erroLoginConsumiuTentativa('Login do portal retornou JSON inválido.')
+    }
+    const validationError = portalApiValidationError(payload)
+    if (validationError) throw erroLoginConsumiuTentativa(validationError)
+
+    const token = typeof payload?.token === 'string' ? payload.token.trim() : ''
+    if (!/^[A-Za-z0-9._-]{20,512}$/.test(token)) {
+      throw erroLoginConsumiuTentativa('Login do portal não retornou um token de sessão válido.')
+    }
+    storeCredential(credentialTargets.session, token)
+    await rm(loginBackoffPath, { force: true })
+    return token
+  } catch (error) {
+    if (error.loginConsumiuTentativa) await registrarFalhaLogin()
+    throw error
+  }
+}
+
+function isTokenExpirado(error) {
+  return /token de sess[aã]o do portal expirou|token inv[aá]lido/i.test(error?.message || '')
 }
 
 function getText(value) {
@@ -131,11 +241,15 @@ async function requestJson(url, token) {
     signal: AbortSignal.timeout(requestTimeoutMs),
   })
   if (!response.ok) throw new Error(`API do portal respondeu HTTP ${response.status} em ${url.pathname}.`)
+  let payload
   try {
-    return await response.json()
+    payload = await response.json()
   } catch {
     throw new Error(`API do portal retornou JSON inválido em ${url.pathname}.`)
   }
+  const validationError = portalApiValidationError(payload)
+  if (validationError) throw new Error(validationError)
+  return payload
 }
 
 async function listarProcessos(token, listType) {
@@ -364,88 +478,102 @@ async function acquireLock() {
   throw new Error('Não foi possível obter o bloqueio para sincronização do portal.')
 }
 
+async function sincronizar(token) {
+  const { cachedByBp, previousPayload } = await lerCache()
+  const latestByBp = new Map()
+  for (const listType of listTypes) {
+    const processes = await listarProcessos(token, listType)
+    const bpProcesses = processes.filter(
+      (row) => normalizar(row.processo_nome).replace(/\s+\d+$/, '') === portalProcess
+    )
+    for (const row of bpProcesses) {
+      const bp = numeroBP(row)
+      const previous = latestByBp.get(bp)
+      if (!previous || listType.priority < previous.listType.priority) {
+        latestByBp.set(bp, { row, listType })
+      }
+    }
+  }
+
+  if (!latestByBp.size) throw new Error('O portal não retornou processos do tipo BP esperado.')
+
+  const records = []
+  const nextFingerprints = {}
+  let detailedCount = 0
+  let reusedCount = 0
+  for (const [bp, { row, listType }] of latestByBp) {
+    const fingerprint = sourceFingerprint(row, listType.category)
+    const previous = cachedByBp[bp]
+    let record
+    if (needsDetailRefresh(previous, listType.category, fingerprint) ||
+        !previous?.record?.Solicitacao ||
+        !Object.prototype.hasOwnProperty.call(previous?.record || {}, 'Historico')) {
+      record = await detalharProcesso(row, token, listType.category)
+      detailedCount += 1
+    } else {
+      record = previous.record
+      reusedCount += 1
+    }
+    records.push(record)
+    nextFingerprints[record.BP] = fingerprint
+  }
+  records.sort((a, b) => Number(a.BP) - Number(b.BP))
+
+  const dadosAlterados = recordsChanged(previousPayload?.registros, records)
+  const payload = {
+    schemaVersion: 1,
+    atualizadoEm: dadosAlterados
+      ? new Date().toISOString()
+      : previousPayload.atualizadoEm,
+    total: records.length,
+    registros: records,
+  }
+  if (dadosAlterados) await salvarJsonAtomico(outputPath, payload)
+  await salvarJsonAtomico(publicOutputPath, payload)
+  await salvarJsonAtomico(cachePath, { schemaVersion: 1, assinaturas: nextFingerprints })
+
+  const coverage = Object.fromEntries(
+    ['Cliente', 'Nota_Fiscal', 'Quantidade', 'Filial', 'Vendedor', 'Defeito'].map((field) => [
+      field,
+      records.filter((record) => record[field] !== '' && record[field] != null).length,
+    ])
+  )
+  console.log(JSON.stringify({
+    atualizadoEm: payload.atualizadoEm,
+    total: records.length,
+    dadosAlterados,
+    detalhados: detailedCount,
+    reutilizados: reusedCount,
+    categorias: Object.fromEntries(
+      [...latestByBp.values()].reduce((counts, item) => {
+        counts.set(item.listType.category, (counts.get(item.listType.category) || 0) + 1)
+        return counts
+      }, new Map())
+    ),
+    cobertura: coverage,
+  }))
+}
+
+async function obterToken() {
+  const token = readPortalToken()
+  if (token) return token
+  return loginPortal()
+}
+
 async function main() {
   await mkdir(localDir, { recursive: true })
   await mkdir(publicDir, { recursive: true })
   const lock = await acquireLock()
-  let token
   try {
-    token = readPortalToken()
-    const { cachedByBp, previousPayload } = await lerCache()
-    const latestByBp = new Map()
-    for (const listType of listTypes) {
-      const processes = await listarProcessos(token, listType)
-      const bpProcesses = processes.filter(
-        (row) => normalizar(row.processo_nome).replace(/\s+\d+$/, '') === portalProcess
-      )
-      for (const row of bpProcesses) {
-        const bp = numeroBP(row)
-        const previous = latestByBp.get(bp)
-        if (!previous || listType.priority < previous.listType.priority) {
-          latestByBp.set(bp, { row, listType })
-        }
-      }
+    let token = await obterToken()
+    try {
+      await sincronizar(token)
+    } catch (error) {
+      if (!isTokenExpirado(error)) throw error
+      token = await loginPortal()
+      await sincronizar(token)
     }
-
-    if (!latestByBp.size) throw new Error('O portal não retornou processos do tipo BP esperado.')
-
-    const records = []
-    const nextFingerprints = {}
-    let detailedCount = 0
-    let reusedCount = 0
-    for (const [bp, { row, listType }] of latestByBp) {
-      const fingerprint = sourceFingerprint(row, listType.category)
-      const previous = cachedByBp[bp]
-      let record
-      if (needsDetailRefresh(previous, listType.category, fingerprint) ||
-          !previous?.record?.Solicitacao ||
-          !Object.prototype.hasOwnProperty.call(previous?.record || {}, 'Historico')) {
-        record = await detalharProcesso(row, token, listType.category)
-        detailedCount += 1
-      } else {
-        record = previous.record
-        reusedCount += 1
-      }
-      records.push(record)
-      nextFingerprints[record.BP] = fingerprint
-    }
-    records.sort((a, b) => Number(a.BP) - Number(b.BP))
-
-    const dadosAlterados = recordsChanged(previousPayload?.registros, records)
-    const payload = {
-      schemaVersion: 1,
-      atualizadoEm: dadosAlterados
-        ? new Date().toISOString()
-        : previousPayload.atualizadoEm,
-      total: records.length,
-      registros: records,
-    }
-    if (dadosAlterados) await salvarJsonAtomico(outputPath, payload)
-    await salvarJsonAtomico(publicOutputPath, payload)
-    await salvarJsonAtomico(cachePath, { schemaVersion: 1, assinaturas: nextFingerprints })
-
-    const coverage = Object.fromEntries(
-      ['Cliente', 'Nota_Fiscal', 'Quantidade', 'Filial', 'Vendedor', 'Defeito'].map((field) => [
-        field,
-        records.filter((record) => record[field] !== '' && record[field] != null).length,
-      ])
-    )
-    console.log(JSON.stringify({
-      atualizadoEm: payload.atualizadoEm,
-      total: records.length,
-      dadosAlterados,
-      detalhados: detailedCount,
-      reutilizados: reusedCount,
-      categorias: Object.fromEntries(
-        [...latestByBp.values()].reduce((counts, item) => {
-          counts.set(item.listType.category, (counts.get(item.listType.category) || 0) + 1)
-          return counts
-        }, new Map())
-      ),
-      cobertura: coverage,
-    }))
   } finally {
-    token = undefined
     await lock.close()
     await rm(lockPath, { force: true })
   }

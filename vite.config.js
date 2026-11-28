@@ -1,13 +1,78 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { spawn } from 'node:child_process'
+import { spawn, spawnSync } from 'node:child_process'
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
 const csvPath = path.resolve(process.cwd(), 'local_data', 'historico_bps_desenho.csv')
 const jsonPath = path.resolve(process.cwd(), 'local_data', 'historico_bps_desenho.json')
 const credentialScript = path.resolve(process.cwd(), 'scripts', 'credential_manager.ps1')
+const credentialTargets = {
+  user: 'BP_MECTROL_PORTAL_USER',
+  pass: 'BP_MECTROL_PORTAL_PASS',
+}
 const maxCsvBytes = 5 * 1024 * 1024
+
+function readCredential(target) {
+  const result = spawnSync(
+    'powershell.exe',
+    ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', credentialScript, '-Mode', 'Read', '-Target', target],
+    { encoding: 'utf8', windowsHide: true }
+  )
+  if (result.error || result.status !== 0) return null
+  return result.stdout.trim() || null
+}
+
+function storeCredential(target, value) {
+  return new Promise((resolve, reject) => {
+    const child = spawn(
+      'powershell.exe',
+      ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', credentialScript, '-Mode', 'Store', '-Target', target],
+      { windowsHide: true }
+    )
+    let stderr = ''
+    child.stderr.on('data', (chunk) => {
+      stderr += chunk.toString()
+    })
+    child.on('error', reject)
+    child.on('close', (code) => {
+      if (code === 0) resolve()
+      else reject(new Error(stderr.trim() || `Credential Manager retornou código ${code}.`))
+    })
+    child.stdin.end(value)
+  })
+}
+
+function isLocalOrigin(origin) {
+  if (!origin) return true
+  try {
+    const url = new URL(origin)
+    return url.hostname === '127.0.0.1' || url.hostname === 'localhost' || url.hostname === '[::1]'
+  } catch {
+    return false
+  }
+}
+
+async function readJsonBody(req, res, maxBytes = 4096) {
+  let bytes = 0
+  const chunks = []
+  for await (const chunk of req) {
+    bytes += chunk.length
+    if (bytes > maxBytes) {
+      res.statusCode = 413
+      res.end('Corpo da requisição excede o limite permitido.')
+      return null
+    }
+    chunks.push(chunk)
+  }
+  try {
+    return JSON.parse(Buffer.concat(chunks).toString('utf8'))
+  } catch {
+    res.statusCode = 400
+    res.end('JSON inválido.')
+    return null
+  }
+}
 
 function localBpCsv() {
   return {
@@ -181,6 +246,59 @@ function localBpCsv() {
             res.statusCode = 204
             res.end()
           })
+        } catch (error) {
+          next(error)
+        }
+      })
+
+      server.middlewares.use('/local-data/portal-credentials', async (req, res, next) => {
+        if (!isLocalOrigin(req.headers.origin)) {
+          res.statusCode = 403
+          res.end('Origem não autorizada.')
+          return
+        }
+
+        try {
+          if (req.method === 'GET') {
+            const usuario = readCredential(credentialTargets.user)
+            const senha = readCredential(credentialTargets.pass)
+            res.setHeader('Content-Type', 'application/json; charset=utf-8')
+            res.setHeader('Cache-Control', 'no-store')
+            res.end(JSON.stringify({
+              usuario: usuario || '',
+              usuarioConfigurado: Boolean(usuario),
+              senhaConfigurada: Boolean(senha),
+            }))
+            return
+          }
+
+          if (req.method !== 'POST') {
+            res.statusCode = 405
+            res.end('Método não permitido.')
+            return
+          }
+
+          const body = await readJsonBody(req, res)
+          if (!body) return
+          const usuario = typeof body.usuario === 'string' ? body.usuario.trim() : ''
+          const senha = typeof body.senha === 'string' ? body.senha : ''
+          if (!usuario || usuario.length > 200 || /[\r\n]/.test(usuario)) {
+            res.statusCode = 400
+            res.end('E-mail/usuário inválido.')
+            return
+          }
+          if (!senha || senha.length > 200 || /[\r\n]/.test(senha)) {
+            res.statusCode = 400
+            res.end('Senha inválida.')
+            return
+          }
+
+          await storeCredential(credentialTargets.user, usuario)
+          await storeCredential(credentialTargets.pass, senha)
+          res.setHeader('Content-Type', 'application/json; charset=utf-8')
+          res.setHeader('Cache-Control', 'no-store')
+          res.statusCode = 200
+          res.end(JSON.stringify({ ok: true, usuario }))
         } catch (error) {
           next(error)
         }

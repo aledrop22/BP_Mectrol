@@ -79,6 +79,12 @@ Para instalar a sincronização automática de cinco em cinco minutos, execute
 `scripts/install_portal_sync_task.ps1` uma vez no Windows. A coleta requer o token
 de sessão do portal de origem; o painel local não pede senha.
 
+Se a sincronização registrar que o token de sessão expirou ou é inválido,
+atualize a credencial genérica `BP_MECTROL_PORTAL_SESSION` no Gerenciador de
+Credenciais do Windows com uma sessão válida do portal e execute
+`scripts/run_portal_sync.ps1` para validar. O último JSON válido é preservado
+enquanto a API rejeitar a sessão.
+
 Extração detalhada alternativa, fora do fluxo automático: `python scripts/extract_bp_details.py`.
 
 ### Sincronização incremental do portal (Windows)
